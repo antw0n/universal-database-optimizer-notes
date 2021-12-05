@@ -142,15 +142,15 @@ CONFIG:
 	sudo iptables -I FORWARD -p tcp -d 192.168.122.120 --dport 5432 -m state --state NEW,RELATED,ESTABLISHED -j ACCEPT
 	
 	# mongo-1
-	sudo iptables -t nat -A PREROUTING -p tcp -d 192.168.52.108 --dport 27000:27999 -j DNAT --to 192.168.122.155:27017
+	sudo iptables -t nat -A PREROUTING -p tcp -d 192.168.52.108 --dport 27011 -j DNAT --to 192.168.122.155:27017
 	sudo iptables -I FORWARD -p tcp -d 192.168.122.155 --dport 27017 -m state --state NEW,RELATED,ESTABLISHED -j ACCEPT
 	
 	# mongo-2
-	sudo iptables -t nat -A PREROUTING -p tcp -d 192.168.52.108 --dport 27017 -j DNAT --to 192.168.122.82:27017
+	sudo iptables -t nat -A PREROUTING -p tcp -d 192.168.52.108 --dport 27012 -j DNAT --to 192.168.122.82:27017
 	sudo iptables -I FORWARD -p tcp -d 192.168.122.82 --dport 27017 -m state --state NEW,RELATED,ESTABLISHED -j ACCEPT
 	
 	# mongo-3
-	sudo iptables -t nat -A PREROUTING -p tcp -d 192.168.52.108 --dport 27017 -j DNAT --to 192.168.122.196:27017
+	sudo iptables -t nat -A PREROUTING -p tcp -d 192.168.52.108 --dport 27013 -j DNAT --to 192.168.122.196:27017
 	sudo iptables -I FORWARD -p tcp -d 192.168.122.196 --dport 27017 -m state --state NEW,RELATED,ESTABLISHED -j ACCEPT
 
 SAVE:
