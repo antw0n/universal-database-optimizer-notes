@@ -68,56 +68,22 @@ Resize disk if running out of space:
 
 ## Network
 
-The bridge network can be created on the host operating system and shared among all VMs: 
+The `libvirt network` can be exposed to LAN using the script `adjust_iptables.sh`:  
+See: [adjust_iptables.sh](adjust_iptables.sh)  
 
-**Create a network bridge**  
-Create a network bridge using `nm-connection-editor` tool.  
-Further details: [How to configure network bridge in Ubuntu?](https://www.linuxhowto.net/how-to-configure-network-bridge-in-ubuntu/)  
-
-**Use existing bridge**  
-Configuration done in this step can also be achieved over GUI applying `virt-manager` over `Edit >> Connection details`. 
-Configure `libvirt network` to use existing bridge:
-```shell
-# host-bridge.xml
-<network>
-	<name>host-bridge</name>
-	<forward mode="bridge"/>
-	<bridge name="br0"/>
-</network>
-
-# create libvirt network using existing host bridge
-virsh net-define host-bridge.xml
-virsh net-start host-bridge
-virsh net-autostart host-bridge
-
-# state should be active, autostart, and persistent
-virsh net-list --all
-
-# construct virtual network interface
-virsh list --all
-virsh edit [mt-ops-manager]|[mt-postgres]
-
-# sample interface
-<interface type="bridge">
-	<mac address="52:54:00:4f:f2:4c"/>
-	<source network="bridged-network" portid="28e66729-4203-4296-a063-9dffd41dfe48" bridge="br0"/>
-	<target dev="vnet1"/>
-	<model type="virtio"/>
-	<link state="up"/>
-	<alias name="net1"/>
-	<address type="pci" domain="0x0000" bus="0x00" slot="0x07" function="0x0"/>
-</interface>
-```
-   
-Further details: 
- - [How to configure libvirt network to use existing bridge?](https://fabianlee.org/2019/04/01/kvm-creating-a-bridged-network-with-netplan-on-ubuntu-bionic/)
- - [How to configure libvirt network to use existing bridge over GUI?](https://www.itzgeek.com/how-tos/linux/ubuntu-how-tos/configure-bridged-networking-for-kvm-on-ubuntu-14-10.html)
-     
-**Configure iptables**  
-**Note:** This is not safe, consider experimentation with such a configuration in isolated lab environments only.
-The following sample configuration enables access to VMs from the defined client in LAN: 
+**Note:** This is not safe, consider experimentation with such a configuration in the isolated lab environments only.  
 
 ```shell
+# Add
+adjust_iptables.sh mt-mongo-1 start
+adjust_iptables.sh mt-mongo-2 start
+adjust_iptables.sh mt-mongo-3 start
+
+# Remove
+adjust_iptables.sh mt-mongo-1 stopped
+adjust_iptables.sh mt-mongo-2 stopped
+adjust_iptables.sh mt-mongo-3 stopped
+
 IP FORWARDING:
 	check: sudo sysctl -a|grep net.ipv4.ip_forward
 	adjust:
@@ -131,27 +97,6 @@ PREROUTING:
 FORWARD: 
 	list: sudo iptables -L FORWARD -v --line-numbers
 	delete: sudo iptables -D FORWARD {rule-number-here}
-	
-CONFIG:
-	# ops-manager
-	sudo iptables -t nat -I PREROUTING -p tcp -d 192.168.52.108 --dport 8080 -j DNAT --to 192.168.122.246:8080
-	sudo iptables -I FORWARD -p tcp -d 192.168.122.246 --dport 8080 -m state --state NEW,RELATED,ESTABLISHED -j ACCEPT
-	
-	# postgres
-	sudo iptables -t nat -I PREROUTING -p tcp -d 192.168.52.108 --dport 5432 -j DNAT --to 192.168.122.120:5432
-	sudo iptables -I FORWARD -p tcp -d 192.168.122.120 --dport 5432 -m state --state NEW,RELATED,ESTABLISHED -j ACCEPT
-	
-	# mongo-1
-	sudo iptables -t nat -A PREROUTING -p tcp -d 192.168.52.108 --dport 27011 -j DNAT --to 192.168.122.155:27017
-	sudo iptables -I FORWARD -p tcp -d 192.168.122.155 --dport 27017 -m state --state NEW,RELATED,ESTABLISHED -j ACCEPT
-	
-	# mongo-2
-	sudo iptables -t nat -A PREROUTING -p tcp -d 192.168.52.108 --dport 27012 -j DNAT --to 192.168.122.82:27017
-	sudo iptables -I FORWARD -p tcp -d 192.168.122.82 --dport 27017 -m state --state NEW,RELATED,ESTABLISHED -j ACCEPT
-	
-	# mongo-3
-	sudo iptables -t nat -A PREROUTING -p tcp -d 192.168.52.108 --dport 27013 -j DNAT --to 192.168.122.196:27017
-	sudo iptables -I FORWARD -p tcp -d 192.168.122.196 --dport 27017 -m state --state NEW,RELATED,ESTABLISHED -j ACCEPT
 
 SAVE:
 	sudo apt install iptables-persistent
@@ -159,8 +104,9 @@ SAVE:
 	sudo systemctl status netfilter-persistent.service
 	iptables-save >/etc/iptables/rules.v4
 ```
-
-Further details: [How to redirecting network traffic to a new ip using iptables?](https://www.debuntu.org/how-to-redirecting-network-traffic-to-a-new-ip-using-iptables/)
+Further details: 
+ - [How to configure libvirt network?](https://wiki.libvirt.org/page/Networking)
+ - [How to redirecting network traffic to a new ip using iptables?](https://www.debuntu.org/how-to-redirecting-network-traffic-to-a-new-ip-using-iptables/)
 
 # Mount Disk
 
