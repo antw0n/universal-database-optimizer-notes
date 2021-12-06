@@ -68,10 +68,11 @@ Resize disk if running out of space:
 
 ## Network
 
-The `libvirt network` can be exposed to LAN using the script `adjust_iptables.sh`:  
+**Note:** This is not safe, consider experimentation with such a configuration in the isolated lab environments only.  
+
 See: [adjust_iptables.sh](adjust_iptables.sh)  
 
-**Note:** This is not safe, consider experimentation with such a configuration in the isolated lab environments only.  
+The `libvirt network` can be exposed to LAN using the script `adjust_iptables.sh`:  
 
 ```shell
 # Add
