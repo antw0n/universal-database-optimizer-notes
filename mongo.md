@@ -253,7 +253,7 @@ Set up Ops Manager Monitoring: Install the MongoDB Agent on your AppDB servers a
 
 1. New Replica Set
 2. Replica Set Id: mt-exp-rs-001
-3. Process Name: mt-exp-replica-001
+3. Process Name: mt-exp-rs-001
 4. Version: 4.4.10	
 5. Data Directory: `[vm-strg]`
 6. Log File: `[vm-strg]`/mongodb.log
