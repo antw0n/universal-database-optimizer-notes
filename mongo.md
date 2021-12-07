@@ -4,7 +4,9 @@ This file contains notes on installation and configuration of MongoDB.
 
 # Packages
 
-The following packages were installed and later upgraded to version `4.10`
+The following packages were installed and later upgraded:
+- mongodb-org to `4.10`
+- mongodb-mms to `5.0.5`
 
 ```
 mongodb-mms/now 4.9.2.100.20210506T1323Z-1 amd64 [installed,local]
@@ -30,9 +32,9 @@ mongodb-org-database-tools-extra/focal 4.4.6 amd64
 
 ```
   
-The following development tools were applied
+The following development tools were applied:
 
-- insomnia 
+- Insomnia 
 - intellij-idea-ultimate 
 
 
