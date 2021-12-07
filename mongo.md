@@ -93,7 +93,7 @@ Status: sudo systemctl status mongodb-mms.service
 Config list: ll /opt/mongodb/mms/conf/
 Enable (start on boot): sudo systemctl enable mongodb-mms.service
 ```
-Further details: [How to install MongoDB Ops Manager](https://docs.opsmanager.mongodb.com/current/tutorial/install-on-prem-with-deb-packages/)
+Further details: [How to install MongoDB Ops Manager ?](https://docs.opsmanager.mongodb.com/current/tutorial/install-on-prem-with-deb-packages/)
 
 ## SMTP
 
