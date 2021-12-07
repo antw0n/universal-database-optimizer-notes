@@ -2,7 +2,7 @@
 
 This file contains notes on installation and configuration of virtualization layer.
 
-**Host**
+**Host**  
 IP: 192.168.52.108
 
 **Virtual Machines**
