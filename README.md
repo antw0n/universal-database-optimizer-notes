@@ -1,4 +1,4 @@
-# Universal Database Optimizer Notes
+# Notes
 
 This repository contains notes on installation, configuration and execution of Universal Database Optimizer (UDO)
 
