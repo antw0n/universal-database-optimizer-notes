@@ -2,7 +2,7 @@
 
 This file contains notes on evaluation of UDO.
 
-## Point Queries Experiment
+## Point Queries Experiments
 
 Point queries experiment according to the research work:
 
@@ -192,7 +192,7 @@ System Parameter Recommendation form MCTS according to metric 2:
 {'cursorTimeoutMillis': 200000}
 ```
 
-## TPC-H Experiment
+## TPC-H Experiments
 
 TPC-H experiment according to the research work:
 
