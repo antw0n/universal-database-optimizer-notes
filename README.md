@@ -32,7 +32,7 @@ The folder [experiments](experiments) contains:
 - [optim](experiments/optim): an indexed experiment according to the suggestions of UDO
 
 Each experiment contains (`index`, `no-index` and `optim`):
-- `queries`: queries according to the experiment referred above organized in the sub-folders according to the experiment type.
-- `results`: results organized in the sub-folders according to the experiment type.
+- `queries`: according to the experiment referred above organized in the sub-folders according to the experiment type
+- `results`: organized in the sub-folders according to the experiment type
 
 Each `results` consists of explained query executions and `results.csv` which summarizes the execution times.
