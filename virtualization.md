@@ -76,11 +76,13 @@ The `libvirt network` can be exposed to LAN using the script `adjust_iptables.sh
 
 ```shell
 # Add
+adjust_iptables.sh mt-postgres start
 adjust_iptables.sh mt-mongo-1 start
 adjust_iptables.sh mt-mongo-2 start
 adjust_iptables.sh mt-mongo-3 start
 
 # Remove
+adjust_iptables.sh mt-postgres stopped
 adjust_iptables.sh mt-mongo-1 stopped
 adjust_iptables.sh mt-mongo-2 stopped
 adjust_iptables.sh mt-mongo-3 stopped
