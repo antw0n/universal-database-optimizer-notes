@@ -1,0 +1,130 @@
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("dc7bbddd-2c83-415d-b4c5-59782aed7f0e") }
+MongoDB server version: 4.4.10
+uncaught exception: Error: explain failed: {
+	"operationTime" : Timestamp(1639022178, 1),
+	"ok" : 0,
+	"errmsg" : "operation exceeded time limit",
+	"code" : 50,
+	"codeName" : "MaxTimeMSExpired",
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639022178, 1),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	}
+} :
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+throwOrReturn@src/mongo/shell/explainable.js:25:19
+constructor/this.aggregate@src/mongo/shell/explainable.js:125:24
+@/home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/point_queries_experiment/mongo/s3/q3v1_mongo_s3.js:2:11
+failed to load: /home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/point_queries_experiment/mongo/s3/q3v1_mongo_s3.js
+exiting with code -3
+
+
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("66bdc73a-049a-4191-8fe8-faffdb9bd1a9") }
+MongoDB server version: 4.4.10
+uncaught exception: Error: explain failed: {
+	"operationTime" : Timestamp(1639022333, 8),
+	"ok" : 0,
+	"errmsg" : "operation exceeded time limit",
+	"code" : 50,
+	"codeName" : "MaxTimeMSExpired",
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639022333, 8),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	}
+} :
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+throwOrReturn@src/mongo/shell/explainable.js:25:19
+constructor/this.aggregate@src/mongo/shell/explainable.js:125:24
+@/home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/point_queries_experiment/mongo/s3/q3v1_mongo_s3.js:2:11
+failed to load: /home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/point_queries_experiment/mongo/s3/q3v1_mongo_s3.js
+exiting with code -3
+
+
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("82916101-9a35-438f-a100-f206182cbc10") }
+MongoDB server version: 4.4.10
+uncaught exception: Error: explain failed: {
+	"operationTime" : Timestamp(1639022510, 1),
+	"ok" : 0,
+	"errmsg" : "operation exceeded time limit",
+	"code" : 50,
+	"codeName" : "MaxTimeMSExpired",
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639022510, 1),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	}
+} :
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+throwOrReturn@src/mongo/shell/explainable.js:25:19
+constructor/this.aggregate@src/mongo/shell/explainable.js:125:24
+@/home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/point_queries_experiment/mongo/s3/q3v1_mongo_s3.js:2:11
+failed to load: /home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/point_queries_experiment/mongo/s3/q3v1_mongo_s3.js
+exiting with code -3
+
+
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("ec41eaef-c9ee-44b6-bf99-8daf0a94508a") }
+MongoDB server version: 4.4.10
+uncaught exception: Error: explain failed: {
+	"operationTime" : Timestamp(1639022682, 1),
+	"ok" : 0,
+	"errmsg" : "operation exceeded time limit",
+	"code" : 50,
+	"codeName" : "MaxTimeMSExpired",
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639022682, 1),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	}
+} :
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+throwOrReturn@src/mongo/shell/explainable.js:25:19
+constructor/this.aggregate@src/mongo/shell/explainable.js:125:24
+@/home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/point_queries_experiment/mongo/s3/q3v1_mongo_s3.js:2:11
+failed to load: /home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/point_queries_experiment/mongo/s3/q3v1_mongo_s3.js
+exiting with code -3
+
+
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("db48bf74-388e-4c40-bcdb-033a30fda493") }
+MongoDB server version: 4.4.10
+uncaught exception: Error: explain failed: {
+	"operationTime" : Timestamp(1639022864, 1),
+	"ok" : 0,
+	"errmsg" : "operation exceeded time limit",
+	"code" : 50,
+	"codeName" : "MaxTimeMSExpired",
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639022864, 1),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	}
+} :
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+throwOrReturn@src/mongo/shell/explainable.js:25:19
+constructor/this.aggregate@src/mongo/shell/explainable.js:125:24
+@/home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/point_queries_experiment/mongo/s3/q3v1_mongo_s3.js:2:11
+failed to load: /home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/point_queries_experiment/mongo/s3/q3v1_mongo_s3.js
+exiting with code -3
+
+

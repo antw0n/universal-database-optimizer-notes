@@ -1,0 +1,2510 @@
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("c8fe00d1-3297-407d-8a46-76c9b193cf6a") }
+MongoDB server version: 4.4.10
+{
+	"stages" : [
+		{
+			"$cursor" : {
+				"queryPlanner" : {
+					"plannerVersion" : 1,
+					"namespace" : "tpch_mongo_1c.scale1",
+					"indexFilterSet" : false,
+					"parsedQuery" : {
+						"c_acctbal" : {
+							"$gt" : 0
+						}
+					},
+					"queryHash" : "B4A855D2",
+					"planCacheKey" : "02ED86C6",
+					"winningPlan" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"transformBy" : {
+							"_id" : true,
+							"c_acctbal" : true,
+							"cntrycode" : {
+								"$substrBytes" : [
+									"$c_phone",
+									{
+										"$const" : 0
+									},
+									{
+										"$const" : 2
+									}
+								]
+							}
+						},
+						"inputStage" : {
+							"stage" : "FETCH",
+							"inputStage" : {
+								"stage" : "IXSCAN",
+								"keyPattern" : {
+									"c_acctbal" : -1
+								},
+								"indexName" : "idx_customer_d",
+								"isMultiKey" : false,
+								"multiKeyPaths" : {
+									"c_acctbal" : [ ]
+								},
+								"isUnique" : false,
+								"isSparse" : false,
+								"isPartial" : false,
+								"indexVersion" : 2,
+								"direction" : "forward",
+								"indexBounds" : {
+									"c_acctbal" : [
+										"[inf.0, 0.0)"
+									]
+								}
+							}
+						}
+					},
+					"rejectedPlans" : [
+						{
+							"stage" : "PROJECTION_DEFAULT",
+							"transformBy" : {
+								"_id" : true,
+								"c_acctbal" : true,
+								"cntrycode" : {
+									"$substrBytes" : [
+										"$c_phone",
+										{
+											"$const" : 0
+										},
+										{
+											"$const" : 2
+										}
+									]
+								}
+							},
+							"inputStage" : {
+								"stage" : "FETCH",
+								"inputStage" : {
+									"stage" : "IXSCAN",
+									"keyPattern" : {
+										"c_acctbal" : 1
+									},
+									"indexName" : "idx_customer_a",
+									"isMultiKey" : false,
+									"multiKeyPaths" : {
+										"c_acctbal" : [ ]
+									},
+									"isUnique" : false,
+									"isSparse" : false,
+									"isPartial" : false,
+									"indexVersion" : 2,
+									"direction" : "forward",
+									"indexBounds" : {
+										"c_acctbal" : [
+											"(0.0, inf.0]"
+										]
+									}
+								}
+							}
+						}
+					]
+				},
+				"executionStats" : {
+					"executionSuccess" : true,
+					"nReturned" : 136308,
+					"executionTimeMillis" : 5123,
+					"totalKeysExamined" : 136308,
+					"totalDocsExamined" : 136308,
+					"executionStages" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"nReturned" : 136308,
+						"executionTimeMillisEstimate" : 2502,
+						"works" : 136309,
+						"advanced" : 136308,
+						"needTime" : 0,
+						"needYield" : 0,
+						"saveState" : 190,
+						"restoreState" : 190,
+						"isEOF" : 1,
+						"transformBy" : {
+							"_id" : true,
+							"c_acctbal" : true,
+							"cntrycode" : {
+								"$substrBytes" : [
+									"$c_phone",
+									{
+										"$const" : 0
+									},
+									{
+										"$const" : 2
+									}
+								]
+							}
+						},
+						"inputStage" : {
+							"stage" : "FETCH",
+							"nReturned" : 136308,
+							"executionTimeMillisEstimate" : 2278,
+							"works" : 136309,
+							"advanced" : 136308,
+							"needTime" : 0,
+							"needYield" : 0,
+							"saveState" : 190,
+							"restoreState" : 190,
+							"isEOF" : 1,
+							"docsExamined" : 136308,
+							"alreadyHasObj" : 0,
+							"inputStage" : {
+								"stage" : "IXSCAN",
+								"nReturned" : 136308,
+								"executionTimeMillisEstimate" : 194,
+								"works" : 136309,
+								"advanced" : 136308,
+								"needTime" : 0,
+								"needYield" : 0,
+								"saveState" : 190,
+								"restoreState" : 190,
+								"isEOF" : 1,
+								"keyPattern" : {
+									"c_acctbal" : -1
+								},
+								"indexName" : "idx_customer_d",
+								"isMultiKey" : false,
+								"multiKeyPaths" : {
+									"c_acctbal" : [ ]
+								},
+								"isUnique" : false,
+								"isSparse" : false,
+								"isPartial" : false,
+								"indexVersion" : 2,
+								"direction" : "forward",
+								"indexBounds" : {
+									"c_acctbal" : [
+										"[inf.0, 0.0)"
+									]
+								},
+								"keysExamined" : 136308,
+								"seeks" : 1,
+								"dupsTested" : 0,
+								"dupsDropped" : 0
+							}
+						}
+					},
+					"allPlansExecution" : [
+						{
+							"nReturned" : 101,
+							"executionTimeMillisEstimate" : 0,
+							"totalKeysExamined" : 101,
+							"totalDocsExamined" : 101,
+							"executionStages" : {
+								"stage" : "PROJECTION_DEFAULT",
+								"nReturned" : 101,
+								"executionTimeMillisEstimate" : 0,
+								"works" : 101,
+								"advanced" : 101,
+								"needTime" : 0,
+								"needYield" : 0,
+								"saveState" : 1,
+								"restoreState" : 0,
+								"isEOF" : 0,
+								"transformBy" : {
+									"_id" : true,
+									"c_acctbal" : true,
+									"cntrycode" : {
+										"$substrBytes" : [
+											"$c_phone",
+											{
+												"$const" : 0
+											},
+											{
+												"$const" : 2
+											}
+										]
+									}
+								},
+								"inputStage" : {
+									"stage" : "FETCH",
+									"nReturned" : 101,
+									"executionTimeMillisEstimate" : 0,
+									"works" : 101,
+									"advanced" : 101,
+									"needTime" : 0,
+									"needYield" : 0,
+									"saveState" : 1,
+									"restoreState" : 0,
+									"isEOF" : 0,
+									"docsExamined" : 101,
+									"alreadyHasObj" : 0,
+									"inputStage" : {
+										"stage" : "IXSCAN",
+										"nReturned" : 101,
+										"executionTimeMillisEstimate" : 0,
+										"works" : 101,
+										"advanced" : 101,
+										"needTime" : 0,
+										"needYield" : 0,
+										"saveState" : 1,
+										"restoreState" : 0,
+										"isEOF" : 0,
+										"keyPattern" : {
+											"c_acctbal" : -1
+										},
+										"indexName" : "idx_customer_d",
+										"isMultiKey" : false,
+										"multiKeyPaths" : {
+											"c_acctbal" : [ ]
+										},
+										"isUnique" : false,
+										"isSparse" : false,
+										"isPartial" : false,
+										"indexVersion" : 2,
+										"direction" : "forward",
+										"indexBounds" : {
+											"c_acctbal" : [
+												"[inf.0, 0.0)"
+											]
+										},
+										"keysExamined" : 101,
+										"seeks" : 1,
+										"dupsTested" : 0,
+										"dupsDropped" : 0
+									}
+								}
+							}
+						},
+						{
+							"nReturned" : 101,
+							"executionTimeMillisEstimate" : 7,
+							"totalKeysExamined" : 101,
+							"totalDocsExamined" : 101,
+							"executionStages" : {
+								"stage" : "PROJECTION_DEFAULT",
+								"nReturned" : 101,
+								"executionTimeMillisEstimate" : 7,
+								"works" : 101,
+								"advanced" : 101,
+								"needTime" : 0,
+								"needYield" : 0,
+								"saveState" : 190,
+								"restoreState" : 190,
+								"isEOF" : 0,
+								"transformBy" : {
+									"_id" : true,
+									"c_acctbal" : true,
+									"cntrycode" : {
+										"$substrBytes" : [
+											"$c_phone",
+											{
+												"$const" : 0
+											},
+											{
+												"$const" : 2
+											}
+										]
+									}
+								},
+								"inputStage" : {
+									"stage" : "FETCH",
+									"nReturned" : 101,
+									"executionTimeMillisEstimate" : 7,
+									"works" : 101,
+									"advanced" : 101,
+									"needTime" : 0,
+									"needYield" : 0,
+									"saveState" : 190,
+									"restoreState" : 190,
+									"isEOF" : 0,
+									"docsExamined" : 101,
+									"alreadyHasObj" : 0,
+									"inputStage" : {
+										"stage" : "IXSCAN",
+										"nReturned" : 101,
+										"executionTimeMillisEstimate" : 0,
+										"works" : 101,
+										"advanced" : 101,
+										"needTime" : 0,
+										"needYield" : 0,
+										"saveState" : 190,
+										"restoreState" : 190,
+										"isEOF" : 0,
+										"keyPattern" : {
+											"c_acctbal" : 1
+										},
+										"indexName" : "idx_customer_a",
+										"isMultiKey" : false,
+										"multiKeyPaths" : {
+											"c_acctbal" : [ ]
+										},
+										"isUnique" : false,
+										"isSparse" : false,
+										"isPartial" : false,
+										"indexVersion" : 2,
+										"direction" : "forward",
+										"indexBounds" : {
+											"c_acctbal" : [
+												"(0.0, inf.0]"
+											]
+										},
+										"keysExamined" : 101,
+										"seeks" : 1,
+										"dupsTested" : 0,
+										"dupsDropped" : 0
+									}
+								}
+							}
+						}
+					]
+				}
+			},
+			"nReturned" : NumberLong(136308),
+			"executionTimeMillisEstimate" : NumberLong(2837)
+		},
+		{
+			"$match" : {
+				"cntrycode" : {
+					"$in" : [
+						"10",
+						"15",
+						"17",
+						"21",
+						"22",
+						"25",
+						"30"
+					]
+				}
+			},
+			"nReturned" : NumberLong(37676),
+			"executionTimeMillisEstimate" : NumberLong(2940)
+		},
+		{
+			"$group" : {
+				"_id" : {
+					"$const" : null
+				},
+				"c_acctbal_avg" : {
+					"$avg" : "$c_acctbal"
+				}
+			},
+			"nReturned" : NumberLong(1),
+			"executionTimeMillisEstimate" : NumberLong(2950)
+		},
+		{
+			"$project" : {
+				"c_acctbal_avg" : true,
+				"_id" : false
+			},
+			"nReturned" : NumberLong(1),
+			"executionTimeMillisEstimate" : NumberLong(2950)
+		},
+		{
+			"$lookup" : {
+				"from" : "scale1",
+				"as" : "c_acctbals",
+				"let" : {
+					
+				},
+				"pipeline" : [
+					{
+						"$match" : {
+							"c_acctbal" : {
+								"$gt" : 0
+							},
+							"c_orders" : {
+								"$eq" : [ ]
+							}
+						}
+					},
+					{
+						"$project" : {
+							"_id" : 0,
+							"c_acctbal" : 1,
+							"cntrycode" : {
+								"$substr" : [
+									"$c_phone",
+									0,
+									2
+								]
+							}
+						}
+					},
+					{
+						"$match" : {
+							"cntrycode" : {
+								"$in" : [
+									"30",
+									"17",
+									"25",
+									"10",
+									"22",
+									"15",
+									"21"
+								]
+							}
+						}
+					}
+				],
+				"unwinding" : {
+					"preserveNullAndEmptyArrays" : false
+				}
+			},
+			"nReturned" : NumberLong(12568),
+			"executionTimeMillisEstimate" : NumberLong(5085)
+		},
+		{
+			"$match" : {
+				"$expr" : {
+					"$gt" : [
+						"$c_acctbals.c_acctbal",
+						"$c_acctbal_avg"
+					]
+				}
+			},
+			"nReturned" : NumberLong(6281),
+			"executionTimeMillisEstimate" : NumberLong(5103)
+		},
+		{
+			"$group" : {
+				"_id" : "$c_acctbals.cntrycode",
+				"numcust" : {
+					"$sum" : {
+						"$const" : 1
+					}
+				},
+				"totacctbal" : {
+					"$sum" : "$c_acctbals.c_acctbal"
+				}
+			},
+			"nReturned" : NumberLong(7),
+			"executionTimeMillisEstimate" : NumberLong(5103)
+		},
+		{
+			"$sort" : {
+				"sortKey" : {
+					"_id" : 1
+				}
+			},
+			"nReturned" : NumberLong(7),
+			"executionTimeMillisEstimate" : NumberLong(5103)
+		}
+	],
+	"serverInfo" : {
+		"host" : "mt-mongo-1",
+		"port" : 27011,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639048614, 3),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1639048614, 3)
+}
+
+
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("ef21e719-39f6-49ea-9ea4-0659325c8eaa") }
+MongoDB server version: 4.4.10
+{
+	"stages" : [
+		{
+			"$cursor" : {
+				"queryPlanner" : {
+					"plannerVersion" : 1,
+					"namespace" : "tpch_mongo_1c.scale1",
+					"indexFilterSet" : false,
+					"parsedQuery" : {
+						"c_acctbal" : {
+							"$gt" : 0
+						}
+					},
+					"queryHash" : "B4A855D2",
+					"planCacheKey" : "02ED86C6",
+					"winningPlan" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"transformBy" : {
+							"_id" : true,
+							"c_acctbal" : true,
+							"cntrycode" : {
+								"$substrBytes" : [
+									"$c_phone",
+									{
+										"$const" : 0
+									},
+									{
+										"$const" : 2
+									}
+								]
+							}
+						},
+						"inputStage" : {
+							"stage" : "FETCH",
+							"inputStage" : {
+								"stage" : "IXSCAN",
+								"keyPattern" : {
+									"c_acctbal" : -1
+								},
+								"indexName" : "idx_customer_d",
+								"isMultiKey" : false,
+								"multiKeyPaths" : {
+									"c_acctbal" : [ ]
+								},
+								"isUnique" : false,
+								"isSparse" : false,
+								"isPartial" : false,
+								"indexVersion" : 2,
+								"direction" : "forward",
+								"indexBounds" : {
+									"c_acctbal" : [
+										"[inf.0, 0.0)"
+									]
+								}
+							}
+						}
+					},
+					"rejectedPlans" : [
+						{
+							"stage" : "PROJECTION_DEFAULT",
+							"transformBy" : {
+								"_id" : true,
+								"c_acctbal" : true,
+								"cntrycode" : {
+									"$substrBytes" : [
+										"$c_phone",
+										{
+											"$const" : 0
+										},
+										{
+											"$const" : 2
+										}
+									]
+								}
+							},
+							"inputStage" : {
+								"stage" : "FETCH",
+								"inputStage" : {
+									"stage" : "IXSCAN",
+									"keyPattern" : {
+										"c_acctbal" : 1
+									},
+									"indexName" : "idx_customer_a",
+									"isMultiKey" : false,
+									"multiKeyPaths" : {
+										"c_acctbal" : [ ]
+									},
+									"isUnique" : false,
+									"isSparse" : false,
+									"isPartial" : false,
+									"indexVersion" : 2,
+									"direction" : "forward",
+									"indexBounds" : {
+										"c_acctbal" : [
+											"(0.0, inf.0]"
+										]
+									}
+								}
+							}
+						}
+					]
+				},
+				"executionStats" : {
+					"executionSuccess" : true,
+					"nReturned" : 136308,
+					"executionTimeMillis" : 2813,
+					"totalKeysExamined" : 136308,
+					"totalDocsExamined" : 136308,
+					"executionStages" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"nReturned" : 136308,
+						"executionTimeMillisEstimate" : 470,
+						"works" : 136309,
+						"advanced" : 136308,
+						"needTime" : 0,
+						"needYield" : 0,
+						"saveState" : 148,
+						"restoreState" : 148,
+						"isEOF" : 1,
+						"transformBy" : {
+							"_id" : true,
+							"c_acctbal" : true,
+							"cntrycode" : {
+								"$substrBytes" : [
+									"$c_phone",
+									{
+										"$const" : 0
+									},
+									{
+										"$const" : 2
+									}
+								]
+							}
+						},
+						"inputStage" : {
+							"stage" : "FETCH",
+							"nReturned" : 136308,
+							"executionTimeMillisEstimate" : 290,
+							"works" : 136309,
+							"advanced" : 136308,
+							"needTime" : 0,
+							"needYield" : 0,
+							"saveState" : 148,
+							"restoreState" : 148,
+							"isEOF" : 1,
+							"docsExamined" : 136308,
+							"alreadyHasObj" : 0,
+							"inputStage" : {
+								"stage" : "IXSCAN",
+								"nReturned" : 136308,
+								"executionTimeMillisEstimate" : 46,
+								"works" : 136309,
+								"advanced" : 136308,
+								"needTime" : 0,
+								"needYield" : 0,
+								"saveState" : 148,
+								"restoreState" : 148,
+								"isEOF" : 1,
+								"keyPattern" : {
+									"c_acctbal" : -1
+								},
+								"indexName" : "idx_customer_d",
+								"isMultiKey" : false,
+								"multiKeyPaths" : {
+									"c_acctbal" : [ ]
+								},
+								"isUnique" : false,
+								"isSparse" : false,
+								"isPartial" : false,
+								"indexVersion" : 2,
+								"direction" : "forward",
+								"indexBounds" : {
+									"c_acctbal" : [
+										"[inf.0, 0.0)"
+									]
+								},
+								"keysExamined" : 136308,
+								"seeks" : 1,
+								"dupsTested" : 0,
+								"dupsDropped" : 0
+							}
+						}
+					},
+					"allPlansExecution" : [
+						{
+							"nReturned" : 101,
+							"executionTimeMillisEstimate" : 0,
+							"totalKeysExamined" : 101,
+							"totalDocsExamined" : 101,
+							"executionStages" : {
+								"stage" : "PROJECTION_DEFAULT",
+								"nReturned" : 101,
+								"executionTimeMillisEstimate" : 0,
+								"works" : 101,
+								"advanced" : 101,
+								"needTime" : 0,
+								"needYield" : 0,
+								"saveState" : 1,
+								"restoreState" : 0,
+								"isEOF" : 0,
+								"transformBy" : {
+									"_id" : true,
+									"c_acctbal" : true,
+									"cntrycode" : {
+										"$substrBytes" : [
+											"$c_phone",
+											{
+												"$const" : 0
+											},
+											{
+												"$const" : 2
+											}
+										]
+									}
+								},
+								"inputStage" : {
+									"stage" : "FETCH",
+									"nReturned" : 101,
+									"executionTimeMillisEstimate" : 0,
+									"works" : 101,
+									"advanced" : 101,
+									"needTime" : 0,
+									"needYield" : 0,
+									"saveState" : 1,
+									"restoreState" : 0,
+									"isEOF" : 0,
+									"docsExamined" : 101,
+									"alreadyHasObj" : 0,
+									"inputStage" : {
+										"stage" : "IXSCAN",
+										"nReturned" : 101,
+										"executionTimeMillisEstimate" : 0,
+										"works" : 101,
+										"advanced" : 101,
+										"needTime" : 0,
+										"needYield" : 0,
+										"saveState" : 1,
+										"restoreState" : 0,
+										"isEOF" : 0,
+										"keyPattern" : {
+											"c_acctbal" : -1
+										},
+										"indexName" : "idx_customer_d",
+										"isMultiKey" : false,
+										"multiKeyPaths" : {
+											"c_acctbal" : [ ]
+										},
+										"isUnique" : false,
+										"isSparse" : false,
+										"isPartial" : false,
+										"indexVersion" : 2,
+										"direction" : "forward",
+										"indexBounds" : {
+											"c_acctbal" : [
+												"[inf.0, 0.0)"
+											]
+										},
+										"keysExamined" : 101,
+										"seeks" : 1,
+										"dupsTested" : 0,
+										"dupsDropped" : 0
+									}
+								}
+							}
+						},
+						{
+							"nReturned" : 101,
+							"executionTimeMillisEstimate" : 0,
+							"totalKeysExamined" : 101,
+							"totalDocsExamined" : 101,
+							"executionStages" : {
+								"stage" : "PROJECTION_DEFAULT",
+								"nReturned" : 101,
+								"executionTimeMillisEstimate" : 0,
+								"works" : 101,
+								"advanced" : 101,
+								"needTime" : 0,
+								"needYield" : 0,
+								"saveState" : 148,
+								"restoreState" : 148,
+								"isEOF" : 0,
+								"transformBy" : {
+									"_id" : true,
+									"c_acctbal" : true,
+									"cntrycode" : {
+										"$substrBytes" : [
+											"$c_phone",
+											{
+												"$const" : 0
+											},
+											{
+												"$const" : 2
+											}
+										]
+									}
+								},
+								"inputStage" : {
+									"stage" : "FETCH",
+									"nReturned" : 101,
+									"executionTimeMillisEstimate" : 0,
+									"works" : 101,
+									"advanced" : 101,
+									"needTime" : 0,
+									"needYield" : 0,
+									"saveState" : 148,
+									"restoreState" : 148,
+									"isEOF" : 0,
+									"docsExamined" : 101,
+									"alreadyHasObj" : 0,
+									"inputStage" : {
+										"stage" : "IXSCAN",
+										"nReturned" : 101,
+										"executionTimeMillisEstimate" : 0,
+										"works" : 101,
+										"advanced" : 101,
+										"needTime" : 0,
+										"needYield" : 0,
+										"saveState" : 148,
+										"restoreState" : 148,
+										"isEOF" : 0,
+										"keyPattern" : {
+											"c_acctbal" : 1
+										},
+										"indexName" : "idx_customer_a",
+										"isMultiKey" : false,
+										"multiKeyPaths" : {
+											"c_acctbal" : [ ]
+										},
+										"isUnique" : false,
+										"isSparse" : false,
+										"isPartial" : false,
+										"indexVersion" : 2,
+										"direction" : "forward",
+										"indexBounds" : {
+											"c_acctbal" : [
+												"(0.0, inf.0]"
+											]
+										},
+										"keysExamined" : 101,
+										"seeks" : 1,
+										"dupsTested" : 0,
+										"dupsDropped" : 0
+									}
+								}
+							}
+						}
+					]
+				}
+			},
+			"nReturned" : NumberLong(136308),
+			"executionTimeMillisEstimate" : NumberLong(1124)
+		},
+		{
+			"$match" : {
+				"cntrycode" : {
+					"$in" : [
+						"10",
+						"15",
+						"17",
+						"21",
+						"22",
+						"25",
+						"30"
+					]
+				}
+			},
+			"nReturned" : NumberLong(37676),
+			"executionTimeMillisEstimate" : NumberLong(1182)
+		},
+		{
+			"$group" : {
+				"_id" : {
+					"$const" : null
+				},
+				"c_acctbal_avg" : {
+					"$avg" : "$c_acctbal"
+				}
+			},
+			"nReturned" : NumberLong(1),
+			"executionTimeMillisEstimate" : NumberLong(1192)
+		},
+		{
+			"$project" : {
+				"c_acctbal_avg" : true,
+				"_id" : false
+			},
+			"nReturned" : NumberLong(1),
+			"executionTimeMillisEstimate" : NumberLong(1192)
+		},
+		{
+			"$lookup" : {
+				"from" : "scale1",
+				"as" : "c_acctbals",
+				"let" : {
+					
+				},
+				"pipeline" : [
+					{
+						"$match" : {
+							"c_acctbal" : {
+								"$gt" : 0
+							},
+							"c_orders" : {
+								"$eq" : [ ]
+							}
+						}
+					},
+					{
+						"$project" : {
+							"_id" : 0,
+							"c_acctbal" : 1,
+							"cntrycode" : {
+								"$substr" : [
+									"$c_phone",
+									0,
+									2
+								]
+							}
+						}
+					},
+					{
+						"$match" : {
+							"cntrycode" : {
+								"$in" : [
+									"30",
+									"17",
+									"25",
+									"10",
+									"22",
+									"15",
+									"21"
+								]
+							}
+						}
+					}
+				],
+				"unwinding" : {
+					"preserveNullAndEmptyArrays" : false
+				}
+			},
+			"nReturned" : NumberLong(12568),
+			"executionTimeMillisEstimate" : NumberLong(2779)
+		},
+		{
+			"$match" : {
+				"$expr" : {
+					"$gt" : [
+						"$c_acctbals.c_acctbal",
+						"$c_acctbal_avg"
+					]
+				}
+			},
+			"nReturned" : NumberLong(6281),
+			"executionTimeMillisEstimate" : NumberLong(2796)
+		},
+		{
+			"$group" : {
+				"_id" : "$c_acctbals.cntrycode",
+				"numcust" : {
+					"$sum" : {
+						"$const" : 1
+					}
+				},
+				"totacctbal" : {
+					"$sum" : "$c_acctbals.c_acctbal"
+				}
+			},
+			"nReturned" : NumberLong(7),
+			"executionTimeMillisEstimate" : NumberLong(2796)
+		},
+		{
+			"$sort" : {
+				"sortKey" : {
+					"_id" : 1
+				}
+			},
+			"nReturned" : NumberLong(7),
+			"executionTimeMillisEstimate" : NumberLong(2796)
+		}
+	],
+	"serverInfo" : {
+		"host" : "mt-mongo-3",
+		"port" : 27013,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639048656, 3),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1639048656, 3)
+}
+
+
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("b1fc1e80-8aa7-453a-8b0e-34c3d38be626") }
+MongoDB server version: 4.4.10
+{
+	"stages" : [
+		{
+			"$cursor" : {
+				"queryPlanner" : {
+					"plannerVersion" : 1,
+					"namespace" : "tpch_mongo_1c.scale1",
+					"indexFilterSet" : false,
+					"parsedQuery" : {
+						"c_acctbal" : {
+							"$gt" : 0
+						}
+					},
+					"queryHash" : "B4A855D2",
+					"planCacheKey" : "02ED86C6",
+					"winningPlan" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"transformBy" : {
+							"_id" : true,
+							"c_acctbal" : true,
+							"cntrycode" : {
+								"$substrBytes" : [
+									"$c_phone",
+									{
+										"$const" : 0
+									},
+									{
+										"$const" : 2
+									}
+								]
+							}
+						},
+						"inputStage" : {
+							"stage" : "FETCH",
+							"inputStage" : {
+								"stage" : "IXSCAN",
+								"keyPattern" : {
+									"c_acctbal" : -1
+								},
+								"indexName" : "idx_customer_d",
+								"isMultiKey" : false,
+								"multiKeyPaths" : {
+									"c_acctbal" : [ ]
+								},
+								"isUnique" : false,
+								"isSparse" : false,
+								"isPartial" : false,
+								"indexVersion" : 2,
+								"direction" : "forward",
+								"indexBounds" : {
+									"c_acctbal" : [
+										"[inf.0, 0.0)"
+									]
+								}
+							}
+						}
+					},
+					"rejectedPlans" : [
+						{
+							"stage" : "PROJECTION_DEFAULT",
+							"transformBy" : {
+								"_id" : true,
+								"c_acctbal" : true,
+								"cntrycode" : {
+									"$substrBytes" : [
+										"$c_phone",
+										{
+											"$const" : 0
+										},
+										{
+											"$const" : 2
+										}
+									]
+								}
+							},
+							"inputStage" : {
+								"stage" : "FETCH",
+								"inputStage" : {
+									"stage" : "IXSCAN",
+									"keyPattern" : {
+										"c_acctbal" : 1
+									},
+									"indexName" : "idx_customer_a",
+									"isMultiKey" : false,
+									"multiKeyPaths" : {
+										"c_acctbal" : [ ]
+									},
+									"isUnique" : false,
+									"isSparse" : false,
+									"isPartial" : false,
+									"indexVersion" : 2,
+									"direction" : "forward",
+									"indexBounds" : {
+										"c_acctbal" : [
+											"(0.0, inf.0]"
+										]
+									}
+								}
+							}
+						}
+					]
+				},
+				"executionStats" : {
+					"executionSuccess" : true,
+					"nReturned" : 136308,
+					"executionTimeMillis" : 2156,
+					"totalKeysExamined" : 136308,
+					"totalDocsExamined" : 136308,
+					"executionStages" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"nReturned" : 136308,
+						"executionTimeMillisEstimate" : 384,
+						"works" : 136309,
+						"advanced" : 136308,
+						"needTime" : 0,
+						"needYield" : 0,
+						"saveState" : 149,
+						"restoreState" : 149,
+						"isEOF" : 1,
+						"transformBy" : {
+							"_id" : true,
+							"c_acctbal" : true,
+							"cntrycode" : {
+								"$substrBytes" : [
+									"$c_phone",
+									{
+										"$const" : 0
+									},
+									{
+										"$const" : 2
+									}
+								]
+							}
+						},
+						"inputStage" : {
+							"stage" : "FETCH",
+							"nReturned" : 136308,
+							"executionTimeMillisEstimate" : 274,
+							"works" : 136309,
+							"advanced" : 136308,
+							"needTime" : 0,
+							"needYield" : 0,
+							"saveState" : 149,
+							"restoreState" : 149,
+							"isEOF" : 1,
+							"docsExamined" : 136308,
+							"alreadyHasObj" : 0,
+							"inputStage" : {
+								"stage" : "IXSCAN",
+								"nReturned" : 136308,
+								"executionTimeMillisEstimate" : 32,
+								"works" : 136309,
+								"advanced" : 136308,
+								"needTime" : 0,
+								"needYield" : 0,
+								"saveState" : 149,
+								"restoreState" : 149,
+								"isEOF" : 1,
+								"keyPattern" : {
+									"c_acctbal" : -1
+								},
+								"indexName" : "idx_customer_d",
+								"isMultiKey" : false,
+								"multiKeyPaths" : {
+									"c_acctbal" : [ ]
+								},
+								"isUnique" : false,
+								"isSparse" : false,
+								"isPartial" : false,
+								"indexVersion" : 2,
+								"direction" : "forward",
+								"indexBounds" : {
+									"c_acctbal" : [
+										"[inf.0, 0.0)"
+									]
+								},
+								"keysExamined" : 136308,
+								"seeks" : 1,
+								"dupsTested" : 0,
+								"dupsDropped" : 0
+							}
+						}
+					},
+					"allPlansExecution" : [
+						{
+							"nReturned" : 101,
+							"executionTimeMillisEstimate" : 0,
+							"totalKeysExamined" : 101,
+							"totalDocsExamined" : 101,
+							"executionStages" : {
+								"stage" : "PROJECTION_DEFAULT",
+								"nReturned" : 101,
+								"executionTimeMillisEstimate" : 0,
+								"works" : 101,
+								"advanced" : 101,
+								"needTime" : 0,
+								"needYield" : 0,
+								"saveState" : 1,
+								"restoreState" : 0,
+								"isEOF" : 0,
+								"transformBy" : {
+									"_id" : true,
+									"c_acctbal" : true,
+									"cntrycode" : {
+										"$substrBytes" : [
+											"$c_phone",
+											{
+												"$const" : 0
+											},
+											{
+												"$const" : 2
+											}
+										]
+									}
+								},
+								"inputStage" : {
+									"stage" : "FETCH",
+									"nReturned" : 101,
+									"executionTimeMillisEstimate" : 0,
+									"works" : 101,
+									"advanced" : 101,
+									"needTime" : 0,
+									"needYield" : 0,
+									"saveState" : 1,
+									"restoreState" : 0,
+									"isEOF" : 0,
+									"docsExamined" : 101,
+									"alreadyHasObj" : 0,
+									"inputStage" : {
+										"stage" : "IXSCAN",
+										"nReturned" : 101,
+										"executionTimeMillisEstimate" : 0,
+										"works" : 101,
+										"advanced" : 101,
+										"needTime" : 0,
+										"needYield" : 0,
+										"saveState" : 1,
+										"restoreState" : 0,
+										"isEOF" : 0,
+										"keyPattern" : {
+											"c_acctbal" : -1
+										},
+										"indexName" : "idx_customer_d",
+										"isMultiKey" : false,
+										"multiKeyPaths" : {
+											"c_acctbal" : [ ]
+										},
+										"isUnique" : false,
+										"isSparse" : false,
+										"isPartial" : false,
+										"indexVersion" : 2,
+										"direction" : "forward",
+										"indexBounds" : {
+											"c_acctbal" : [
+												"[inf.0, 0.0)"
+											]
+										},
+										"keysExamined" : 101,
+										"seeks" : 1,
+										"dupsTested" : 0,
+										"dupsDropped" : 0
+									}
+								}
+							}
+						},
+						{
+							"nReturned" : 101,
+							"executionTimeMillisEstimate" : 8,
+							"totalKeysExamined" : 101,
+							"totalDocsExamined" : 101,
+							"executionStages" : {
+								"stage" : "PROJECTION_DEFAULT",
+								"nReturned" : 101,
+								"executionTimeMillisEstimate" : 8,
+								"works" : 101,
+								"advanced" : 101,
+								"needTime" : 0,
+								"needYield" : 0,
+								"saveState" : 149,
+								"restoreState" : 149,
+								"isEOF" : 0,
+								"transformBy" : {
+									"_id" : true,
+									"c_acctbal" : true,
+									"cntrycode" : {
+										"$substrBytes" : [
+											"$c_phone",
+											{
+												"$const" : 0
+											},
+											{
+												"$const" : 2
+											}
+										]
+									}
+								},
+								"inputStage" : {
+									"stage" : "FETCH",
+									"nReturned" : 101,
+									"executionTimeMillisEstimate" : 8,
+									"works" : 101,
+									"advanced" : 101,
+									"needTime" : 0,
+									"needYield" : 0,
+									"saveState" : 149,
+									"restoreState" : 149,
+									"isEOF" : 0,
+									"docsExamined" : 101,
+									"alreadyHasObj" : 0,
+									"inputStage" : {
+										"stage" : "IXSCAN",
+										"nReturned" : 101,
+										"executionTimeMillisEstimate" : 8,
+										"works" : 101,
+										"advanced" : 101,
+										"needTime" : 0,
+										"needYield" : 0,
+										"saveState" : 149,
+										"restoreState" : 149,
+										"isEOF" : 0,
+										"keyPattern" : {
+											"c_acctbal" : 1
+										},
+										"indexName" : "idx_customer_a",
+										"isMultiKey" : false,
+										"multiKeyPaths" : {
+											"c_acctbal" : [ ]
+										},
+										"isUnique" : false,
+										"isSparse" : false,
+										"isPartial" : false,
+										"indexVersion" : 2,
+										"direction" : "forward",
+										"indexBounds" : {
+											"c_acctbal" : [
+												"(0.0, inf.0]"
+											]
+										},
+										"keysExamined" : 101,
+										"seeks" : 1,
+										"dupsTested" : 0,
+										"dupsDropped" : 0
+									}
+								}
+							}
+						}
+					]
+				}
+			},
+			"nReturned" : NumberLong(136308),
+			"executionTimeMillisEstimate" : NumberLong(972)
+		},
+		{
+			"$match" : {
+				"cntrycode" : {
+					"$in" : [
+						"10",
+						"15",
+						"17",
+						"21",
+						"22",
+						"25",
+						"30"
+					]
+				}
+			},
+			"nReturned" : NumberLong(37676),
+			"executionTimeMillisEstimate" : NumberLong(1021)
+		},
+		{
+			"$group" : {
+				"_id" : {
+					"$const" : null
+				},
+				"c_acctbal_avg" : {
+					"$avg" : "$c_acctbal"
+				}
+			},
+			"nReturned" : NumberLong(1),
+			"executionTimeMillisEstimate" : NumberLong(1030)
+		},
+		{
+			"$project" : {
+				"c_acctbal_avg" : true,
+				"_id" : false
+			},
+			"nReturned" : NumberLong(1),
+			"executionTimeMillisEstimate" : NumberLong(1030)
+		},
+		{
+			"$lookup" : {
+				"from" : "scale1",
+				"as" : "c_acctbals",
+				"let" : {
+					
+				},
+				"pipeline" : [
+					{
+						"$match" : {
+							"c_acctbal" : {
+								"$gt" : 0
+							},
+							"c_orders" : {
+								"$eq" : [ ]
+							}
+						}
+					},
+					{
+						"$project" : {
+							"_id" : 0,
+							"c_acctbal" : 1,
+							"cntrycode" : {
+								"$substr" : [
+									"$c_phone",
+									0,
+									2
+								]
+							}
+						}
+					},
+					{
+						"$match" : {
+							"cntrycode" : {
+								"$in" : [
+									"30",
+									"17",
+									"25",
+									"10",
+									"22",
+									"15",
+									"21"
+								]
+							}
+						}
+					}
+				],
+				"unwinding" : {
+					"preserveNullAndEmptyArrays" : false
+				}
+			},
+			"nReturned" : NumberLong(12568),
+			"executionTimeMillisEstimate" : NumberLong(2112)
+		},
+		{
+			"$match" : {
+				"$expr" : {
+					"$gt" : [
+						"$c_acctbals.c_acctbal",
+						"$c_acctbal_avg"
+					]
+				}
+			},
+			"nReturned" : NumberLong(6281),
+			"executionTimeMillisEstimate" : NumberLong(2133)
+		},
+		{
+			"$group" : {
+				"_id" : "$c_acctbals.cntrycode",
+				"numcust" : {
+					"$sum" : {
+						"$const" : 1
+					}
+				},
+				"totacctbal" : {
+					"$sum" : "$c_acctbals.c_acctbal"
+				}
+			},
+			"nReturned" : NumberLong(7),
+			"executionTimeMillisEstimate" : NumberLong(2143)
+		},
+		{
+			"$sort" : {
+				"sortKey" : {
+					"_id" : 1
+				}
+			},
+			"nReturned" : NumberLong(7),
+			"executionTimeMillisEstimate" : NumberLong(2143)
+		}
+	],
+	"serverInfo" : {
+		"host" : "mt-mongo-1",
+		"port" : 27011,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639048697, 3),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1639048697, 3)
+}
+
+
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("12736e05-6282-41a1-b7d9-32d22b524679") }
+MongoDB server version: 4.4.10
+{
+	"stages" : [
+		{
+			"$cursor" : {
+				"queryPlanner" : {
+					"plannerVersion" : 1,
+					"namespace" : "tpch_mongo_1c.scale1",
+					"indexFilterSet" : false,
+					"parsedQuery" : {
+						"c_acctbal" : {
+							"$gt" : 0
+						}
+					},
+					"queryHash" : "B4A855D2",
+					"planCacheKey" : "02ED86C6",
+					"winningPlan" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"transformBy" : {
+							"_id" : true,
+							"c_acctbal" : true,
+							"cntrycode" : {
+								"$substrBytes" : [
+									"$c_phone",
+									{
+										"$const" : 0
+									},
+									{
+										"$const" : 2
+									}
+								]
+							}
+						},
+						"inputStage" : {
+							"stage" : "FETCH",
+							"inputStage" : {
+								"stage" : "IXSCAN",
+								"keyPattern" : {
+									"c_acctbal" : -1
+								},
+								"indexName" : "idx_customer_d",
+								"isMultiKey" : false,
+								"multiKeyPaths" : {
+									"c_acctbal" : [ ]
+								},
+								"isUnique" : false,
+								"isSparse" : false,
+								"isPartial" : false,
+								"indexVersion" : 2,
+								"direction" : "forward",
+								"indexBounds" : {
+									"c_acctbal" : [
+										"[inf.0, 0.0)"
+									]
+								}
+							}
+						}
+					},
+					"rejectedPlans" : [
+						{
+							"stage" : "PROJECTION_DEFAULT",
+							"transformBy" : {
+								"_id" : true,
+								"c_acctbal" : true,
+								"cntrycode" : {
+									"$substrBytes" : [
+										"$c_phone",
+										{
+											"$const" : 0
+										},
+										{
+											"$const" : 2
+										}
+									]
+								}
+							},
+							"inputStage" : {
+								"stage" : "FETCH",
+								"inputStage" : {
+									"stage" : "IXSCAN",
+									"keyPattern" : {
+										"c_acctbal" : 1
+									},
+									"indexName" : "idx_customer_a",
+									"isMultiKey" : false,
+									"multiKeyPaths" : {
+										"c_acctbal" : [ ]
+									},
+									"isUnique" : false,
+									"isSparse" : false,
+									"isPartial" : false,
+									"indexVersion" : 2,
+									"direction" : "forward",
+									"indexBounds" : {
+										"c_acctbal" : [
+											"(0.0, inf.0]"
+										]
+									}
+								}
+							}
+						}
+					]
+				},
+				"executionStats" : {
+					"executionSuccess" : true,
+					"nReturned" : 136308,
+					"executionTimeMillis" : 2050,
+					"totalKeysExamined" : 136308,
+					"totalDocsExamined" : 136308,
+					"executionStages" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"nReturned" : 136308,
+						"executionTimeMillisEstimate" : 370,
+						"works" : 136309,
+						"advanced" : 136308,
+						"needTime" : 0,
+						"needYield" : 0,
+						"saveState" : 147,
+						"restoreState" : 147,
+						"isEOF" : 1,
+						"transformBy" : {
+							"_id" : true,
+							"c_acctbal" : true,
+							"cntrycode" : {
+								"$substrBytes" : [
+									"$c_phone",
+									{
+										"$const" : 0
+									},
+									{
+										"$const" : 2
+									}
+								]
+							}
+						},
+						"inputStage" : {
+							"stage" : "FETCH",
+							"nReturned" : 136308,
+							"executionTimeMillisEstimate" : 239,
+							"works" : 136309,
+							"advanced" : 136308,
+							"needTime" : 0,
+							"needYield" : 0,
+							"saveState" : 147,
+							"restoreState" : 147,
+							"isEOF" : 1,
+							"docsExamined" : 136308,
+							"alreadyHasObj" : 0,
+							"inputStage" : {
+								"stage" : "IXSCAN",
+								"nReturned" : 136308,
+								"executionTimeMillisEstimate" : 66,
+								"works" : 136309,
+								"advanced" : 136308,
+								"needTime" : 0,
+								"needYield" : 0,
+								"saveState" : 147,
+								"restoreState" : 147,
+								"isEOF" : 1,
+								"keyPattern" : {
+									"c_acctbal" : -1
+								},
+								"indexName" : "idx_customer_d",
+								"isMultiKey" : false,
+								"multiKeyPaths" : {
+									"c_acctbal" : [ ]
+								},
+								"isUnique" : false,
+								"isSparse" : false,
+								"isPartial" : false,
+								"indexVersion" : 2,
+								"direction" : "forward",
+								"indexBounds" : {
+									"c_acctbal" : [
+										"[inf.0, 0.0)"
+									]
+								},
+								"keysExamined" : 136308,
+								"seeks" : 1,
+								"dupsTested" : 0,
+								"dupsDropped" : 0
+							}
+						}
+					},
+					"allPlansExecution" : [
+						{
+							"nReturned" : 101,
+							"executionTimeMillisEstimate" : 0,
+							"totalKeysExamined" : 101,
+							"totalDocsExamined" : 101,
+							"executionStages" : {
+								"stage" : "PROJECTION_DEFAULT",
+								"nReturned" : 101,
+								"executionTimeMillisEstimate" : 0,
+								"works" : 101,
+								"advanced" : 101,
+								"needTime" : 0,
+								"needYield" : 0,
+								"saveState" : 1,
+								"restoreState" : 0,
+								"isEOF" : 0,
+								"transformBy" : {
+									"_id" : true,
+									"c_acctbal" : true,
+									"cntrycode" : {
+										"$substrBytes" : [
+											"$c_phone",
+											{
+												"$const" : 0
+											},
+											{
+												"$const" : 2
+											}
+										]
+									}
+								},
+								"inputStage" : {
+									"stage" : "FETCH",
+									"nReturned" : 101,
+									"executionTimeMillisEstimate" : 0,
+									"works" : 101,
+									"advanced" : 101,
+									"needTime" : 0,
+									"needYield" : 0,
+									"saveState" : 1,
+									"restoreState" : 0,
+									"isEOF" : 0,
+									"docsExamined" : 101,
+									"alreadyHasObj" : 0,
+									"inputStage" : {
+										"stage" : "IXSCAN",
+										"nReturned" : 101,
+										"executionTimeMillisEstimate" : 0,
+										"works" : 101,
+										"advanced" : 101,
+										"needTime" : 0,
+										"needYield" : 0,
+										"saveState" : 1,
+										"restoreState" : 0,
+										"isEOF" : 0,
+										"keyPattern" : {
+											"c_acctbal" : -1
+										},
+										"indexName" : "idx_customer_d",
+										"isMultiKey" : false,
+										"multiKeyPaths" : {
+											"c_acctbal" : [ ]
+										},
+										"isUnique" : false,
+										"isSparse" : false,
+										"isPartial" : false,
+										"indexVersion" : 2,
+										"direction" : "forward",
+										"indexBounds" : {
+											"c_acctbal" : [
+												"[inf.0, 0.0)"
+											]
+										},
+										"keysExamined" : 101,
+										"seeks" : 1,
+										"dupsTested" : 0,
+										"dupsDropped" : 0
+									}
+								}
+							}
+						},
+						{
+							"nReturned" : 101,
+							"executionTimeMillisEstimate" : 0,
+							"totalKeysExamined" : 101,
+							"totalDocsExamined" : 101,
+							"executionStages" : {
+								"stage" : "PROJECTION_DEFAULT",
+								"nReturned" : 101,
+								"executionTimeMillisEstimate" : 0,
+								"works" : 101,
+								"advanced" : 101,
+								"needTime" : 0,
+								"needYield" : 0,
+								"saveState" : 147,
+								"restoreState" : 147,
+								"isEOF" : 0,
+								"transformBy" : {
+									"_id" : true,
+									"c_acctbal" : true,
+									"cntrycode" : {
+										"$substrBytes" : [
+											"$c_phone",
+											{
+												"$const" : 0
+											},
+											{
+												"$const" : 2
+											}
+										]
+									}
+								},
+								"inputStage" : {
+									"stage" : "FETCH",
+									"nReturned" : 101,
+									"executionTimeMillisEstimate" : 0,
+									"works" : 101,
+									"advanced" : 101,
+									"needTime" : 0,
+									"needYield" : 0,
+									"saveState" : 147,
+									"restoreState" : 147,
+									"isEOF" : 0,
+									"docsExamined" : 101,
+									"alreadyHasObj" : 0,
+									"inputStage" : {
+										"stage" : "IXSCAN",
+										"nReturned" : 101,
+										"executionTimeMillisEstimate" : 0,
+										"works" : 101,
+										"advanced" : 101,
+										"needTime" : 0,
+										"needYield" : 0,
+										"saveState" : 147,
+										"restoreState" : 147,
+										"isEOF" : 0,
+										"keyPattern" : {
+											"c_acctbal" : 1
+										},
+										"indexName" : "idx_customer_a",
+										"isMultiKey" : false,
+										"multiKeyPaths" : {
+											"c_acctbal" : [ ]
+										},
+										"isUnique" : false,
+										"isSparse" : false,
+										"isPartial" : false,
+										"indexVersion" : 2,
+										"direction" : "forward",
+										"indexBounds" : {
+											"c_acctbal" : [
+												"(0.0, inf.0]"
+											]
+										},
+										"keysExamined" : 101,
+										"seeks" : 1,
+										"dupsTested" : 0,
+										"dupsDropped" : 0
+									}
+								}
+							}
+						}
+					]
+				}
+			},
+			"nReturned" : NumberLong(136308),
+			"executionTimeMillisEstimate" : NumberLong(944)
+		},
+		{
+			"$match" : {
+				"cntrycode" : {
+					"$in" : [
+						"10",
+						"15",
+						"17",
+						"21",
+						"22",
+						"25",
+						"30"
+					]
+				}
+			},
+			"nReturned" : NumberLong(37676),
+			"executionTimeMillisEstimate" : NumberLong(982)
+		},
+		{
+			"$group" : {
+				"_id" : {
+					"$const" : null
+				},
+				"c_acctbal_avg" : {
+					"$avg" : "$c_acctbal"
+				}
+			},
+			"nReturned" : NumberLong(1),
+			"executionTimeMillisEstimate" : NumberLong(982)
+		},
+		{
+			"$project" : {
+				"c_acctbal_avg" : true,
+				"_id" : false
+			},
+			"nReturned" : NumberLong(1),
+			"executionTimeMillisEstimate" : NumberLong(982)
+		},
+		{
+			"$lookup" : {
+				"from" : "scale1",
+				"as" : "c_acctbals",
+				"let" : {
+					
+				},
+				"pipeline" : [
+					{
+						"$match" : {
+							"c_acctbal" : {
+								"$gt" : 0
+							},
+							"c_orders" : {
+								"$eq" : [ ]
+							}
+						}
+					},
+					{
+						"$project" : {
+							"_id" : 0,
+							"c_acctbal" : 1,
+							"cntrycode" : {
+								"$substr" : [
+									"$c_phone",
+									0,
+									2
+								]
+							}
+						}
+					},
+					{
+						"$match" : {
+							"cntrycode" : {
+								"$in" : [
+									"30",
+									"17",
+									"25",
+									"10",
+									"22",
+									"15",
+									"21"
+								]
+							}
+						}
+					}
+				],
+				"unwinding" : {
+					"preserveNullAndEmptyArrays" : false
+				}
+			},
+			"nReturned" : NumberLong(12568),
+			"executionTimeMillisEstimate" : NumberLong(2016)
+		},
+		{
+			"$match" : {
+				"$expr" : {
+					"$gt" : [
+						"$c_acctbals.c_acctbal",
+						"$c_acctbal_avg"
+					]
+				}
+			},
+			"nReturned" : NumberLong(6281),
+			"executionTimeMillisEstimate" : NumberLong(2039)
+		},
+		{
+			"$group" : {
+				"_id" : "$c_acctbals.cntrycode",
+				"numcust" : {
+					"$sum" : {
+						"$const" : 1
+					}
+				},
+				"totacctbal" : {
+					"$sum" : "$c_acctbals.c_acctbal"
+				}
+			},
+			"nReturned" : NumberLong(7),
+			"executionTimeMillisEstimate" : NumberLong(2039)
+		},
+		{
+			"$sort" : {
+				"sortKey" : {
+					"_id" : 1
+				}
+			},
+			"nReturned" : NumberLong(7),
+			"executionTimeMillisEstimate" : NumberLong(2039)
+		}
+	],
+	"serverInfo" : {
+		"host" : "mt-mongo-2",
+		"port" : 27012,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639048742, 4),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1639048742, 4)
+}
+
+
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("51c4ce31-27db-4c1e-8ff6-4544b95df62f") }
+MongoDB server version: 4.4.10
+{
+	"stages" : [
+		{
+			"$cursor" : {
+				"queryPlanner" : {
+					"plannerVersion" : 1,
+					"namespace" : "tpch_mongo_1c.scale1",
+					"indexFilterSet" : false,
+					"parsedQuery" : {
+						"c_acctbal" : {
+							"$gt" : 0
+						}
+					},
+					"queryHash" : "B4A855D2",
+					"planCacheKey" : "02ED86C6",
+					"winningPlan" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"transformBy" : {
+							"_id" : true,
+							"c_acctbal" : true,
+							"cntrycode" : {
+								"$substrBytes" : [
+									"$c_phone",
+									{
+										"$const" : 0
+									},
+									{
+										"$const" : 2
+									}
+								]
+							}
+						},
+						"inputStage" : {
+							"stage" : "FETCH",
+							"inputStage" : {
+								"stage" : "IXSCAN",
+								"keyPattern" : {
+									"c_acctbal" : -1
+								},
+								"indexName" : "idx_customer_d",
+								"isMultiKey" : false,
+								"multiKeyPaths" : {
+									"c_acctbal" : [ ]
+								},
+								"isUnique" : false,
+								"isSparse" : false,
+								"isPartial" : false,
+								"indexVersion" : 2,
+								"direction" : "forward",
+								"indexBounds" : {
+									"c_acctbal" : [
+										"[inf.0, 0.0)"
+									]
+								}
+							}
+						}
+					},
+					"rejectedPlans" : [
+						{
+							"stage" : "PROJECTION_DEFAULT",
+							"transformBy" : {
+								"_id" : true,
+								"c_acctbal" : true,
+								"cntrycode" : {
+									"$substrBytes" : [
+										"$c_phone",
+										{
+											"$const" : 0
+										},
+										{
+											"$const" : 2
+										}
+									]
+								}
+							},
+							"inputStage" : {
+								"stage" : "FETCH",
+								"inputStage" : {
+									"stage" : "IXSCAN",
+									"keyPattern" : {
+										"c_acctbal" : 1
+									},
+									"indexName" : "idx_customer_a",
+									"isMultiKey" : false,
+									"multiKeyPaths" : {
+										"c_acctbal" : [ ]
+									},
+									"isUnique" : false,
+									"isSparse" : false,
+									"isPartial" : false,
+									"indexVersion" : 2,
+									"direction" : "forward",
+									"indexBounds" : {
+										"c_acctbal" : [
+											"(0.0, inf.0]"
+										]
+									}
+								}
+							}
+						}
+					]
+				},
+				"executionStats" : {
+					"executionSuccess" : true,
+					"nReturned" : 136308,
+					"executionTimeMillis" : 2160,
+					"totalKeysExamined" : 136308,
+					"totalDocsExamined" : 136308,
+					"executionStages" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"nReturned" : 136308,
+						"executionTimeMillisEstimate" : 378,
+						"works" : 136309,
+						"advanced" : 136308,
+						"needTime" : 0,
+						"needYield" : 0,
+						"saveState" : 147,
+						"restoreState" : 147,
+						"isEOF" : 1,
+						"transformBy" : {
+							"_id" : true,
+							"c_acctbal" : true,
+							"cntrycode" : {
+								"$substrBytes" : [
+									"$c_phone",
+									{
+										"$const" : 0
+									},
+									{
+										"$const" : 2
+									}
+								]
+							}
+						},
+						"inputStage" : {
+							"stage" : "FETCH",
+							"nReturned" : 136308,
+							"executionTimeMillisEstimate" : 242,
+							"works" : 136309,
+							"advanced" : 136308,
+							"needTime" : 0,
+							"needYield" : 0,
+							"saveState" : 147,
+							"restoreState" : 147,
+							"isEOF" : 1,
+							"docsExamined" : 136308,
+							"alreadyHasObj" : 0,
+							"inputStage" : {
+								"stage" : "IXSCAN",
+								"nReturned" : 136308,
+								"executionTimeMillisEstimate" : 62,
+								"works" : 136309,
+								"advanced" : 136308,
+								"needTime" : 0,
+								"needYield" : 0,
+								"saveState" : 147,
+								"restoreState" : 147,
+								"isEOF" : 1,
+								"keyPattern" : {
+									"c_acctbal" : -1
+								},
+								"indexName" : "idx_customer_d",
+								"isMultiKey" : false,
+								"multiKeyPaths" : {
+									"c_acctbal" : [ ]
+								},
+								"isUnique" : false,
+								"isSparse" : false,
+								"isPartial" : false,
+								"indexVersion" : 2,
+								"direction" : "forward",
+								"indexBounds" : {
+									"c_acctbal" : [
+										"[inf.0, 0.0)"
+									]
+								},
+								"keysExamined" : 136308,
+								"seeks" : 1,
+								"dupsTested" : 0,
+								"dupsDropped" : 0
+							}
+						}
+					},
+					"allPlansExecution" : [
+						{
+							"nReturned" : 101,
+							"executionTimeMillisEstimate" : 7,
+							"totalKeysExamined" : 101,
+							"totalDocsExamined" : 101,
+							"executionStages" : {
+								"stage" : "PROJECTION_DEFAULT",
+								"nReturned" : 101,
+								"executionTimeMillisEstimate" : 7,
+								"works" : 101,
+								"advanced" : 101,
+								"needTime" : 0,
+								"needYield" : 0,
+								"saveState" : 1,
+								"restoreState" : 0,
+								"isEOF" : 0,
+								"transformBy" : {
+									"_id" : true,
+									"c_acctbal" : true,
+									"cntrycode" : {
+										"$substrBytes" : [
+											"$c_phone",
+											{
+												"$const" : 0
+											},
+											{
+												"$const" : 2
+											}
+										]
+									}
+								},
+								"inputStage" : {
+									"stage" : "FETCH",
+									"nReturned" : 101,
+									"executionTimeMillisEstimate" : 7,
+									"works" : 101,
+									"advanced" : 101,
+									"needTime" : 0,
+									"needYield" : 0,
+									"saveState" : 1,
+									"restoreState" : 0,
+									"isEOF" : 0,
+									"docsExamined" : 101,
+									"alreadyHasObj" : 0,
+									"inputStage" : {
+										"stage" : "IXSCAN",
+										"nReturned" : 101,
+										"executionTimeMillisEstimate" : 0,
+										"works" : 101,
+										"advanced" : 101,
+										"needTime" : 0,
+										"needYield" : 0,
+										"saveState" : 1,
+										"restoreState" : 0,
+										"isEOF" : 0,
+										"keyPattern" : {
+											"c_acctbal" : -1
+										},
+										"indexName" : "idx_customer_d",
+										"isMultiKey" : false,
+										"multiKeyPaths" : {
+											"c_acctbal" : [ ]
+										},
+										"isUnique" : false,
+										"isSparse" : false,
+										"isPartial" : false,
+										"indexVersion" : 2,
+										"direction" : "forward",
+										"indexBounds" : {
+											"c_acctbal" : [
+												"[inf.0, 0.0)"
+											]
+										},
+										"keysExamined" : 101,
+										"seeks" : 1,
+										"dupsTested" : 0,
+										"dupsDropped" : 0
+									}
+								}
+							}
+						},
+						{
+							"nReturned" : 101,
+							"executionTimeMillisEstimate" : 0,
+							"totalKeysExamined" : 101,
+							"totalDocsExamined" : 101,
+							"executionStages" : {
+								"stage" : "PROJECTION_DEFAULT",
+								"nReturned" : 101,
+								"executionTimeMillisEstimate" : 0,
+								"works" : 101,
+								"advanced" : 101,
+								"needTime" : 0,
+								"needYield" : 0,
+								"saveState" : 147,
+								"restoreState" : 147,
+								"isEOF" : 0,
+								"transformBy" : {
+									"_id" : true,
+									"c_acctbal" : true,
+									"cntrycode" : {
+										"$substrBytes" : [
+											"$c_phone",
+											{
+												"$const" : 0
+											},
+											{
+												"$const" : 2
+											}
+										]
+									}
+								},
+								"inputStage" : {
+									"stage" : "FETCH",
+									"nReturned" : 101,
+									"executionTimeMillisEstimate" : 0,
+									"works" : 101,
+									"advanced" : 101,
+									"needTime" : 0,
+									"needYield" : 0,
+									"saveState" : 147,
+									"restoreState" : 147,
+									"isEOF" : 0,
+									"docsExamined" : 101,
+									"alreadyHasObj" : 0,
+									"inputStage" : {
+										"stage" : "IXSCAN",
+										"nReturned" : 101,
+										"executionTimeMillisEstimate" : 0,
+										"works" : 101,
+										"advanced" : 101,
+										"needTime" : 0,
+										"needYield" : 0,
+										"saveState" : 147,
+										"restoreState" : 147,
+										"isEOF" : 0,
+										"keyPattern" : {
+											"c_acctbal" : 1
+										},
+										"indexName" : "idx_customer_a",
+										"isMultiKey" : false,
+										"multiKeyPaths" : {
+											"c_acctbal" : [ ]
+										},
+										"isUnique" : false,
+										"isSparse" : false,
+										"isPartial" : false,
+										"indexVersion" : 2,
+										"direction" : "forward",
+										"indexBounds" : {
+											"c_acctbal" : [
+												"(0.0, inf.0]"
+											]
+										},
+										"keysExamined" : 101,
+										"seeks" : 1,
+										"dupsTested" : 0,
+										"dupsDropped" : 0
+									}
+								}
+							}
+						}
+					]
+				}
+			},
+			"nReturned" : NumberLong(136308),
+			"executionTimeMillisEstimate" : NumberLong(979)
+		},
+		{
+			"$match" : {
+				"cntrycode" : {
+					"$in" : [
+						"10",
+						"15",
+						"17",
+						"21",
+						"22",
+						"25",
+						"30"
+					]
+				}
+			},
+			"nReturned" : NumberLong(37676),
+			"executionTimeMillisEstimate" : NumberLong(1032)
+		},
+		{
+			"$group" : {
+				"_id" : {
+					"$const" : null
+				},
+				"c_acctbal_avg" : {
+					"$avg" : "$c_acctbal"
+				}
+			},
+			"nReturned" : NumberLong(1),
+			"executionTimeMillisEstimate" : NumberLong(1050)
+		},
+		{
+			"$project" : {
+				"c_acctbal_avg" : true,
+				"_id" : false
+			},
+			"nReturned" : NumberLong(1),
+			"executionTimeMillisEstimate" : NumberLong(1050)
+		},
+		{
+			"$lookup" : {
+				"from" : "scale1",
+				"as" : "c_acctbals",
+				"let" : {
+					
+				},
+				"pipeline" : [
+					{
+						"$match" : {
+							"c_acctbal" : {
+								"$gt" : 0
+							},
+							"c_orders" : {
+								"$eq" : [ ]
+							}
+						}
+					},
+					{
+						"$project" : {
+							"_id" : 0,
+							"c_acctbal" : 1,
+							"cntrycode" : {
+								"$substr" : [
+									"$c_phone",
+									0,
+									2
+								]
+							}
+						}
+					},
+					{
+						"$match" : {
+							"cntrycode" : {
+								"$in" : [
+									"30",
+									"17",
+									"25",
+									"10",
+									"22",
+									"15",
+									"21"
+								]
+							}
+						}
+					}
+				],
+				"unwinding" : {
+					"preserveNullAndEmptyArrays" : false
+				}
+			},
+			"nReturned" : NumberLong(12568),
+			"executionTimeMillisEstimate" : NumberLong(2130)
+		},
+		{
+			"$match" : {
+				"$expr" : {
+					"$gt" : [
+						"$c_acctbals.c_acctbal",
+						"$c_acctbal_avg"
+					]
+				}
+			},
+			"nReturned" : NumberLong(6281),
+			"executionTimeMillisEstimate" : NumberLong(2150)
+		},
+		{
+			"$group" : {
+				"_id" : "$c_acctbals.cntrycode",
+				"numcust" : {
+					"$sum" : {
+						"$const" : 1
+					}
+				},
+				"totacctbal" : {
+					"$sum" : "$c_acctbals.c_acctbal"
+				}
+			},
+			"nReturned" : NumberLong(7),
+			"executionTimeMillisEstimate" : NumberLong(2150)
+		},
+		{
+			"$sort" : {
+				"sortKey" : {
+					"_id" : 1
+				}
+			},
+			"nReturned" : NumberLong(7),
+			"executionTimeMillisEstimate" : NumberLong(2150)
+		}
+	],
+	"serverInfo" : {
+		"host" : "mt-mongo-1",
+		"port" : 27011,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639048786, 5),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1639048786, 5)
+}
+
+

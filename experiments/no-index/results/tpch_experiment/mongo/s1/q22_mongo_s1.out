@@ -1,0 +1,1260 @@
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("d66a44d8-d7c9-4ac8-bb67-2c8fc46584f6") }
+MongoDB server version: 4.4.10
+{
+	"stages" : [
+		{
+			"$cursor" : {
+				"queryPlanner" : {
+					"plannerVersion" : 1,
+					"namespace" : "tpch_mongo_1c.scale1",
+					"indexFilterSet" : false,
+					"parsedQuery" : {
+						"c_acctbal" : {
+							"$gt" : 0
+						}
+					},
+					"queryHash" : "B4A855D2",
+					"planCacheKey" : "B4A855D2",
+					"winningPlan" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"transformBy" : {
+							"_id" : true,
+							"c_acctbal" : true,
+							"cntrycode" : {
+								"$substrBytes" : [
+									"$c_phone",
+									{
+										"$const" : 0
+									},
+									{
+										"$const" : 2
+									}
+								]
+							}
+						},
+						"inputStage" : {
+							"stage" : "COLLSCAN",
+							"filter" : {
+								"c_acctbal" : {
+									"$gt" : 0
+								}
+							},
+							"direction" : "forward"
+						}
+					},
+					"rejectedPlans" : [ ]
+				},
+				"executionStats" : {
+					"executionSuccess" : true,
+					"nReturned" : 136308,
+					"executionTimeMillis" : 7898,
+					"totalKeysExamined" : 0,
+					"totalDocsExamined" : 150000,
+					"executionStages" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"nReturned" : 136308,
+						"executionTimeMillisEstimate" : 6785,
+						"works" : 150002,
+						"advanced" : 136308,
+						"needTime" : 13693,
+						"needYield" : 0,
+						"saveState" : 382,
+						"restoreState" : 382,
+						"isEOF" : 1,
+						"transformBy" : {
+							"_id" : true,
+							"c_acctbal" : true,
+							"cntrycode" : {
+								"$substrBytes" : [
+									"$c_phone",
+									{
+										"$const" : 0
+									},
+									{
+										"$const" : 2
+									}
+								]
+							}
+						},
+						"inputStage" : {
+							"stage" : "COLLSCAN",
+							"filter" : {
+								"c_acctbal" : {
+									"$gt" : 0
+								}
+							},
+							"nReturned" : 136308,
+							"executionTimeMillisEstimate" : 6403,
+							"works" : 150002,
+							"advanced" : 136308,
+							"needTime" : 13693,
+							"needYield" : 0,
+							"saveState" : 382,
+							"restoreState" : 382,
+							"isEOF" : 1,
+							"direction" : "forward",
+							"docsExamined" : 150000
+						}
+					},
+					"allPlansExecution" : [ ]
+				}
+			},
+			"nReturned" : NumberLong(136308),
+			"executionTimeMillisEstimate" : NumberLong(6870)
+		},
+		{
+			"$match" : {
+				"cntrycode" : {
+					"$in" : [
+						"10",
+						"15",
+						"17",
+						"21",
+						"22",
+						"25",
+						"30"
+					]
+				}
+			},
+			"nReturned" : NumberLong(37676),
+			"executionTimeMillisEstimate" : NumberLong(6958)
+		},
+		{
+			"$group" : {
+				"_id" : {
+					"$const" : null
+				},
+				"c_acctbal_avg" : {
+					"$avg" : "$c_acctbal"
+				}
+			},
+			"nReturned" : NumberLong(1),
+			"executionTimeMillisEstimate" : NumberLong(6958)
+		},
+		{
+			"$project" : {
+				"c_acctbal_avg" : true,
+				"_id" : false
+			},
+			"nReturned" : NumberLong(1),
+			"executionTimeMillisEstimate" : NumberLong(6958)
+		},
+		{
+			"$lookup" : {
+				"from" : "scale1",
+				"as" : "c_acctbals",
+				"let" : {
+					
+				},
+				"pipeline" : [
+					{
+						"$match" : {
+							"c_acctbal" : {
+								"$gt" : 0
+							},
+							"c_orders" : {
+								"$eq" : [ ]
+							}
+						}
+					},
+					{
+						"$project" : {
+							"_id" : 0,
+							"c_acctbal" : 1,
+							"cntrycode" : {
+								"$substr" : [
+									"$c_phone",
+									0,
+									2
+								]
+							}
+						}
+					},
+					{
+						"$match" : {
+							"cntrycode" : {
+								"$in" : [
+									"30",
+									"17",
+									"25",
+									"10",
+									"22",
+									"15",
+									"21"
+								]
+							}
+						}
+					}
+				],
+				"unwinding" : {
+					"preserveNullAndEmptyArrays" : false
+				}
+			},
+			"nReturned" : NumberLong(12568),
+			"executionTimeMillisEstimate" : NumberLong(7857)
+		},
+		{
+			"$match" : {
+				"$expr" : {
+					"$gt" : [
+						"$c_acctbals.c_acctbal",
+						"$c_acctbal_avg"
+					]
+				}
+			},
+			"nReturned" : NumberLong(6281),
+			"executionTimeMillisEstimate" : NumberLong(7879)
+		},
+		{
+			"$group" : {
+				"_id" : "$c_acctbals.cntrycode",
+				"numcust" : {
+					"$sum" : {
+						"$const" : 1
+					}
+				},
+				"totacctbal" : {
+					"$sum" : "$c_acctbals.c_acctbal"
+				}
+			},
+			"nReturned" : NumberLong(7),
+			"executionTimeMillisEstimate" : NumberLong(7889)
+		},
+		{
+			"$sort" : {
+				"sortKey" : {
+					"_id" : 1
+				}
+			},
+			"nReturned" : NumberLong(7),
+			"executionTimeMillisEstimate" : NumberLong(7889)
+		}
+	],
+	"serverInfo" : {
+		"host" : "mt-mongo-3",
+		"port" : 27013,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639021372, 2),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1639021372, 2)
+}
+
+
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("013ceaba-4112-4981-afc7-37688617c3fe") }
+MongoDB server version: 4.4.10
+{
+	"stages" : [
+		{
+			"$cursor" : {
+				"queryPlanner" : {
+					"plannerVersion" : 1,
+					"namespace" : "tpch_mongo_1c.scale1",
+					"indexFilterSet" : false,
+					"parsedQuery" : {
+						"c_acctbal" : {
+							"$gt" : 0
+						}
+					},
+					"queryHash" : "B4A855D2",
+					"planCacheKey" : "B4A855D2",
+					"winningPlan" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"transformBy" : {
+							"_id" : true,
+							"c_acctbal" : true,
+							"cntrycode" : {
+								"$substrBytes" : [
+									"$c_phone",
+									{
+										"$const" : 0
+									},
+									{
+										"$const" : 2
+									}
+								]
+							}
+						},
+						"inputStage" : {
+							"stage" : "COLLSCAN",
+							"filter" : {
+								"c_acctbal" : {
+									"$gt" : 0
+								}
+							},
+							"direction" : "forward"
+						}
+					},
+					"rejectedPlans" : [ ]
+				},
+				"executionStats" : {
+					"executionSuccess" : true,
+					"nReturned" : 136308,
+					"executionTimeMillis" : 6342,
+					"totalKeysExamined" : 0,
+					"totalDocsExamined" : 150000,
+					"executionStages" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"nReturned" : 136308,
+						"executionTimeMillisEstimate" : 5377,
+						"works" : 150002,
+						"advanced" : 136308,
+						"needTime" : 13693,
+						"needYield" : 0,
+						"saveState" : 307,
+						"restoreState" : 307,
+						"isEOF" : 1,
+						"transformBy" : {
+							"_id" : true,
+							"c_acctbal" : true,
+							"cntrycode" : {
+								"$substrBytes" : [
+									"$c_phone",
+									{
+										"$const" : 0
+									},
+									{
+										"$const" : 2
+									}
+								]
+							}
+						},
+						"inputStage" : {
+							"stage" : "COLLSCAN",
+							"filter" : {
+								"c_acctbal" : {
+									"$gt" : 0
+								}
+							},
+							"nReturned" : 136308,
+							"executionTimeMillisEstimate" : 5009,
+							"works" : 150002,
+							"advanced" : 136308,
+							"needTime" : 13693,
+							"needYield" : 0,
+							"saveState" : 307,
+							"restoreState" : 307,
+							"isEOF" : 1,
+							"direction" : "forward",
+							"docsExamined" : 150000
+						}
+					},
+					"allPlansExecution" : [ ]
+				}
+			},
+			"nReturned" : NumberLong(136308),
+			"executionTimeMillisEstimate" : NumberLong(5506)
+		},
+		{
+			"$match" : {
+				"cntrycode" : {
+					"$in" : [
+						"10",
+						"15",
+						"17",
+						"21",
+						"22",
+						"25",
+						"30"
+					]
+				}
+			},
+			"nReturned" : NumberLong(37676),
+			"executionTimeMillisEstimate" : NumberLong(5584)
+		},
+		{
+			"$group" : {
+				"_id" : {
+					"$const" : null
+				},
+				"c_acctbal_avg" : {
+					"$avg" : "$c_acctbal"
+				}
+			},
+			"nReturned" : NumberLong(1),
+			"executionTimeMillisEstimate" : NumberLong(5584)
+		},
+		{
+			"$project" : {
+				"c_acctbal_avg" : true,
+				"_id" : false
+			},
+			"nReturned" : NumberLong(1),
+			"executionTimeMillisEstimate" : NumberLong(5584)
+		},
+		{
+			"$lookup" : {
+				"from" : "scale1",
+				"as" : "c_acctbals",
+				"let" : {
+					
+				},
+				"pipeline" : [
+					{
+						"$match" : {
+							"c_acctbal" : {
+								"$gt" : 0
+							},
+							"c_orders" : {
+								"$eq" : [ ]
+							}
+						}
+					},
+					{
+						"$project" : {
+							"_id" : 0,
+							"c_acctbal" : 1,
+							"cntrycode" : {
+								"$substr" : [
+									"$c_phone",
+									0,
+									2
+								]
+							}
+						}
+					},
+					{
+						"$match" : {
+							"cntrycode" : {
+								"$in" : [
+									"30",
+									"17",
+									"25",
+									"10",
+									"22",
+									"15",
+									"21"
+								]
+							}
+						}
+					}
+				],
+				"unwinding" : {
+					"preserveNullAndEmptyArrays" : false
+				}
+			},
+			"nReturned" : NumberLong(12568),
+			"executionTimeMillisEstimate" : NumberLong(6322)
+		},
+		{
+			"$match" : {
+				"$expr" : {
+					"$gt" : [
+						"$c_acctbals.c_acctbal",
+						"$c_acctbal_avg"
+					]
+				}
+			},
+			"nReturned" : NumberLong(6281),
+			"executionTimeMillisEstimate" : NumberLong(6338)
+		},
+		{
+			"$group" : {
+				"_id" : "$c_acctbals.cntrycode",
+				"numcust" : {
+					"$sum" : {
+						"$const" : 1
+					}
+				},
+				"totacctbal" : {
+					"$sum" : "$c_acctbals.c_acctbal"
+				}
+			},
+			"nReturned" : NumberLong(7),
+			"executionTimeMillisEstimate" : NumberLong(6338)
+		},
+		{
+			"$sort" : {
+				"sortKey" : {
+					"_id" : 1
+				}
+			},
+			"nReturned" : NumberLong(7),
+			"executionTimeMillisEstimate" : NumberLong(6338)
+		}
+	],
+	"serverInfo" : {
+		"host" : "mt-mongo-2",
+		"port" : 27012,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639021408, 1),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1639021408, 1)
+}
+
+
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("dc8ad275-5c46-46d8-ac2c-6bd7a74ac4f6") }
+MongoDB server version: 4.4.10
+{
+	"stages" : [
+		{
+			"$cursor" : {
+				"queryPlanner" : {
+					"plannerVersion" : 1,
+					"namespace" : "tpch_mongo_1c.scale1",
+					"indexFilterSet" : false,
+					"parsedQuery" : {
+						"c_acctbal" : {
+							"$gt" : 0
+						}
+					},
+					"queryHash" : "B4A855D2",
+					"planCacheKey" : "B4A855D2",
+					"winningPlan" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"transformBy" : {
+							"_id" : true,
+							"c_acctbal" : true,
+							"cntrycode" : {
+								"$substrBytes" : [
+									"$c_phone",
+									{
+										"$const" : 0
+									},
+									{
+										"$const" : 2
+									}
+								]
+							}
+						},
+						"inputStage" : {
+							"stage" : "COLLSCAN",
+							"filter" : {
+								"c_acctbal" : {
+									"$gt" : 0
+								}
+							},
+							"direction" : "forward"
+						}
+					},
+					"rejectedPlans" : [ ]
+				},
+				"executionStats" : {
+					"executionSuccess" : true,
+					"nReturned" : 136308,
+					"executionTimeMillis" : 6774,
+					"totalKeysExamined" : 0,
+					"totalDocsExamined" : 150000,
+					"executionStages" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"nReturned" : 136308,
+						"executionTimeMillisEstimate" : 5687,
+						"works" : 150002,
+						"advanced" : 136308,
+						"needTime" : 13693,
+						"needYield" : 0,
+						"saveState" : 329,
+						"restoreState" : 329,
+						"isEOF" : 1,
+						"transformBy" : {
+							"_id" : true,
+							"c_acctbal" : true,
+							"cntrycode" : {
+								"$substrBytes" : [
+									"$c_phone",
+									{
+										"$const" : 0
+									},
+									{
+										"$const" : 2
+									}
+								]
+							}
+						},
+						"inputStage" : {
+							"stage" : "COLLSCAN",
+							"filter" : {
+								"c_acctbal" : {
+									"$gt" : 0
+								}
+							},
+							"nReturned" : 136308,
+							"executionTimeMillisEstimate" : 5360,
+							"works" : 150002,
+							"advanced" : 136308,
+							"needTime" : 13693,
+							"needYield" : 0,
+							"saveState" : 329,
+							"restoreState" : 329,
+							"isEOF" : 1,
+							"direction" : "forward",
+							"docsExamined" : 150000
+						}
+					},
+					"allPlansExecution" : [ ]
+				}
+			},
+			"nReturned" : NumberLong(136308),
+			"executionTimeMillisEstimate" : NumberLong(5780)
+		},
+		{
+			"$match" : {
+				"cntrycode" : {
+					"$in" : [
+						"10",
+						"15",
+						"17",
+						"21",
+						"22",
+						"25",
+						"30"
+					]
+				}
+			},
+			"nReturned" : NumberLong(37676),
+			"executionTimeMillisEstimate" : NumberLong(5843)
+		},
+		{
+			"$group" : {
+				"_id" : {
+					"$const" : null
+				},
+				"c_acctbal_avg" : {
+					"$avg" : "$c_acctbal"
+				}
+			},
+			"nReturned" : NumberLong(1),
+			"executionTimeMillisEstimate" : NumberLong(5863)
+		},
+		{
+			"$project" : {
+				"c_acctbal_avg" : true,
+				"_id" : false
+			},
+			"nReturned" : NumberLong(1),
+			"executionTimeMillisEstimate" : NumberLong(5863)
+		},
+		{
+			"$lookup" : {
+				"from" : "scale1",
+				"as" : "c_acctbals",
+				"let" : {
+					
+				},
+				"pipeline" : [
+					{
+						"$match" : {
+							"c_acctbal" : {
+								"$gt" : 0
+							},
+							"c_orders" : {
+								"$eq" : [ ]
+							}
+						}
+					},
+					{
+						"$project" : {
+							"_id" : 0,
+							"c_acctbal" : 1,
+							"cntrycode" : {
+								"$substr" : [
+									"$c_phone",
+									0,
+									2
+								]
+							}
+						}
+					},
+					{
+						"$match" : {
+							"cntrycode" : {
+								"$in" : [
+									"30",
+									"17",
+									"25",
+									"10",
+									"22",
+									"15",
+									"21"
+								]
+							}
+						}
+					}
+				],
+				"unwinding" : {
+					"preserveNullAndEmptyArrays" : false
+				}
+			},
+			"nReturned" : NumberLong(12568),
+			"executionTimeMillisEstimate" : NumberLong(6763)
+		},
+		{
+			"$match" : {
+				"$expr" : {
+					"$gt" : [
+						"$c_acctbals.c_acctbal",
+						"$c_acctbal_avg"
+					]
+				}
+			},
+			"nReturned" : NumberLong(6281),
+			"executionTimeMillisEstimate" : NumberLong(6773)
+		},
+		{
+			"$group" : {
+				"_id" : "$c_acctbals.cntrycode",
+				"numcust" : {
+					"$sum" : {
+						"$const" : 1
+					}
+				},
+				"totacctbal" : {
+					"$sum" : "$c_acctbals.c_acctbal"
+				}
+			},
+			"nReturned" : NumberLong(7),
+			"executionTimeMillisEstimate" : NumberLong(6773)
+		},
+		{
+			"$sort" : {
+				"sortKey" : {
+					"_id" : 1
+				}
+			},
+			"nReturned" : NumberLong(7),
+			"executionTimeMillisEstimate" : NumberLong(6773)
+		}
+	],
+	"serverInfo" : {
+		"host" : "mt-mongo-2",
+		"port" : 27012,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639021441, 2),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1639021441, 2)
+}
+
+
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("7a75026a-4dd3-43a7-a658-0986354f91a9") }
+MongoDB server version: 4.4.10
+{
+	"stages" : [
+		{
+			"$cursor" : {
+				"queryPlanner" : {
+					"plannerVersion" : 1,
+					"namespace" : "tpch_mongo_1c.scale1",
+					"indexFilterSet" : false,
+					"parsedQuery" : {
+						"c_acctbal" : {
+							"$gt" : 0
+						}
+					},
+					"queryHash" : "B4A855D2",
+					"planCacheKey" : "B4A855D2",
+					"winningPlan" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"transformBy" : {
+							"_id" : true,
+							"c_acctbal" : true,
+							"cntrycode" : {
+								"$substrBytes" : [
+									"$c_phone",
+									{
+										"$const" : 0
+									},
+									{
+										"$const" : 2
+									}
+								]
+							}
+						},
+						"inputStage" : {
+							"stage" : "COLLSCAN",
+							"filter" : {
+								"c_acctbal" : {
+									"$gt" : 0
+								}
+							},
+							"direction" : "forward"
+						}
+					},
+					"rejectedPlans" : [ ]
+				},
+				"executionStats" : {
+					"executionSuccess" : true,
+					"nReturned" : 136308,
+					"executionTimeMillis" : 1216,
+					"totalKeysExamined" : 0,
+					"totalDocsExamined" : 150000,
+					"executionStages" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"nReturned" : 136308,
+						"executionTimeMillisEstimate" : 104,
+						"works" : 150002,
+						"advanced" : 136308,
+						"needTime" : 13693,
+						"needYield" : 0,
+						"saveState" : 161,
+						"restoreState" : 161,
+						"isEOF" : 1,
+						"transformBy" : {
+							"_id" : true,
+							"c_acctbal" : true,
+							"cntrycode" : {
+								"$substrBytes" : [
+									"$c_phone",
+									{
+										"$const" : 0
+									},
+									{
+										"$const" : 2
+									}
+								]
+							}
+						},
+						"inputStage" : {
+							"stage" : "COLLSCAN",
+							"filter" : {
+								"c_acctbal" : {
+									"$gt" : 0
+								}
+							},
+							"nReturned" : 136308,
+							"executionTimeMillisEstimate" : 55,
+							"works" : 150002,
+							"advanced" : 136308,
+							"needTime" : 13693,
+							"needYield" : 0,
+							"saveState" : 161,
+							"restoreState" : 161,
+							"isEOF" : 1,
+							"direction" : "forward",
+							"docsExamined" : 150000
+						}
+					},
+					"allPlansExecution" : [ ]
+				}
+			},
+			"nReturned" : NumberLong(136308),
+			"executionTimeMillisEstimate" : NumberLong(484)
+		},
+		{
+			"$match" : {
+				"cntrycode" : {
+					"$in" : [
+						"10",
+						"15",
+						"17",
+						"21",
+						"22",
+						"25",
+						"30"
+					]
+				}
+			},
+			"nReturned" : NumberLong(37676),
+			"executionTimeMillisEstimate" : NumberLong(537)
+		},
+		{
+			"$group" : {
+				"_id" : {
+					"$const" : null
+				},
+				"c_acctbal_avg" : {
+					"$avg" : "$c_acctbal"
+				}
+			},
+			"nReturned" : NumberLong(1),
+			"executionTimeMillisEstimate" : NumberLong(547)
+		},
+		{
+			"$project" : {
+				"c_acctbal_avg" : true,
+				"_id" : false
+			},
+			"nReturned" : NumberLong(1),
+			"executionTimeMillisEstimate" : NumberLong(547)
+		},
+		{
+			"$lookup" : {
+				"from" : "scale1",
+				"as" : "c_acctbals",
+				"let" : {
+					
+				},
+				"pipeline" : [
+					{
+						"$match" : {
+							"c_acctbal" : {
+								"$gt" : 0
+							},
+							"c_orders" : {
+								"$eq" : [ ]
+							}
+						}
+					},
+					{
+						"$project" : {
+							"_id" : 0,
+							"c_acctbal" : 1,
+							"cntrycode" : {
+								"$substr" : [
+									"$c_phone",
+									0,
+									2
+								]
+							}
+						}
+					},
+					{
+						"$match" : {
+							"cntrycode" : {
+								"$in" : [
+									"30",
+									"17",
+									"25",
+									"10",
+									"22",
+									"15",
+									"21"
+								]
+							}
+						}
+					}
+				],
+				"unwinding" : {
+					"preserveNullAndEmptyArrays" : false
+				}
+			},
+			"nReturned" : NumberLong(12568),
+			"executionTimeMillisEstimate" : NumberLong(1182)
+		},
+		{
+			"$match" : {
+				"$expr" : {
+					"$gt" : [
+						"$c_acctbals.c_acctbal",
+						"$c_acctbal_avg"
+					]
+				}
+			},
+			"nReturned" : NumberLong(6281),
+			"executionTimeMillisEstimate" : NumberLong(1207)
+		},
+		{
+			"$group" : {
+				"_id" : "$c_acctbals.cntrycode",
+				"numcust" : {
+					"$sum" : {
+						"$const" : 1
+					}
+				},
+				"totacctbal" : {
+					"$sum" : "$c_acctbals.c_acctbal"
+				}
+			},
+			"nReturned" : NumberLong(7),
+			"executionTimeMillisEstimate" : NumberLong(1207)
+		},
+		{
+			"$sort" : {
+				"sortKey" : {
+					"_id" : 1
+				}
+			},
+			"nReturned" : NumberLong(7),
+			"executionTimeMillisEstimate" : NumberLong(1207)
+		}
+	],
+	"serverInfo" : {
+		"host" : "mt-mongo-2",
+		"port" : 27012,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639021477, 2),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1639021477, 2)
+}
+
+
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("fd03c6b2-1c37-441a-9c99-daee686b9ae5") }
+MongoDB server version: 4.4.10
+{
+	"stages" : [
+		{
+			"$cursor" : {
+				"queryPlanner" : {
+					"plannerVersion" : 1,
+					"namespace" : "tpch_mongo_1c.scale1",
+					"indexFilterSet" : false,
+					"parsedQuery" : {
+						"c_acctbal" : {
+							"$gt" : 0
+						}
+					},
+					"queryHash" : "B4A855D2",
+					"planCacheKey" : "B4A855D2",
+					"winningPlan" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"transformBy" : {
+							"_id" : true,
+							"c_acctbal" : true,
+							"cntrycode" : {
+								"$substrBytes" : [
+									"$c_phone",
+									{
+										"$const" : 0
+									},
+									{
+										"$const" : 2
+									}
+								]
+							}
+						},
+						"inputStage" : {
+							"stage" : "COLLSCAN",
+							"filter" : {
+								"c_acctbal" : {
+									"$gt" : 0
+								}
+							},
+							"direction" : "forward"
+						}
+					},
+					"rejectedPlans" : [ ]
+				},
+				"executionStats" : {
+					"executionSuccess" : true,
+					"nReturned" : 136308,
+					"executionTimeMillis" : 5400,
+					"totalKeysExamined" : 0,
+					"totalDocsExamined" : 150000,
+					"executionStages" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"nReturned" : 136308,
+						"executionTimeMillisEstimate" : 4626,
+						"works" : 150002,
+						"advanced" : 136308,
+						"needTime" : 13693,
+						"needYield" : 0,
+						"saveState" : 269,
+						"restoreState" : 269,
+						"isEOF" : 1,
+						"transformBy" : {
+							"_id" : true,
+							"c_acctbal" : true,
+							"cntrycode" : {
+								"$substrBytes" : [
+									"$c_phone",
+									{
+										"$const" : 0
+									},
+									{
+										"$const" : 2
+									}
+								]
+							}
+						},
+						"inputStage" : {
+							"stage" : "COLLSCAN",
+							"filter" : {
+								"c_acctbal" : {
+									"$gt" : 0
+								}
+							},
+							"nReturned" : 136308,
+							"executionTimeMillisEstimate" : 4319,
+							"works" : 150002,
+							"advanced" : 136308,
+							"needTime" : 13693,
+							"needYield" : 0,
+							"saveState" : 269,
+							"restoreState" : 269,
+							"isEOF" : 1,
+							"direction" : "forward",
+							"docsExamined" : 150000
+						}
+					},
+					"allPlansExecution" : [ ]
+				}
+			},
+			"nReturned" : NumberLong(136308),
+			"executionTimeMillisEstimate" : NumberLong(4783)
+		},
+		{
+			"$match" : {
+				"cntrycode" : {
+					"$in" : [
+						"10",
+						"15",
+						"17",
+						"21",
+						"22",
+						"25",
+						"30"
+					]
+				}
+			},
+			"nReturned" : NumberLong(37676),
+			"executionTimeMillisEstimate" : NumberLong(4834)
+		},
+		{
+			"$group" : {
+				"_id" : {
+					"$const" : null
+				},
+				"c_acctbal_avg" : {
+					"$avg" : "$c_acctbal"
+				}
+			},
+			"nReturned" : NumberLong(1),
+			"executionTimeMillisEstimate" : NumberLong(4854)
+		},
+		{
+			"$project" : {
+				"c_acctbal_avg" : true,
+				"_id" : false
+			},
+			"nReturned" : NumberLong(1),
+			"executionTimeMillisEstimate" : NumberLong(4854)
+		},
+		{
+			"$lookup" : {
+				"from" : "scale1",
+				"as" : "c_acctbals",
+				"let" : {
+					
+				},
+				"pipeline" : [
+					{
+						"$match" : {
+							"c_acctbal" : {
+								"$gt" : 0
+							},
+							"c_orders" : {
+								"$eq" : [ ]
+							}
+						}
+					},
+					{
+						"$project" : {
+							"_id" : 0,
+							"c_acctbal" : 1,
+							"cntrycode" : {
+								"$substr" : [
+									"$c_phone",
+									0,
+									2
+								]
+							}
+						}
+					},
+					{
+						"$match" : {
+							"cntrycode" : {
+								"$in" : [
+									"30",
+									"17",
+									"25",
+									"10",
+									"22",
+									"15",
+									"21"
+								]
+							}
+						}
+					}
+				],
+				"unwinding" : {
+					"preserveNullAndEmptyArrays" : false
+				}
+			},
+			"nReturned" : NumberLong(12568),
+			"executionTimeMillisEstimate" : NumberLong(5384)
+		},
+		{
+			"$match" : {
+				"$expr" : {
+					"$gt" : [
+						"$c_acctbals.c_acctbal",
+						"$c_acctbal_avg"
+					]
+				}
+			},
+			"nReturned" : NumberLong(6281),
+			"executionTimeMillisEstimate" : NumberLong(5384)
+		},
+		{
+			"$group" : {
+				"_id" : "$c_acctbals.cntrycode",
+				"numcust" : {
+					"$sum" : {
+						"$const" : 1
+					}
+				},
+				"totacctbal" : {
+					"$sum" : "$c_acctbals.c_acctbal"
+				}
+			},
+			"nReturned" : NumberLong(7),
+			"executionTimeMillisEstimate" : NumberLong(5394)
+		},
+		{
+			"$sort" : {
+				"sortKey" : {
+					"_id" : 1
+				}
+			},
+			"nReturned" : NumberLong(7),
+			"executionTimeMillisEstimate" : NumberLong(5394)
+		}
+	],
+	"serverInfo" : {
+		"host" : "mt-mongo-2",
+		"port" : 27012,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639021519, 2),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1639021519, 2)
+}
+
+

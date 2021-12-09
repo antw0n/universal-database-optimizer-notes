@@ -1,0 +1,355 @@
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("4936e45e-34c5-4813-bef3-c39e24cbc893") }
+MongoDB server version: 4.4.10
+{
+	"queryPlanner" : {
+		"plannerVersion" : 1,
+		"namespace" : "tpch_mongo_1c.scale1",
+		"indexFilterSet" : false,
+		"parsedQuery" : {
+			"c_acctbal" : {
+				"$lt" : -10
+			}
+		},
+		"optimizedPipeline" : true,
+		"winningPlan" : {
+			"stage" : "COLLSCAN",
+			"filter" : {
+				"c_acctbal" : {
+					"$lt" : -10
+				}
+			},
+			"direction" : "forward"
+		},
+		"rejectedPlans" : [ ]
+	},
+	"executionStats" : {
+		"executionSuccess" : true,
+		"nReturned" : 13559,
+		"executionTimeMillis" : 5584,
+		"totalKeysExamined" : 0,
+		"totalDocsExamined" : 150000,
+		"executionStages" : {
+			"stage" : "COLLSCAN",
+			"filter" : {
+				"c_acctbal" : {
+					"$lt" : -10
+				}
+			},
+			"nReturned" : 13559,
+			"executionTimeMillisEstimate" : 5563,
+			"works" : 150002,
+			"advanced" : 13559,
+			"needTime" : 136442,
+			"needYield" : 0,
+			"saveState" : 288,
+			"restoreState" : 288,
+			"isEOF" : 1,
+			"direction" : "forward",
+			"docsExamined" : 150000
+		},
+		"allPlansExecution" : [ ]
+	},
+	"serverInfo" : {
+		"host" : "mt-mongo-3",
+		"port" : 27013,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639018151, 2),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1639018151, 2)
+}
+
+
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("bfc77b02-f202-4c74-bf68-6c04bfd27212") }
+MongoDB server version: 4.4.10
+{
+	"queryPlanner" : {
+		"plannerVersion" : 1,
+		"namespace" : "tpch_mongo_1c.scale1",
+		"indexFilterSet" : false,
+		"parsedQuery" : {
+			"c_acctbal" : {
+				"$lt" : -10
+			}
+		},
+		"optimizedPipeline" : true,
+		"winningPlan" : {
+			"stage" : "COLLSCAN",
+			"filter" : {
+				"c_acctbal" : {
+					"$lt" : -10
+				}
+			},
+			"direction" : "forward"
+		},
+		"rejectedPlans" : [ ]
+	},
+	"executionStats" : {
+		"executionSuccess" : true,
+		"nReturned" : 13559,
+		"executionTimeMillis" : 9551,
+		"totalKeysExamined" : 0,
+		"totalDocsExamined" : 150000,
+		"executionStages" : {
+			"stage" : "COLLSCAN",
+			"filter" : {
+				"c_acctbal" : {
+					"$lt" : -10
+				}
+			},
+			"nReturned" : 13559,
+			"executionTimeMillisEstimate" : 9522,
+			"works" : 150002,
+			"advanced" : 13559,
+			"needTime" : 136442,
+			"needYield" : 0,
+			"saveState" : 504,
+			"restoreState" : 504,
+			"isEOF" : 1,
+			"direction" : "forward",
+			"docsExamined" : 150000
+		},
+		"allPlansExecution" : [ ]
+	},
+	"serverInfo" : {
+		"host" : "mt-mongo-1",
+		"port" : 27011,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639018195, 1),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1639018195, 1)
+}
+
+
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("aa1f2bb3-f004-42f0-9fd1-9715c09950d0") }
+MongoDB server version: 4.4.10
+{
+	"queryPlanner" : {
+		"plannerVersion" : 1,
+		"namespace" : "tpch_mongo_1c.scale1",
+		"indexFilterSet" : false,
+		"parsedQuery" : {
+			"c_acctbal" : {
+				"$lt" : -10
+			}
+		},
+		"optimizedPipeline" : true,
+		"winningPlan" : {
+			"stage" : "COLLSCAN",
+			"filter" : {
+				"c_acctbal" : {
+					"$lt" : -10
+				}
+			},
+			"direction" : "forward"
+		},
+		"rejectedPlans" : [ ]
+	},
+	"executionStats" : {
+		"executionSuccess" : true,
+		"nReturned" : 13559,
+		"executionTimeMillis" : 222,
+		"totalKeysExamined" : 0,
+		"totalDocsExamined" : 150000,
+		"executionStages" : {
+			"stage" : "COLLSCAN",
+			"filter" : {
+				"c_acctbal" : {
+					"$lt" : -10
+				}
+			},
+			"nReturned" : 13559,
+			"executionTimeMillisEstimate" : 36,
+			"works" : 150002,
+			"advanced" : 13559,
+			"needTime" : 136442,
+			"needYield" : 0,
+			"saveState" : 150,
+			"restoreState" : 150,
+			"isEOF" : 1,
+			"direction" : "forward",
+			"docsExamined" : 150000
+		},
+		"allPlansExecution" : [ ]
+	},
+	"serverInfo" : {
+		"host" : "mt-mongo-1",
+		"port" : 27011,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639018205, 1),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1639018205, 1)
+}
+
+
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("9c1a7023-f498-4464-9178-3806c47eccaa") }
+MongoDB server version: 4.4.10
+{
+	"queryPlanner" : {
+		"plannerVersion" : 1,
+		"namespace" : "tpch_mongo_1c.scale1",
+		"indexFilterSet" : false,
+		"parsedQuery" : {
+			"c_acctbal" : {
+				"$lt" : -10
+			}
+		},
+		"optimizedPipeline" : true,
+		"winningPlan" : {
+			"stage" : "COLLSCAN",
+			"filter" : {
+				"c_acctbal" : {
+					"$lt" : -10
+				}
+			},
+			"direction" : "forward"
+		},
+		"rejectedPlans" : [ ]
+	},
+	"executionStats" : {
+		"executionSuccess" : true,
+		"nReturned" : 13559,
+		"executionTimeMillis" : 173,
+		"totalKeysExamined" : 0,
+		"totalDocsExamined" : 150000,
+		"executionStages" : {
+			"stage" : "COLLSCAN",
+			"filter" : {
+				"c_acctbal" : {
+					"$lt" : -10
+				}
+			},
+			"nReturned" : 13559,
+			"executionTimeMillisEstimate" : 19,
+			"works" : 150002,
+			"advanced" : 13559,
+			"needTime" : 136442,
+			"needYield" : 0,
+			"saveState" : 150,
+			"restoreState" : 150,
+			"isEOF" : 1,
+			"direction" : "forward",
+			"docsExamined" : 150000
+		},
+		"allPlansExecution" : [ ]
+	},
+	"serverInfo" : {
+		"host" : "mt-mongo-1",
+		"port" : 27011,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639018215, 1),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1639018215, 1)
+}
+
+
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("ed2fab45-b0d2-46fd-b074-c6a59f7548bf") }
+MongoDB server version: 4.4.10
+{
+	"queryPlanner" : {
+		"plannerVersion" : 1,
+		"namespace" : "tpch_mongo_1c.scale1",
+		"indexFilterSet" : false,
+		"parsedQuery" : {
+			"c_acctbal" : {
+				"$lt" : -10
+			}
+		},
+		"optimizedPipeline" : true,
+		"winningPlan" : {
+			"stage" : "COLLSCAN",
+			"filter" : {
+				"c_acctbal" : {
+					"$lt" : -10
+				}
+			},
+			"direction" : "forward"
+		},
+		"rejectedPlans" : [ ]
+	},
+	"executionStats" : {
+		"executionSuccess" : true,
+		"nReturned" : 13559,
+		"executionTimeMillis" : 5823,
+		"totalKeysExamined" : 0,
+		"totalDocsExamined" : 150000,
+		"executionStages" : {
+			"stage" : "COLLSCAN",
+			"filter" : {
+				"c_acctbal" : {
+					"$lt" : -10
+				}
+			},
+			"nReturned" : 13559,
+			"executionTimeMillisEstimate" : 5771,
+			"works" : 150002,
+			"advanced" : 13559,
+			"needTime" : 136442,
+			"needYield" : 0,
+			"saveState" : 317,
+			"restoreState" : 317,
+			"isEOF" : 1,
+			"direction" : "forward",
+			"docsExamined" : 150000
+		},
+		"allPlansExecution" : [ ]
+	},
+	"serverInfo" : {
+		"host" : "mt-mongo-3",
+		"port" : 27013,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639018263, 2),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1639018263, 2)
+}
+
+
