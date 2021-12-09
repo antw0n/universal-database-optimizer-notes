@@ -1,8 +1,14 @@
-# Universal Database Optimizer Simulation Environment Notes
+# Notes
 
-This repository contains notes on installation and configuration of Universal Database Optimizer Simulation Environment:
+This repository contains notes on installation, configuration and execution of Universal Database Optimizer (UDO)
 
-1. [Virtualization](virtualization.md)
-2. [PostgreSQL](postgres.md)
-3. [MongoDB](mongo.md)
-4. [Python](python.md)
+Evaluation Environment:
+- [Virtualization](virtualization.md)
+- [PostgreSQL](postgres.md)
+- [MongoDB](mongo.md)
+- [Python](python.md)
+
+Execution:
+
+- [Configuration](configuration.md)
+- [Evaluation](evaluation.md)

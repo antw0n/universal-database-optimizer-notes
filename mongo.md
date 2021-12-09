@@ -4,7 +4,9 @@ This file contains notes on installation and configuration of MongoDB.
 
 # Packages
 
-The following packages were installed and later upgraded to version `4.10`
+The following packages were installed and later upgraded:
+- mongodb-org to `4.10`
+- mongodb-mms to `5.0.5`
 
 ```
 mongodb-mms/now 4.9.2.100.20210506T1323Z-1 amd64 [installed,local]
@@ -30,9 +32,9 @@ mongodb-org-database-tools-extra/focal 4.4.6 amd64
 
 ```
   
-The following development tools were applied
+The following development tools were applied:
 
-- insomnia 
+- Insomnia 
 - intellij-idea-ultimate 
 
 
@@ -91,7 +93,7 @@ Status: sudo systemctl status mongodb-mms.service
 Config list: ll /opt/mongodb/mms/conf/
 Enable (start on boot): sudo systemctl enable mongodb-mms.service
 ```
-Further details: [How to install MongoDB Ops Manager](https://docs.opsmanager.mongodb.com/current/tutorial/install-on-prem-with-deb-packages/)
+Further details: [How to install MongoDB Ops Manager ?](https://docs.opsmanager.mongodb.com/current/tutorial/install-on-prem-with-deb-packages/)
 
 ## SMTP
 
@@ -253,7 +255,7 @@ Set up Ops Manager Monitoring: Install the MongoDB Agent on your AppDB servers a
 
 1. New Replica Set
 2. Replica Set Id: mt-exp-rs-001
-3. Process Name: mt-exp-replica-001
+3. Process Name: mt-exp-rs-001
 4. Version: 4.4.10	
 5. Data Directory: `[vm-strg]`
 6. Log File: `[vm-strg]`/mongodb.log

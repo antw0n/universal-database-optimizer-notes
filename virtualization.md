@@ -2,15 +2,18 @@
 
 This file contains notes on installation and configuration of virtualization layer.
 
-**Sample Virtual Machines**
+**Host**  
+IP: 192.168.52.108
+
+**Virtual Machines**
 
 | Hostname        | IP              | Port  | 
 | --------------- |:---------------:| -----:|
 | mt-ops-manager  | 192.168.122.246 | 8080  |
 | mt-postgres     | 192.168.122.120 | 5432  |
-| mt-mongo-1      | 192.168.122.155 | 27017 |
-| mt-mongo-2      | 192.168.122.82  | 27017 |
-| mt-mongo-3      | 192.168.122.196 | 27017 |
+| mt-mongo-1      | 192.168.122.155 | 27011 |
+| mt-mongo-2      | 192.168.122.82  | 27012 |
+| mt-mongo-3      | 192.168.122.196 | 27013 |
 
 Further details:
 
@@ -106,6 +109,10 @@ SAVE:
 	sudo systemctl enable netfilter-persistent.service
 	sudo systemctl status netfilter-persistent.service
 	iptables-save >/etc/iptables/rules.v4
+	
+TEST:
+	nc -vvz 192.168.52.108 27011-27013
+	mongo --verbose --host mt-exp-rs-001/mt-mongo:27011,mt-mongo:27012,mt-mongo:27013
 ```
 Further details: 
  - [How to configure libvirt network?](https://wiki.libvirt.org/page/Networking)
