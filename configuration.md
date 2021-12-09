@@ -1,6 +1,6 @@
 # Configuration
 
-This file contains notes on the configuration under which of UDO is exeuted.
+This file contains notes on the configuration under which UDO is executed.
 
 **Default**
 
