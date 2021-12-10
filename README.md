@@ -1,6 +1,6 @@
 # Notes
 
-This repository contains notes on installation, configuration and execution of Universal Database Optimizer (UDO)
+This repository contains notes on installation, configuration and execution of Universal Database Optimizer (UDO).
 
 ## Evaluation Environment
 
