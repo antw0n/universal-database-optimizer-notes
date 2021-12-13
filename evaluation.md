@@ -361,39 +361,31 @@ Tuning time: 5.4964893358283575 hours
 
 Index Recommendation from MCTS according to metric 1:  
 ```js
-({'createIndexes': 'orders-lineitem', 'indexes': [{'key': {'o_custkey': 1}, 'name': 'idx_orders-lineitem_a', 'unique': False}]}, ['q3v1_mongo_s3.json', 'q3v2_mongo_s3.json'], 1500000)
 ({'createIndexes': 'orders-lineitem', 'indexes': [{'key': {'o_orderdate': 1}, 'name': 'idx_orders-lineitem_b', 'unique': False}]}, ['q3v1_mongo_s3.json', 'q3v2_mongo_s3.json'], 1500000)
-({'createIndexes': 'customer', 'indexes': [{'key': {'c_custkey': 1}, 'name': 'idx_customer_b', 'unique': False}]}, ['q22_mongo_s3.json', 'q3v1_mongo_s3.json', 'q3v2_mongo_s3.json'], 150000)
+({'createIndexes': 'orders-lineitem', 'indexes': [{'key': {'o_custkey': 1}, 'name': 'idx_orders-lineitem_a', 'unique': False}]}, ['q3v1_mongo_s3.json', 'q3v2_mongo_s3.json'], 1500000)
+({'createIndexes': 'customer', 'indexes': [{'key': {'c_custkey': 1, 'c_nationkey': 1, 'c_acctbal': 1, 'c_phone': 1}, 'name': 'idx_customer_m', 'unique': False}]}, ['q22_mongo_s3.json', 'q3v1_mongo_s3.json', 'q3v2_mongo_s3.json'], 150000)
 ({'createIndexes': 'customer', 'indexes': [{'key': {'c_name': 1}, 'name': 'idx_customer_h', 'unique': False}]}, ['q22_mongo_s3.json', 'q3v1_mongo_s3.json', 'q3v2_mongo_s3.json'], 150000)
-({'createIndexes': 'customer', 'indexes': [{'key': {'c_nationkey': 1}, 'name': 'idx_customer_a', 'unique': False}]}, ['q22_mongo_s3.json', 'q3v1_mongo_s3.json', 'q3v2_mongo_s3.json'], 150000)
-({'createIndexes': 'customer', 'indexes': [{'key': {'c_mktsegment': 1}, 'name': 'idx_customer_c', 'unique': False}]}, ['q22_mongo_s3.json', 'q3v1_mongo_s3.json', 'q3v2_mongo_s3.json'], 150000)
-({'createIndexes': 'customer', 'indexes': [{'key': {'c_phone': 1}, 'name': 'idx_customer_f', 'unique': False}]}, ['q22_mongo_s3.json', 'q3v1_mongo_s3.json', 'q3v2_mongo_s3.json'], 150000)
-({'createIndexes': 'customer', 'indexes': [{'key': {'c_acctbal': 1}, 'name': 'idx_customer_e', 'unique': False}]}, ['q22_mongo_s3.json', 'q3v1_mongo_s3.json', 'q3v2_mongo_s3.json'], 150000)
+({'createIndexes': 'customer', 'indexes': [{'key': {'c_mktsegment': 1}, 'name': 'idx_customer_c', 'unique': False}]}, ['q22_mongo_s3.json', 'q3v1_mongo_s3.json', 'q3v2_mongo_s3.json'], 150000)'q3v2_mongo_s3.json'], 150000)
 ```
 Index Recommendation from MCTS according to metric 2:  
 ```js
-({'createIndexes': 'orders-lineitem', 'indexes': [{'key': {'o_custkey': 1}, 'name': 'idx_orders-lineitem_a', 'unique': False}]}, ['q3v1_mongo_s3.json', 'q3v2_mongo_s3.json'], 1500000)
 ({'createIndexes': 'orders-lineitem', 'indexes': [{'key': {'o_orderdate': 1}, 'name': 'idx_orders-lineitem_b', 'unique': False}]}, ['q3v1_mongo_s3.json', 'q3v2_mongo_s3.json'], 1500000)
-({'createIndexes': 'customer', 'indexes': [{'key': {'c_custkey': 1}, 'name': 'idx_customer_b', 'unique': False}]}, ['q22_mongo_s3.json', 'q3v1_mongo_s3.json', 'q3v2_mongo_s3.json'], 150000)
+({'createIndexes': 'orders-lineitem', 'indexes': [{'key': {'o_custkey': 1}, 'name': 'idx_orders-lineitem_a', 'unique': False}]}, ['q3v1_mongo_s3.json', 'q3v2_mongo_s3.json'], 1500000)
+({'createIndexes': 'customer', 'indexes': [{'key': {'c_custkey': 1, 'c_nationkey': 1, 'c_acctbal': 1, 'c_phone': 1}, 'name': 'idx_customer_m', 'unique': False}]}, ['q22_mongo_s3.json', 'q3v1_mongo_s3.json', 'q3v2_mongo_s3.json'], 150000)
 ({'createIndexes': 'customer', 'indexes': [{'key': {'c_name': 1}, 'name': 'idx_customer_h', 'unique': False}]}, ['q22_mongo_s3.json', 'q3v1_mongo_s3.json', 'q3v2_mongo_s3.json'], 150000)
-({'createIndexes': 'customer', 'indexes': [{'key': {'c_nationkey': 1}, 'name': 'idx_customer_a', 'unique': False}]}, ['q22_mongo_s3.json', 'q3v1_mongo_s3.json', 'q3v2_mongo_s3.json'], 150000)
-({'createIndexes': 'customer', 'indexes': [{'key': {'c_mktsegment': 1}, 'name': 'idx_customer_c', 'unique': False}]}, ['q22_mongo_s3.json', 'q3v1_mongo_s3.json', 'q3v2_mongo_s3.json'], 150000)
-({'createIndexes': 'customer', 'indexes': [{'key': {'c_phone': 1}, 'name': 'idx_customer_f', 'unique': False}]}, ['q22_mongo_s3.json', 'q3v1_mongo_s3.json', 'q3v2_mongo_s3.json'], 150000)
-({'createIndexes': 'customer', 'indexes': [{'key': {'c_acctbal': 1}, 'name': 'idx_customer_e', 'unique': False}]}, ['q22_mongo_s3.json', 'q3v1_mongo_s3.json', 'q3v2_mongo_s3.json'], 150000)
+({'createIndexes': 'customer', 'indexes': [{'key': {'c_mktsegment': 1}, 'name': 'idx_customer_c', 'unique': False}]}, ['q22_mongo_s3.json', 'q3v1_mongo_s3.json', 'q3v2_mongo_s3.json'], 150000)'q3v2_mongo_s3.json'], 150000)
 ```
 System Parameter Recommendation from MCTS according to metric 1:  
 ```js
 {'wiredTigerEngineRuntimeConfig': 'cache_size=3G'}
-{'wiredTigerMaxCacheOverflowSizeGB': 1}
-{'wiredTigerConcurrentWriteTransactions': 512}
-{'cursorTimeoutMillis': 300000}
+{'wiredTigerConcurrentWriteTransactions': 256}
 ```
 System Parameter Recommendation form MCTS according to metric 2:  
 ```js
-{'wiredTigerEngineRuntimeConfig': 'cache_size=3G'}
-{'cursorTimeoutMillis': 300000}
-{'wiredTigerConcurrentWriteTransactions': 512}
-{'wiredTigerMaxCacheOverflowSizeGB': 1}
-{'maxIndexBuildMemoryUsageMegabytes': 3000}
 {'wiredTigerConcurrentReadTransactions': 512}
+{'cursorTimeoutMillis': 200000}
+{'wiredTigerMaxCacheOverflowSizeGB': 2}
+{'wiredTigerEngineRuntimeConfig': 'cache_size=3G'}
+{'wiredTigerConcurrentWriteTransactions': 512}
+{'maxIndexBuildMemoryUsageMegabytes': 2000}
 ```
