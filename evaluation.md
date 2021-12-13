@@ -219,7 +219,7 @@ Action space: 22
 Index state space: 16  
 Parameter state space: 729  
 
-Tuning time: 1.0724382011095683 hours  
+Tuning time: 1.0021706208917829 hours  
 
 **Results**
 
@@ -355,7 +355,7 @@ Action space: 34
 Index state space: 65536  
 Parameter state space: 729  
 
-Tuning time: 5.4964893358283575 hours  
+Tuning time: 2.406712626285023 hours  
 
 **Results**
 
