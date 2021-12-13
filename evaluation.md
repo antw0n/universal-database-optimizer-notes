@@ -158,7 +158,7 @@ Index Recommendation from MCTS according to metric 1:
 ```js
 ({'createIndexes': 'orders-lineitem', 'indexes': [{'key': {'o_custkey': 1}, 'name': 'idx_orders-lineitem_a', 'unique': False}]}, ['q3v2_mongo_s3.json'], 1500000)
 ({'createIndexes': 'customer', 'indexes': [{'key': {'c_nationkey': 1, 'c_custkey': 1}, 'name': 'idx_customer_d', 'unique': False}]}, ['q3v2_mongo_s3.json'], 150000)
-{'createIndexes': 'customer', 'indexes': [{'key': {'c_mktsegment': 1}, 'name': 'idx_customer_c', 'unique': False}]}, ['q3v2_mongo_s3.json'], 150000)
+({'createIndexes': 'customer', 'indexes': [{'key': {'c_mktsegment': 1}, 'name': 'idx_customer_c', 'unique': False}]}, ['q3v2_mongo_s3.json'], 150000)
 ({'createIndexes': 'orders-lineitem', 'indexes': [{'key': {'o_orderdate': 1}, 'name': 'idx_orders-lineitem_b', 'unique': False}]}, ['q3v2_mongo_s3.json'], 1500000)
 ({'createIndexes': 'customer', 'indexes': [{'key': {'c_acctbal': 1}, 'name': 'idx_customer_e', 'unique': False}]}, ['q3v2_mongo_s3.json'], 150000)
 ({'createIndexes': 'customer', 'indexes': [{'key': {'c_phone': 1}, 'name': 'idx_customer_f', 'unique': False}]}, ['q3v2_mongo_s3.json'], 150000)
@@ -169,7 +169,7 @@ Index Recommendation from MCTS according to metric 2:
 ```js
 ({'createIndexes': 'orders-lineitem', 'indexes': [{'key': {'o_custkey': 1}, 'name': 'idx_orders-lineitem_a', 'unique': False}]}, ['q3v2_mongo_s3.json'], 1500000)
 ({'createIndexes': 'customer', 'indexes': [{'key': {'c_nationkey': 1, 'c_custkey': 1}, 'name': 'idx_customer_d', 'unique': False}]}, ['q3v2_mongo_s3.json'], 150000)
-{'createIndexes': 'customer', 'indexes': [{'key': {'c_mktsegment': 1}, 'name': 'idx_customer_c', 'unique': False}]}, ['q3v2_mongo_s3.json'], 150000)
+({'createIndexes': 'customer', 'indexes': [{'key': {'c_mktsegment': 1}, 'name': 'idx_customer_c', 'unique': False}]}, ['q3v2_mongo_s3.json'], 150000)
 ({'createIndexes': 'orders-lineitem', 'indexes': [{'key': {'o_orderdate': 1}, 'name': 'idx_orders-lineitem_b', 'unique': False}]}, ['q3v2_mongo_s3.json'], 1500000)
 ({'createIndexes': 'customer', 'indexes': [{'key': {'c_acctbal': 1}, 'name': 'idx_customer_e', 'unique': False}]}, ['q3v2_mongo_s3.json'], 150000)
 ({'createIndexes': 'customer', 'indexes': [{'key': {'c_phone': 1}, 'name': 'idx_customer_f', 'unique': False}]}, ['q3v2_mongo_s3.json'], 150000)
