@@ -1,15 +1,15 @@
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("40474902-96c4-4a1a-8c6e-7bdc7be8f0af") }
+Implicit session: session { "id" : UUID("1428609c-12a5-4e29-a77d-0c9f84592ff8") }
 MongoDB server version: 4.4.10
 uncaught exception: Error: explain failed: {
-	"operationTime" : Timestamp(1639039285, 1),
+	"operationTime" : Timestamp(1639498587, 1),
 	"ok" : 0,
-	"errmsg" : "operation exceeded time limit",
+	"errmsg" : "Error in $cursor stage :: caused by :: operation exceeded time limit",
 	"code" : 50,
 	"codeName" : "MaxTimeMSExpired",
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639039285, 1),
+		"clusterTime" : Timestamp(1639498587, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
@@ -26,16 +26,16 @@ exiting with code -3
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("ed07bef6-dd90-45f8-91a8-1dda57b25edf") }
+Implicit session: session { "id" : UUID("efe82390-0134-4670-96b6-a1e40fb36998") }
 MongoDB server version: 4.4.10
 uncaught exception: Error: explain failed: {
-	"operationTime" : Timestamp(1639039719, 1),
+	"operationTime" : Timestamp(1639499053, 1),
 	"ok" : 0,
 	"errmsg" : "operation exceeded time limit",
 	"code" : 50,
 	"codeName" : "MaxTimeMSExpired",
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639039719, 1),
+		"clusterTime" : Timestamp(1639499053, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
@@ -52,16 +52,16 @@ exiting with code -3
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("792df5ad-7d37-44fe-9f73-da42b894df38") }
+Implicit session: session { "id" : UUID("0790d928-8d79-4dfb-998f-e66d32a6087a") }
 MongoDB server version: 4.4.10
 uncaught exception: Error: explain failed: {
-	"operationTime" : Timestamp(1639040134, 1),
+	"operationTime" : Timestamp(1639499522, 1),
 	"ok" : 0,
 	"errmsg" : "operation exceeded time limit",
 	"code" : 50,
 	"codeName" : "MaxTimeMSExpired",
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639040134, 1),
+		"clusterTime" : Timestamp(1639499522, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
@@ -78,16 +78,16 @@ exiting with code -3
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("daa56635-5fdb-4a8a-88d6-8dfadc5c6a0b") }
+Implicit session: session { "id" : UUID("a70e3e5d-4c17-4af1-8b8b-e5d263202888") }
 MongoDB server version: 4.4.10
 uncaught exception: Error: explain failed: {
-	"operationTime" : Timestamp(1639040554, 1),
+	"operationTime" : Timestamp(1639499993, 1),
 	"ok" : 0,
 	"errmsg" : "operation exceeded time limit",
 	"code" : 50,
 	"codeName" : "MaxTimeMSExpired",
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639040554, 1),
+		"clusterTime" : Timestamp(1639499993, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
@@ -104,16 +104,16 @@ exiting with code -3
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("d3d79b2f-fcde-49ba-91bb-6017170466cb") }
+Implicit session: session { "id" : UUID("192cb089-33d3-44c4-a936-d5af540424d6") }
 MongoDB server version: 4.4.10
 uncaught exception: Error: explain failed: {
-	"operationTime" : Timestamp(1639040966, 1),
+	"operationTime" : Timestamp(1639500460, 1),
 	"ok" : 0,
 	"errmsg" : "operation exceeded time limit",
 	"code" : 50,
 	"codeName" : "MaxTimeMSExpired",
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639040966, 1),
+		"clusterTime" : Timestamp(1639500460, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)

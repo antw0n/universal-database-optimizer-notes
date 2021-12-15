@@ -1,1100 +1,130 @@
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("8cbbc96a-b5e2-44a0-a250-04a4194bad16") }
+Implicit session: session { "id" : UUID("2f077beb-98c0-40ed-af1e-05fcf43db456") }
 MongoDB server version: 4.4.10
-{
-	"stages" : [
-		{
-			"$cursor" : {
-				"queryPlanner" : {
-					"plannerVersion" : 1,
-					"namespace" : "tpch_mongo_3c.orders",
-					"indexFilterSet" : false,
-					"parsedQuery" : {
-						"$and" : [
-							{
-								"o_orderdate" : {
-									"$lt" : ISODate("1992-04-01T00:00:00Z")
-								}
-							},
-							{
-								"o_orderdate" : {
-									"$gte" : ISODate("1992-01-01T00:00:00Z")
-								}
-							}
-						]
-					},
-					"queryHash" : "9DFA955F",
-					"planCacheKey" : "07D0F9DF",
-					"winningPlan" : {
-						"stage" : "PROJECTION_SIMPLE",
-						"transformBy" : {
-							"_id" : 1,
-							"o_lineitems" : 1,
-							"o_orderpriority" : 1
-						},
-						"inputStage" : {
-							"stage" : "FETCH",
-							"inputStage" : {
-								"stage" : "IXSCAN",
-								"keyPattern" : {
-									"o_orderdate" : 1
-								},
-								"indexName" : "idx_o_orderdate",
-								"isMultiKey" : false,
-								"multiKeyPaths" : {
-									"o_orderdate" : [ ]
-								},
-								"isUnique" : false,
-								"isSparse" : false,
-								"isPartial" : false,
-								"indexVersion" : 2,
-								"direction" : "forward",
-								"indexBounds" : {
-									"o_orderdate" : [
-										"[new Date(694224000000), new Date(702086400000))"
-									]
-								}
-							}
-						}
-					},
-					"rejectedPlans" : [ ]
-				},
-				"executionStats" : {
-					"executionSuccess" : true,
-					"nReturned" : 56741,
-					"executionTimeMillis" : 12770,
-					"totalKeysExamined" : 56741,
-					"totalDocsExamined" : 56741,
-					"executionStages" : {
-						"stage" : "PROJECTION_SIMPLE",
-						"nReturned" : 56741,
-						"executionTimeMillisEstimate" : 523,
-						"works" : 56742,
-						"advanced" : 56741,
-						"needTime" : 0,
-						"needYield" : 0,
-						"saveState" : 67,
-						"restoreState" : 67,
-						"isEOF" : 1,
-						"transformBy" : {
-							"_id" : 1,
-							"o_lineitems" : 1,
-							"o_orderpriority" : 1
-						},
-						"inputStage" : {
-							"stage" : "FETCH",
-							"nReturned" : 56741,
-							"executionTimeMillisEstimate" : 497,
-							"works" : 56742,
-							"advanced" : 56741,
-							"needTime" : 0,
-							"needYield" : 0,
-							"saveState" : 67,
-							"restoreState" : 67,
-							"isEOF" : 1,
-							"docsExamined" : 56741,
-							"alreadyHasObj" : 0,
-							"inputStage" : {
-								"stage" : "IXSCAN",
-								"nReturned" : 56741,
-								"executionTimeMillisEstimate" : 35,
-								"works" : 56742,
-								"advanced" : 56741,
-								"needTime" : 0,
-								"needYield" : 0,
-								"saveState" : 67,
-								"restoreState" : 67,
-								"isEOF" : 1,
-								"keyPattern" : {
-									"o_orderdate" : 1
-								},
-								"indexName" : "idx_o_orderdate",
-								"isMultiKey" : false,
-								"multiKeyPaths" : {
-									"o_orderdate" : [ ]
-								},
-								"isUnique" : false,
-								"isSparse" : false,
-								"isPartial" : false,
-								"indexVersion" : 2,
-								"direction" : "forward",
-								"indexBounds" : {
-									"o_orderdate" : [
-										"[new Date(694224000000), new Date(702086400000))"
-									]
-								},
-								"keysExamined" : 56741,
-								"seeks" : 1,
-								"dupsTested" : 0,
-								"dupsDropped" : 0
-							}
-						}
-					},
-					"allPlansExecution" : [ ]
-				}
-			},
-			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(757)
-		},
-		{
-			"$lookup" : {
-				"from" : "lineitem",
-				"as" : "o_lineitems",
-				"localField" : "_id",
-				"foreignField" : "_id.l_orderkey"
-			},
-			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(12671)
-		},
-		{
-			"$project" : {
-				"_id" : true,
-				"orderpriority" : "$o_orderpriority",
-				"lineitems" : {
-					"$filter" : {
-						"input" : "$o_lineitems",
-						"as" : "l",
-						"cond" : {
-							"$lt" : [
-								"$$l.l_commitdate",
-								"$$l.l_receiptdate"
-							]
-						}
-					}
-				}
-			},
-			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(12715)
-		},
-		{
-			"$match" : {
-				"lineitems" : {
-					"$not" : {
-						"$eq" : [ ]
-					}
-				}
-			},
-			"nReturned" : NumberLong(52002),
-			"executionTimeMillisEstimate" : NumberLong(12758)
-		},
-		{
-			"$group" : {
-				"_id" : "$orderpriority",
-				"order_count" : {
-					"$sum" : {
-						"$const" : 1
-					}
-				}
-			},
-			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(12766)
-		},
-		{
-			"$sort" : {
-				"sortKey" : {
-					"_id" : 1
-				}
-			},
-			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(12766)
-		}
-	],
-	"serverInfo" : {
-		"host" : "mt-mongo-1",
-		"port" : 27011,
-		"version" : "4.4.10",
-		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
-	},
-	"ok" : 1,
+uncaught exception: Error: explain failed: {
+	"operationTime" : Timestamp(1639477790, 1),
+	"ok" : 0,
+	"errmsg" : "Error in $cursor stage :: caused by :: operation exceeded time limit",
+	"code" : 50,
+	"codeName" : "MaxTimeMSExpired",
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639020588, 1),
+		"clusterTime" : Timestamp(1639477790, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
-	},
-	"operationTime" : Timestamp(1639020588, 1)
-}
+	}
+} :
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+throwOrReturn@src/mongo/shell/explainable.js:25:19
+constructor/this.aggregate@src/mongo/shell/explainable.js:125:24
+@/home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/tpch_experiment/mongo/s2/q4_mongo_s2.js:1:11
+failed to load: /home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/tpch_experiment/mongo/s2/q4_mongo_s2.js
+exiting with code -3
 
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("b72e0bbc-393b-4b75-8d93-930f2d595f68") }
+Implicit session: session { "id" : UUID("bc0f104b-f17c-4b0f-b0fd-63818b3c4dd1") }
 MongoDB server version: 4.4.10
-{
-	"stages" : [
-		{
-			"$cursor" : {
-				"queryPlanner" : {
-					"plannerVersion" : 1,
-					"namespace" : "tpch_mongo_3c.orders",
-					"indexFilterSet" : false,
-					"parsedQuery" : {
-						"$and" : [
-							{
-								"o_orderdate" : {
-									"$lt" : ISODate("1992-04-01T00:00:00Z")
-								}
-							},
-							{
-								"o_orderdate" : {
-									"$gte" : ISODate("1992-01-01T00:00:00Z")
-								}
-							}
-						]
-					},
-					"queryHash" : "9DFA955F",
-					"planCacheKey" : "07D0F9DF",
-					"winningPlan" : {
-						"stage" : "PROJECTION_SIMPLE",
-						"transformBy" : {
-							"_id" : 1,
-							"o_lineitems" : 1,
-							"o_orderpriority" : 1
-						},
-						"inputStage" : {
-							"stage" : "FETCH",
-							"inputStage" : {
-								"stage" : "IXSCAN",
-								"keyPattern" : {
-									"o_orderdate" : 1
-								},
-								"indexName" : "idx_o_orderdate",
-								"isMultiKey" : false,
-								"multiKeyPaths" : {
-									"o_orderdate" : [ ]
-								},
-								"isUnique" : false,
-								"isSparse" : false,
-								"isPartial" : false,
-								"indexVersion" : 2,
-								"direction" : "forward",
-								"indexBounds" : {
-									"o_orderdate" : [
-										"[new Date(694224000000), new Date(702086400000))"
-									]
-								}
-							}
-						}
-					},
-					"rejectedPlans" : [ ]
-				},
-				"executionStats" : {
-					"executionSuccess" : true,
-					"nReturned" : 56741,
-					"executionTimeMillis" : 9486,
-					"totalKeysExamined" : 56741,
-					"totalDocsExamined" : 56741,
-					"executionStages" : {
-						"stage" : "PROJECTION_SIMPLE",
-						"nReturned" : 56741,
-						"executionTimeMillisEstimate" : 261,
-						"works" : 56742,
-						"advanced" : 56741,
-						"needTime" : 0,
-						"needYield" : 0,
-						"saveState" : 61,
-						"restoreState" : 61,
-						"isEOF" : 1,
-						"transformBy" : {
-							"_id" : 1,
-							"o_lineitems" : 1,
-							"o_orderpriority" : 1
-						},
-						"inputStage" : {
-							"stage" : "FETCH",
-							"nReturned" : 56741,
-							"executionTimeMillisEstimate" : 238,
-							"works" : 56742,
-							"advanced" : 56741,
-							"needTime" : 0,
-							"needYield" : 0,
-							"saveState" : 61,
-							"restoreState" : 61,
-							"isEOF" : 1,
-							"docsExamined" : 56741,
-							"alreadyHasObj" : 0,
-							"inputStage" : {
-								"stage" : "IXSCAN",
-								"nReturned" : 56741,
-								"executionTimeMillisEstimate" : 15,
-								"works" : 56742,
-								"advanced" : 56741,
-								"needTime" : 0,
-								"needYield" : 0,
-								"saveState" : 61,
-								"restoreState" : 61,
-								"isEOF" : 1,
-								"keyPattern" : {
-									"o_orderdate" : 1
-								},
-								"indexName" : "idx_o_orderdate",
-								"isMultiKey" : false,
-								"multiKeyPaths" : {
-									"o_orderdate" : [ ]
-								},
-								"isUnique" : false,
-								"isSparse" : false,
-								"isPartial" : false,
-								"indexVersion" : 2,
-								"direction" : "forward",
-								"indexBounds" : {
-									"o_orderdate" : [
-										"[new Date(694224000000), new Date(702086400000))"
-									]
-								},
-								"keysExamined" : 56741,
-								"seeks" : 1,
-								"dupsTested" : 0,
-								"dupsDropped" : 0
-							}
-						}
-					},
-					"allPlansExecution" : [ ]
-				}
-			},
-			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(438)
-		},
-		{
-			"$lookup" : {
-				"from" : "lineitem",
-				"as" : "o_lineitems",
-				"localField" : "_id",
-				"foreignField" : "_id.l_orderkey"
-			},
-			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(9388)
-		},
-		{
-			"$project" : {
-				"_id" : true,
-				"orderpriority" : "$o_orderpriority",
-				"lineitems" : {
-					"$filter" : {
-						"input" : "$o_lineitems",
-						"as" : "l",
-						"cond" : {
-							"$lt" : [
-								"$$l.l_commitdate",
-								"$$l.l_receiptdate"
-							]
-						}
-					}
-				}
-			},
-			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(9427)
-		},
-		{
-			"$match" : {
-				"lineitems" : {
-					"$not" : {
-						"$eq" : [ ]
-					}
-				}
-			},
-			"nReturned" : NumberLong(52002),
-			"executionTimeMillisEstimate" : NumberLong(9478)
-		},
-		{
-			"$group" : {
-				"_id" : "$orderpriority",
-				"order_count" : {
-					"$sum" : {
-						"$const" : 1
-					}
-				}
-			},
-			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(9485)
-		},
-		{
-			"$sort" : {
-				"sortKey" : {
-					"_id" : 1
-				}
-			},
-			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(9485)
-		}
-	],
-	"serverInfo" : {
-		"host" : "mt-mongo-2",
-		"port" : 27012,
-		"version" : "4.4.10",
-		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
-	},
-	"ok" : 1,
+uncaught exception: Error: explain failed: {
+	"operationTime" : Timestamp(1639477946, 1),
+	"ok" : 0,
+	"errmsg" : "Error in $cursor stage :: caused by :: operation exceeded time limit",
+	"code" : 50,
+	"codeName" : "MaxTimeMSExpired",
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639020652, 3),
+		"clusterTime" : Timestamp(1639477946, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
-	},
-	"operationTime" : Timestamp(1639020652, 3)
-}
+	}
+} :
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+throwOrReturn@src/mongo/shell/explainable.js:25:19
+constructor/this.aggregate@src/mongo/shell/explainable.js:125:24
+@/home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/tpch_experiment/mongo/s2/q4_mongo_s2.js:1:11
+failed to load: /home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/tpch_experiment/mongo/s2/q4_mongo_s2.js
+exiting with code -3
 
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("208f4312-1860-4ca5-88b4-f05ed45f8f12") }
+Implicit session: session { "id" : UUID("08c2c395-1260-41b5-b471-d8eb9688312d") }
 MongoDB server version: 4.4.10
-{
-	"stages" : [
-		{
-			"$cursor" : {
-				"queryPlanner" : {
-					"plannerVersion" : 1,
-					"namespace" : "tpch_mongo_3c.orders",
-					"indexFilterSet" : false,
-					"parsedQuery" : {
-						"$and" : [
-							{
-								"o_orderdate" : {
-									"$lt" : ISODate("1992-04-01T00:00:00Z")
-								}
-							},
-							{
-								"o_orderdate" : {
-									"$gte" : ISODate("1992-01-01T00:00:00Z")
-								}
-							}
-						]
-					},
-					"queryHash" : "9DFA955F",
-					"planCacheKey" : "07D0F9DF",
-					"winningPlan" : {
-						"stage" : "PROJECTION_SIMPLE",
-						"transformBy" : {
-							"_id" : 1,
-							"o_lineitems" : 1,
-							"o_orderpriority" : 1
-						},
-						"inputStage" : {
-							"stage" : "FETCH",
-							"inputStage" : {
-								"stage" : "IXSCAN",
-								"keyPattern" : {
-									"o_orderdate" : 1
-								},
-								"indexName" : "idx_o_orderdate",
-								"isMultiKey" : false,
-								"multiKeyPaths" : {
-									"o_orderdate" : [ ]
-								},
-								"isUnique" : false,
-								"isSparse" : false,
-								"isPartial" : false,
-								"indexVersion" : 2,
-								"direction" : "forward",
-								"indexBounds" : {
-									"o_orderdate" : [
-										"[new Date(694224000000), new Date(702086400000))"
-									]
-								}
-							}
-						}
-					},
-					"rejectedPlans" : [ ]
-				},
-				"executionStats" : {
-					"executionSuccess" : true,
-					"nReturned" : 56741,
-					"executionTimeMillis" : 11672,
-					"totalKeysExamined" : 56741,
-					"totalDocsExamined" : 56741,
-					"executionStages" : {
-						"stage" : "PROJECTION_SIMPLE",
-						"nReturned" : 56741,
-						"executionTimeMillisEstimate" : 460,
-						"works" : 56742,
-						"advanced" : 56741,
-						"needTime" : 0,
-						"needYield" : 0,
-						"saveState" : 65,
-						"restoreState" : 65,
-						"isEOF" : 1,
-						"transformBy" : {
-							"_id" : 1,
-							"o_lineitems" : 1,
-							"o_orderpriority" : 1
-						},
-						"inputStage" : {
-							"stage" : "FETCH",
-							"nReturned" : 56741,
-							"executionTimeMillisEstimate" : 440,
-							"works" : 56742,
-							"advanced" : 56741,
-							"needTime" : 0,
-							"needYield" : 0,
-							"saveState" : 65,
-							"restoreState" : 65,
-							"isEOF" : 1,
-							"docsExamined" : 56741,
-							"alreadyHasObj" : 0,
-							"inputStage" : {
-								"stage" : "IXSCAN",
-								"nReturned" : 56741,
-								"executionTimeMillisEstimate" : 43,
-								"works" : 56742,
-								"advanced" : 56741,
-								"needTime" : 0,
-								"needYield" : 0,
-								"saveState" : 65,
-								"restoreState" : 65,
-								"isEOF" : 1,
-								"keyPattern" : {
-									"o_orderdate" : 1
-								},
-								"indexName" : "idx_o_orderdate",
-								"isMultiKey" : false,
-								"multiKeyPaths" : {
-									"o_orderdate" : [ ]
-								},
-								"isUnique" : false,
-								"isSparse" : false,
-								"isPartial" : false,
-								"indexVersion" : 2,
-								"direction" : "forward",
-								"indexBounds" : {
-									"o_orderdate" : [
-										"[new Date(694224000000), new Date(702086400000))"
-									]
-								},
-								"keysExamined" : 56741,
-								"seeks" : 1,
-								"dupsTested" : 0,
-								"dupsDropped" : 0
-							}
-						}
-					},
-					"allPlansExecution" : [ ]
-				}
-			},
-			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(688)
-		},
-		{
-			"$lookup" : {
-				"from" : "lineitem",
-				"as" : "o_lineitems",
-				"localField" : "_id",
-				"foreignField" : "_id.l_orderkey"
-			},
-			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(11557)
-		},
-		{
-			"$project" : {
-				"_id" : true,
-				"orderpriority" : "$o_orderpriority",
-				"lineitems" : {
-					"$filter" : {
-						"input" : "$o_lineitems",
-						"as" : "l",
-						"cond" : {
-							"$lt" : [
-								"$$l.l_commitdate",
-								"$$l.l_receiptdate"
-							]
-						}
-					}
-				}
-			},
-			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(11601)
-		},
-		{
-			"$match" : {
-				"lineitems" : {
-					"$not" : {
-						"$eq" : [ ]
-					}
-				}
-			},
-			"nReturned" : NumberLong(52002),
-			"executionTimeMillisEstimate" : NumberLong(11657)
-		},
-		{
-			"$group" : {
-				"_id" : "$orderpriority",
-				"order_count" : {
-					"$sum" : {
-						"$const" : 1
-					}
-				}
-			},
-			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(11669)
-		},
-		{
-			"$sort" : {
-				"sortKey" : {
-					"_id" : 1
-				}
-			},
-			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(11669)
-		}
-	],
-	"serverInfo" : {
-		"host" : "mt-mongo-1",
-		"port" : 27011,
-		"version" : "4.4.10",
-		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
-	},
-	"ok" : 1,
+uncaught exception: Error: explain failed: {
+	"operationTime" : Timestamp(1639478107, 1),
+	"ok" : 0,
+	"errmsg" : "Error in $cursor stage :: caused by :: operation exceeded time limit",
+	"code" : 50,
+	"codeName" : "MaxTimeMSExpired",
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639020734, 3),
+		"clusterTime" : Timestamp(1639478107, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
-	},
-	"operationTime" : Timestamp(1639020734, 3)
-}
+	}
+} :
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+throwOrReturn@src/mongo/shell/explainable.js:25:19
+constructor/this.aggregate@src/mongo/shell/explainable.js:125:24
+@/home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/tpch_experiment/mongo/s2/q4_mongo_s2.js:1:11
+failed to load: /home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/tpch_experiment/mongo/s2/q4_mongo_s2.js
+exiting with code -3
 
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("4a8134c3-17b9-4c9d-b34c-0d0be81bfa08") }
+Implicit session: session { "id" : UUID("ddd6b64f-7ec1-4c1f-90f0-a7d88be883de") }
 MongoDB server version: 4.4.10
-{
-	"stages" : [
-		{
-			"$cursor" : {
-				"queryPlanner" : {
-					"plannerVersion" : 1,
-					"namespace" : "tpch_mongo_3c.orders",
-					"indexFilterSet" : false,
-					"parsedQuery" : {
-						"$and" : [
-							{
-								"o_orderdate" : {
-									"$lt" : ISODate("1992-04-01T00:00:00Z")
-								}
-							},
-							{
-								"o_orderdate" : {
-									"$gte" : ISODate("1992-01-01T00:00:00Z")
-								}
-							}
-						]
-					},
-					"queryHash" : "9DFA955F",
-					"planCacheKey" : "07D0F9DF",
-					"winningPlan" : {
-						"stage" : "PROJECTION_SIMPLE",
-						"transformBy" : {
-							"_id" : 1,
-							"o_lineitems" : 1,
-							"o_orderpriority" : 1
-						},
-						"inputStage" : {
-							"stage" : "FETCH",
-							"inputStage" : {
-								"stage" : "IXSCAN",
-								"keyPattern" : {
-									"o_orderdate" : 1
-								},
-								"indexName" : "idx_o_orderdate",
-								"isMultiKey" : false,
-								"multiKeyPaths" : {
-									"o_orderdate" : [ ]
-								},
-								"isUnique" : false,
-								"isSparse" : false,
-								"isPartial" : false,
-								"indexVersion" : 2,
-								"direction" : "forward",
-								"indexBounds" : {
-									"o_orderdate" : [
-										"[new Date(694224000000), new Date(702086400000))"
-									]
-								}
-							}
-						}
-					},
-					"rejectedPlans" : [ ]
-				},
-				"executionStats" : {
-					"executionSuccess" : true,
-					"nReturned" : 56741,
-					"executionTimeMillis" : 10280,
-					"totalKeysExamined" : 56741,
-					"totalDocsExamined" : 56741,
-					"executionStages" : {
-						"stage" : "PROJECTION_SIMPLE",
-						"nReturned" : 56741,
-						"executionTimeMillisEstimate" : 396,
-						"works" : 56742,
-						"advanced" : 56741,
-						"needTime" : 0,
-						"needYield" : 0,
-						"saveState" : 62,
-						"restoreState" : 62,
-						"isEOF" : 1,
-						"transformBy" : {
-							"_id" : 1,
-							"o_lineitems" : 1,
-							"o_orderpriority" : 1
-						},
-						"inputStage" : {
-							"stage" : "FETCH",
-							"nReturned" : 56741,
-							"executionTimeMillisEstimate" : 365,
-							"works" : 56742,
-							"advanced" : 56741,
-							"needTime" : 0,
-							"needYield" : 0,
-							"saveState" : 62,
-							"restoreState" : 62,
-							"isEOF" : 1,
-							"docsExamined" : 56741,
-							"alreadyHasObj" : 0,
-							"inputStage" : {
-								"stage" : "IXSCAN",
-								"nReturned" : 56741,
-								"executionTimeMillisEstimate" : 22,
-								"works" : 56742,
-								"advanced" : 56741,
-								"needTime" : 0,
-								"needYield" : 0,
-								"saveState" : 62,
-								"restoreState" : 62,
-								"isEOF" : 1,
-								"keyPattern" : {
-									"o_orderdate" : 1
-								},
-								"indexName" : "idx_o_orderdate",
-								"isMultiKey" : false,
-								"multiKeyPaths" : {
-									"o_orderdate" : [ ]
-								},
-								"isUnique" : false,
-								"isSparse" : false,
-								"isPartial" : false,
-								"indexVersion" : 2,
-								"direction" : "forward",
-								"indexBounds" : {
-									"o_orderdate" : [
-										"[new Date(694224000000), new Date(702086400000))"
-									]
-								},
-								"keysExamined" : 56741,
-								"seeks" : 1,
-								"dupsTested" : 0,
-								"dupsDropped" : 0
-							}
-						}
-					},
-					"allPlansExecution" : [ ]
-				}
-			},
-			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(610)
-		},
-		{
-			"$lookup" : {
-				"from" : "lineitem",
-				"as" : "o_lineitems",
-				"localField" : "_id",
-				"foreignField" : "_id.l_orderkey"
-			},
-			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(10242)
-		},
-		{
-			"$project" : {
-				"_id" : true,
-				"orderpriority" : "$o_orderpriority",
-				"lineitems" : {
-					"$filter" : {
-						"input" : "$o_lineitems",
-						"as" : "l",
-						"cond" : {
-							"$lt" : [
-								"$$l.l_commitdate",
-								"$$l.l_receiptdate"
-							]
-						}
-					}
-				}
-			},
-			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(10255)
-		},
-		{
-			"$match" : {
-				"lineitems" : {
-					"$not" : {
-						"$eq" : [ ]
-					}
-				}
-			},
-			"nReturned" : NumberLong(52002),
-			"executionTimeMillisEstimate" : NumberLong(10271)
-		},
-		{
-			"$group" : {
-				"_id" : "$orderpriority",
-				"order_count" : {
-					"$sum" : {
-						"$const" : 1
-					}
-				}
-			},
-			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(10278)
-		},
-		{
-			"$sort" : {
-				"sortKey" : {
-					"_id" : 1
-				}
-			},
-			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(10278)
-		}
-	],
-	"serverInfo" : {
-		"host" : "mt-mongo-2",
-		"port" : 27012,
-		"version" : "4.4.10",
-		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
-	},
-	"ok" : 1,
+uncaught exception: Error: explain failed: {
+	"operationTime" : Timestamp(1639478259, 1),
+	"ok" : 0,
+	"errmsg" : "Error in $cursor stage :: caused by :: operation exceeded time limit",
+	"code" : 50,
+	"codeName" : "MaxTimeMSExpired",
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639020806, 3),
+		"clusterTime" : Timestamp(1639478259, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
-	},
-	"operationTime" : Timestamp(1639020806, 3)
-}
+	}
+} :
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+throwOrReturn@src/mongo/shell/explainable.js:25:19
+constructor/this.aggregate@src/mongo/shell/explainable.js:125:24
+@/home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/tpch_experiment/mongo/s2/q4_mongo_s2.js:1:11
+failed to load: /home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/tpch_experiment/mongo/s2/q4_mongo_s2.js
+exiting with code -3
 
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("3374047b-8bbc-4d67-be45-b749985db62a") }
+Implicit session: session { "id" : UUID("2ddc4e05-0e28-4098-94de-e9eb47317992") }
 MongoDB server version: 4.4.10
-{
-	"stages" : [
-		{
-			"$cursor" : {
-				"queryPlanner" : {
-					"plannerVersion" : 1,
-					"namespace" : "tpch_mongo_3c.orders",
-					"indexFilterSet" : false,
-					"parsedQuery" : {
-						"$and" : [
-							{
-								"o_orderdate" : {
-									"$lt" : ISODate("1992-04-01T00:00:00Z")
-								}
-							},
-							{
-								"o_orderdate" : {
-									"$gte" : ISODate("1992-01-01T00:00:00Z")
-								}
-							}
-						]
-					},
-					"queryHash" : "9DFA955F",
-					"planCacheKey" : "07D0F9DF",
-					"winningPlan" : {
-						"stage" : "PROJECTION_SIMPLE",
-						"transformBy" : {
-							"_id" : 1,
-							"o_lineitems" : 1,
-							"o_orderpriority" : 1
-						},
-						"inputStage" : {
-							"stage" : "FETCH",
-							"inputStage" : {
-								"stage" : "IXSCAN",
-								"keyPattern" : {
-									"o_orderdate" : 1
-								},
-								"indexName" : "idx_o_orderdate",
-								"isMultiKey" : false,
-								"multiKeyPaths" : {
-									"o_orderdate" : [ ]
-								},
-								"isUnique" : false,
-								"isSparse" : false,
-								"isPartial" : false,
-								"indexVersion" : 2,
-								"direction" : "forward",
-								"indexBounds" : {
-									"o_orderdate" : [
-										"[new Date(694224000000), new Date(702086400000))"
-									]
-								}
-							}
-						}
-					},
-					"rejectedPlans" : [ ]
-				},
-				"executionStats" : {
-					"executionSuccess" : true,
-					"nReturned" : 56741,
-					"executionTimeMillis" : 11397,
-					"totalKeysExamined" : 56741,
-					"totalDocsExamined" : 56741,
-					"executionStages" : {
-						"stage" : "PROJECTION_SIMPLE",
-						"nReturned" : 56741,
-						"executionTimeMillisEstimate" : 445,
-						"works" : 56742,
-						"advanced" : 56741,
-						"needTime" : 0,
-						"needYield" : 0,
-						"saveState" : 64,
-						"restoreState" : 64,
-						"isEOF" : 1,
-						"transformBy" : {
-							"_id" : 1,
-							"o_lineitems" : 1,
-							"o_orderpriority" : 1
-						},
-						"inputStage" : {
-							"stage" : "FETCH",
-							"nReturned" : 56741,
-							"executionTimeMillisEstimate" : 420,
-							"works" : 56742,
-							"advanced" : 56741,
-							"needTime" : 0,
-							"needYield" : 0,
-							"saveState" : 64,
-							"restoreState" : 64,
-							"isEOF" : 1,
-							"docsExamined" : 56741,
-							"alreadyHasObj" : 0,
-							"inputStage" : {
-								"stage" : "IXSCAN",
-								"nReturned" : 56741,
-								"executionTimeMillisEstimate" : 53,
-								"works" : 56742,
-								"advanced" : 56741,
-								"needTime" : 0,
-								"needYield" : 0,
-								"saveState" : 64,
-								"restoreState" : 64,
-								"isEOF" : 1,
-								"keyPattern" : {
-									"o_orderdate" : 1
-								},
-								"indexName" : "idx_o_orderdate",
-								"isMultiKey" : false,
-								"multiKeyPaths" : {
-									"o_orderdate" : [ ]
-								},
-								"isUnique" : false,
-								"isSparse" : false,
-								"isPartial" : false,
-								"indexVersion" : 2,
-								"direction" : "forward",
-								"indexBounds" : {
-									"o_orderdate" : [
-										"[new Date(694224000000), new Date(702086400000))"
-									]
-								},
-								"keysExamined" : 56741,
-								"seeks" : 1,
-								"dupsTested" : 0,
-								"dupsDropped" : 0
-							}
-						}
-					},
-					"allPlansExecution" : [ ]
-				}
-			},
-			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(664)
-		},
-		{
-			"$lookup" : {
-				"from" : "lineitem",
-				"as" : "o_lineitems",
-				"localField" : "_id",
-				"foreignField" : "_id.l_orderkey"
-			},
-			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(11335)
-		},
-		{
-			"$project" : {
-				"_id" : true,
-				"orderpriority" : "$o_orderpriority",
-				"lineitems" : {
-					"$filter" : {
-						"input" : "$o_lineitems",
-						"as" : "l",
-						"cond" : {
-							"$lt" : [
-								"$$l.l_commitdate",
-								"$$l.l_receiptdate"
-							]
-						}
-					}
-				}
-			},
-			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(11356)
-		},
-		{
-			"$match" : {
-				"lineitems" : {
-					"$not" : {
-						"$eq" : [ ]
-					}
-				}
-			},
-			"nReturned" : NumberLong(52002),
-			"executionTimeMillisEstimate" : NumberLong(11392)
-		},
-		{
-			"$group" : {
-				"_id" : "$orderpriority",
-				"order_count" : {
-					"$sum" : {
-						"$const" : 1
-					}
-				}
-			},
-			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(11395)
-		},
-		{
-			"$sort" : {
-				"sortKey" : {
-					"_id" : 1
-				}
-			},
-			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(11395)
-		}
-	],
-	"serverInfo" : {
-		"host" : "mt-mongo-1",
-		"port" : 27011,
-		"version" : "4.4.10",
-		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
-	},
-	"ok" : 1,
+uncaught exception: Error: explain failed: {
+	"operationTime" : Timestamp(1639478421, 1),
+	"ok" : 0,
+	"errmsg" : "Error in $cursor stage :: caused by :: operation exceeded time limit",
+	"code" : 50,
+	"codeName" : "MaxTimeMSExpired",
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639020881, 3),
+		"clusterTime" : Timestamp(1639478421, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
-	},
-	"operationTime" : Timestamp(1639020881, 3)
-}
+	}
+} :
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+throwOrReturn@src/mongo/shell/explainable.js:25:19
+constructor/this.aggregate@src/mongo/shell/explainable.js:125:24
+@/home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/tpch_experiment/mongo/s2/q4_mongo_s2.js:1:11
+failed to load: /home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/tpch_experiment/mongo/s2/q4_mongo_s2.js
+exiting with code -3
 
 

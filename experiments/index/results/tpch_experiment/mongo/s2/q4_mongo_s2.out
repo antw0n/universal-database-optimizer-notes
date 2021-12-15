@@ -1,6 +1,6 @@
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("23a14941-fb83-4430-9b0a-6fb0a6eae514") }
+Implicit session: session { "id" : UUID("5c237eb0-9ec0-49b7-9d7c-8c1387026977") }
 MongoDB server version: 4.4.10
 {
 	"stages" : [
@@ -63,19 +63,19 @@ MongoDB server version: 4.4.10
 				"executionStats" : {
 					"executionSuccess" : true,
 					"nReturned" : 56741,
-					"executionTimeMillis" : 11599,
+					"executionTimeMillis" : 11641,
 					"totalKeysExamined" : 56741,
 					"totalDocsExamined" : 56741,
 					"executionStages" : {
 						"stage" : "PROJECTION_SIMPLE",
 						"nReturned" : 56741,
-						"executionTimeMillisEstimate" : 315,
+						"executionTimeMillisEstimate" : 523,
 						"works" : 56742,
 						"advanced" : 56741,
 						"needTime" : 0,
 						"needYield" : 0,
-						"saveState" : 61,
-						"restoreState" : 61,
+						"saveState" : 66,
+						"restoreState" : 66,
 						"isEOF" : 1,
 						"transformBy" : {
 							"_id" : 1,
@@ -85,26 +85,26 @@ MongoDB server version: 4.4.10
 						"inputStage" : {
 							"stage" : "FETCH",
 							"nReturned" : 56741,
-							"executionTimeMillisEstimate" : 304,
+							"executionTimeMillisEstimate" : 491,
 							"works" : 56742,
 							"advanced" : 56741,
 							"needTime" : 0,
 							"needYield" : 0,
-							"saveState" : 61,
-							"restoreState" : 61,
+							"saveState" : 66,
+							"restoreState" : 66,
 							"isEOF" : 1,
 							"docsExamined" : 56741,
 							"alreadyHasObj" : 0,
 							"inputStage" : {
 								"stage" : "IXSCAN",
 								"nReturned" : 56741,
-								"executionTimeMillisEstimate" : 18,
+								"executionTimeMillisEstimate" : 23,
 								"works" : 56742,
 								"advanced" : 56741,
 								"needTime" : 0,
 								"needYield" : 0,
-								"saveState" : 61,
-								"restoreState" : 61,
+								"saveState" : 66,
+								"restoreState" : 66,
 								"isEOF" : 1,
 								"keyPattern" : {
 									"o_orderdate" : 1
@@ -135,7 +135,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(522)
+			"executionTimeMillisEstimate" : NumberLong(715)
 		},
 		{
 			"$lookup" : {
@@ -145,7 +145,7 @@ MongoDB server version: 4.4.10
 				"foreignField" : "_id.l_orderkey"
 			},
 			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(11541)
+			"executionTimeMillisEstimate" : NumberLong(11580)
 		},
 		{
 			"$project" : {
@@ -165,7 +165,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(11564)
+			"executionTimeMillisEstimate" : NumberLong(11611)
 		},
 		{
 			"$match" : {
@@ -176,7 +176,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(52002),
-			"executionTimeMillisEstimate" : NumberLong(11593)
+			"executionTimeMillisEstimate" : NumberLong(11638)
 		},
 		{
 			"$group" : {
@@ -188,7 +188,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(11599)
+			"executionTimeMillisEstimate" : NumberLong(11639)
 		},
 		{
 			"$sort" : {
@@ -197,7 +197,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(11599)
+			"executionTimeMillisEstimate" : NumberLong(11639)
 		}
 	],
 	"serverInfo" : {
@@ -208,19 +208,19 @@ MongoDB server version: 4.4.10
 	},
 	"ok" : 1,
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639031591, 3),
+		"clusterTime" : Timestamp(1639537130, 4),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
 	},
-	"operationTime" : Timestamp(1639031591, 3)
+	"operationTime" : Timestamp(1639537130, 4)
 }
 
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("fc29c4e1-69a9-4c6a-9170-7b921d0461fa") }
+Implicit session: session { "id" : UUID("42d9efee-147f-4c30-9845-5ede66b555c3") }
 MongoDB server version: 4.4.10
 {
 	"stages" : [
@@ -283,19 +283,19 @@ MongoDB server version: 4.4.10
 				"executionStats" : {
 					"executionSuccess" : true,
 					"nReturned" : 56741,
-					"executionTimeMillis" : 11443,
+					"executionTimeMillis" : 12701,
 					"totalKeysExamined" : 56741,
 					"totalDocsExamined" : 56741,
 					"executionStages" : {
 						"stage" : "PROJECTION_SIMPLE",
 						"nReturned" : 56741,
-						"executionTimeMillisEstimate" : 361,
+						"executionTimeMillisEstimate" : 396,
 						"works" : 56742,
 						"advanced" : 56741,
 						"needTime" : 0,
 						"needYield" : 0,
-						"saveState" : 63,
-						"restoreState" : 63,
+						"saveState" : 62,
+						"restoreState" : 62,
 						"isEOF" : 1,
 						"transformBy" : {
 							"_id" : 1,
@@ -305,26 +305,26 @@ MongoDB server version: 4.4.10
 						"inputStage" : {
 							"stage" : "FETCH",
 							"nReturned" : 56741,
-							"executionTimeMillisEstimate" : 343,
+							"executionTimeMillisEstimate" : 390,
 							"works" : 56742,
 							"advanced" : 56741,
 							"needTime" : 0,
 							"needYield" : 0,
-							"saveState" : 63,
-							"restoreState" : 63,
+							"saveState" : 62,
+							"restoreState" : 62,
 							"isEOF" : 1,
 							"docsExamined" : 56741,
 							"alreadyHasObj" : 0,
 							"inputStage" : {
 								"stage" : "IXSCAN",
 								"nReturned" : 56741,
-								"executionTimeMillisEstimate" : 30,
+								"executionTimeMillisEstimate" : 33,
 								"works" : 56742,
 								"advanced" : 56741,
 								"needTime" : 0,
 								"needYield" : 0,
-								"saveState" : 63,
-								"restoreState" : 63,
+								"saveState" : 62,
+								"restoreState" : 62,
 								"isEOF" : 1,
 								"keyPattern" : {
 									"o_orderdate" : 1
@@ -355,7 +355,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(559)
+			"executionTimeMillisEstimate" : NumberLong(648)
 		},
 		{
 			"$lookup" : {
@@ -365,7 +365,7 @@ MongoDB server version: 4.4.10
 				"foreignField" : "_id.l_orderkey"
 			},
 			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(11408)
+			"executionTimeMillisEstimate" : NumberLong(12647)
 		},
 		{
 			"$project" : {
@@ -385,7 +385,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(11424)
+			"executionTimeMillisEstimate" : NumberLong(12676)
 		},
 		{
 			"$match" : {
@@ -396,7 +396,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(52002),
-			"executionTimeMillisEstimate" : NumberLong(11437)
+			"executionTimeMillisEstimate" : NumberLong(12694)
 		},
 		{
 			"$group" : {
@@ -408,7 +408,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(11440)
+			"executionTimeMillisEstimate" : NumberLong(12700)
 		},
 		{
 			"$sort" : {
@@ -417,30 +417,30 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(11441)
+			"executionTimeMillisEstimate" : NumberLong(12700)
 		}
 	],
 	"serverInfo" : {
-		"host" : "mt-mongo-1",
-		"port" : 27011,
+		"host" : "mt-mongo-2",
+		"port" : 27012,
 		"version" : "4.4.10",
 		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
 	},
 	"ok" : 1,
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639031673, 4),
+		"clusterTime" : Timestamp(1639537233, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
 	},
-	"operationTime" : Timestamp(1639031673, 4)
+	"operationTime" : Timestamp(1639537233, 1)
 }
 
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("e4c4d9d0-7cc8-4b7b-b389-40ce43466666") }
+Implicit session: session { "id" : UUID("e3a84b8c-7d1b-46fe-a687-9ac226f9b214") }
 MongoDB server version: 4.4.10
 {
 	"stages" : [
@@ -503,19 +503,19 @@ MongoDB server version: 4.4.10
 				"executionStats" : {
 					"executionSuccess" : true,
 					"nReturned" : 56741,
-					"executionTimeMillis" : 10331,
+					"executionTimeMillis" : 12448,
 					"totalKeysExamined" : 56741,
 					"totalDocsExamined" : 56741,
 					"executionStages" : {
 						"stage" : "PROJECTION_SIMPLE",
 						"nReturned" : 56741,
-						"executionTimeMillisEstimate" : 231,
+						"executionTimeMillisEstimate" : 515,
 						"works" : 56742,
 						"advanced" : 56741,
 						"needTime" : 0,
 						"needYield" : 0,
-						"saveState" : 60,
-						"restoreState" : 60,
+						"saveState" : 65,
+						"restoreState" : 65,
 						"isEOF" : 1,
 						"transformBy" : {
 							"_id" : 1,
@@ -525,13 +525,13 @@ MongoDB server version: 4.4.10
 						"inputStage" : {
 							"stage" : "FETCH",
 							"nReturned" : 56741,
-							"executionTimeMillisEstimate" : 221,
+							"executionTimeMillisEstimate" : 494,
 							"works" : 56742,
 							"advanced" : 56741,
 							"needTime" : 0,
 							"needYield" : 0,
-							"saveState" : 60,
-							"restoreState" : 60,
+							"saveState" : 65,
+							"restoreState" : 65,
 							"isEOF" : 1,
 							"docsExamined" : 56741,
 							"alreadyHasObj" : 0,
@@ -543,8 +543,8 @@ MongoDB server version: 4.4.10
 								"advanced" : 56741,
 								"needTime" : 0,
 								"needYield" : 0,
-								"saveState" : 60,
-								"restoreState" : 60,
+								"saveState" : 65,
+								"restoreState" : 65,
 								"isEOF" : 1,
 								"keyPattern" : {
 									"o_orderdate" : 1
@@ -575,7 +575,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(445)
+			"executionTimeMillisEstimate" : NumberLong(717)
 		},
 		{
 			"$lookup" : {
@@ -585,7 +585,7 @@ MongoDB server version: 4.4.10
 				"foreignField" : "_id.l_orderkey"
 			},
 			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(10270)
+			"executionTimeMillisEstimate" : NumberLong(12378)
 		},
 		{
 			"$project" : {
@@ -605,7 +605,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(10303)
+			"executionTimeMillisEstimate" : NumberLong(12405)
 		},
 		{
 			"$match" : {
@@ -616,7 +616,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(52002),
-			"executionTimeMillisEstimate" : NumberLong(10324)
+			"executionTimeMillisEstimate" : NumberLong(12441)
 		},
 		{
 			"$group" : {
@@ -628,7 +628,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(10330)
+			"executionTimeMillisEstimate" : NumberLong(12446)
 		},
 		{
 			"$sort" : {
@@ -637,7 +637,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(10331)
+			"executionTimeMillisEstimate" : NumberLong(12446)
 		}
 	],
 	"serverInfo" : {
@@ -648,19 +648,19 @@ MongoDB server version: 4.4.10
 	},
 	"ok" : 1,
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639031751, 3),
+		"clusterTime" : Timestamp(1639537325, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
 	},
-	"operationTime" : Timestamp(1639031751, 3)
+	"operationTime" : Timestamp(1639537325, 1)
 }
 
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("0ba30b60-9cb6-496e-9e44-74b45690f785") }
+Implicit session: session { "id" : UUID("6c86cb98-10e7-4d38-8c78-9e0f5b6f7412") }
 MongoDB server version: 4.4.10
 {
 	"stages" : [
@@ -723,19 +723,19 @@ MongoDB server version: 4.4.10
 				"executionStats" : {
 					"executionSuccess" : true,
 					"nReturned" : 56741,
-					"executionTimeMillis" : 9601,
+					"executionTimeMillis" : 11156,
 					"totalKeysExamined" : 56741,
 					"totalDocsExamined" : 56741,
 					"executionStages" : {
 						"stage" : "PROJECTION_SIMPLE",
 						"nReturned" : 56741,
-						"executionTimeMillisEstimate" : 181,
+						"executionTimeMillisEstimate" : 439,
 						"works" : 56742,
 						"advanced" : 56741,
 						"needTime" : 0,
 						"needYield" : 0,
-						"saveState" : 59,
-						"restoreState" : 59,
+						"saveState" : 64,
+						"restoreState" : 64,
 						"isEOF" : 1,
 						"transformBy" : {
 							"_id" : 1,
@@ -745,26 +745,26 @@ MongoDB server version: 4.4.10
 						"inputStage" : {
 							"stage" : "FETCH",
 							"nReturned" : 56741,
-							"executionTimeMillisEstimate" : 164,
+							"executionTimeMillisEstimate" : 427,
 							"works" : 56742,
 							"advanced" : 56741,
 							"needTime" : 0,
 							"needYield" : 0,
-							"saveState" : 59,
-							"restoreState" : 59,
+							"saveState" : 64,
+							"restoreState" : 64,
 							"isEOF" : 1,
 							"docsExamined" : 56741,
 							"alreadyHasObj" : 0,
 							"inputStage" : {
 								"stage" : "IXSCAN",
 								"nReturned" : 56741,
-								"executionTimeMillisEstimate" : 8,
+								"executionTimeMillisEstimate" : 26,
 								"works" : 56742,
 								"advanced" : 56741,
 								"needTime" : 0,
 								"needYield" : 0,
-								"saveState" : 59,
-								"restoreState" : 59,
+								"saveState" : 64,
+								"restoreState" : 64,
 								"isEOF" : 1,
 								"keyPattern" : {
 									"o_orderdate" : 1
@@ -795,7 +795,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(379)
+			"executionTimeMillisEstimate" : NumberLong(671)
 		},
 		{
 			"$lookup" : {
@@ -805,7 +805,7 @@ MongoDB server version: 4.4.10
 				"foreignField" : "_id.l_orderkey"
 			},
 			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(9481)
+			"executionTimeMillisEstimate" : NumberLong(11100)
 		},
 		{
 			"$project" : {
@@ -825,7 +825,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(9530)
+			"executionTimeMillisEstimate" : NumberLong(11123)
 		},
 		{
 			"$match" : {
@@ -836,7 +836,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(52002),
-			"executionTimeMillisEstimate" : NumberLong(9585)
+			"executionTimeMillisEstimate" : NumberLong(11147)
 		},
 		{
 			"$group" : {
@@ -848,7 +848,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(9599)
+			"executionTimeMillisEstimate" : NumberLong(11154)
 		},
 		{
 			"$sort" : {
@@ -857,30 +857,30 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(9599)
+			"executionTimeMillisEstimate" : NumberLong(11154)
 		}
 	],
 	"serverInfo" : {
-		"host" : "mt-mongo-2",
-		"port" : 27012,
+		"host" : "mt-mongo-3",
+		"port" : 27013,
 		"version" : "4.4.10",
 		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
 	},
 	"ok" : 1,
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639031811, 3),
+		"clusterTime" : Timestamp(1639537403, 3),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
 	},
-	"operationTime" : Timestamp(1639031811, 3)
+	"operationTime" : Timestamp(1639537403, 3)
 }
 
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("c51959af-5b87-461d-83ae-8aeb6a6db5b4") }
+Implicit session: session { "id" : UUID("aedbbf9d-0dab-4738-8c0a-53cb20925937") }
 MongoDB server version: 4.4.10
 {
 	"stages" : [
@@ -943,19 +943,19 @@ MongoDB server version: 4.4.10
 				"executionStats" : {
 					"executionSuccess" : true,
 					"nReturned" : 56741,
-					"executionTimeMillis" : 9084,
+					"executionTimeMillis" : 11309,
 					"totalKeysExamined" : 56741,
 					"totalDocsExamined" : 56741,
 					"executionStages" : {
 						"stage" : "PROJECTION_SIMPLE",
 						"nReturned" : 56741,
-						"executionTimeMillisEstimate" : 182,
+						"executionTimeMillisEstimate" : 428,
 						"works" : 56742,
 						"advanced" : 56741,
 						"needTime" : 0,
 						"needYield" : 0,
-						"saveState" : 58,
-						"restoreState" : 58,
+						"saveState" : 62,
+						"restoreState" : 62,
 						"isEOF" : 1,
 						"transformBy" : {
 							"_id" : 1,
@@ -965,26 +965,26 @@ MongoDB server version: 4.4.10
 						"inputStage" : {
 							"stage" : "FETCH",
 							"nReturned" : 56741,
-							"executionTimeMillisEstimate" : 175,
+							"executionTimeMillisEstimate" : 420,
 							"works" : 56742,
 							"advanced" : 56741,
 							"needTime" : 0,
 							"needYield" : 0,
-							"saveState" : 58,
-							"restoreState" : 58,
+							"saveState" : 62,
+							"restoreState" : 62,
 							"isEOF" : 1,
 							"docsExamined" : 56741,
 							"alreadyHasObj" : 0,
 							"inputStage" : {
 								"stage" : "IXSCAN",
 								"nReturned" : 56741,
-								"executionTimeMillisEstimate" : 19,
+								"executionTimeMillisEstimate" : 28,
 								"works" : 56742,
 								"advanced" : 56741,
 								"needTime" : 0,
 								"needYield" : 0,
-								"saveState" : 58,
-								"restoreState" : 58,
+								"saveState" : 62,
+								"restoreState" : 62,
 								"isEOF" : 1,
 								"keyPattern" : {
 									"o_orderdate" : 1
@@ -1015,7 +1015,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(379)
+			"executionTimeMillisEstimate" : NumberLong(598)
 		},
 		{
 			"$lookup" : {
@@ -1025,7 +1025,7 @@ MongoDB server version: 4.4.10
 				"foreignField" : "_id.l_orderkey"
 			},
 			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(9040)
+			"executionTimeMillisEstimate" : NumberLong(11265)
 		},
 		{
 			"$project" : {
@@ -1045,7 +1045,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(9059)
+			"executionTimeMillisEstimate" : NumberLong(11281)
 		},
 		{
 			"$match" : {
@@ -1056,7 +1056,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(52002),
-			"executionTimeMillisEstimate" : NumberLong(9078)
+			"executionTimeMillisEstimate" : NumberLong(11301)
 		},
 		{
 			"$group" : {
@@ -1068,7 +1068,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(9083)
+			"executionTimeMillisEstimate" : NumberLong(11306)
 		},
 		{
 			"$sort" : {
@@ -1077,24 +1077,24 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(9083)
+			"executionTimeMillisEstimate" : NumberLong(11306)
 		}
 	],
 	"serverInfo" : {
-		"host" : "mt-mongo-2",
-		"port" : 27012,
+		"host" : "mt-mongo-1",
+		"port" : 27011,
 		"version" : "4.4.10",
 		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
 	},
 	"ok" : 1,
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639031869, 3),
+		"clusterTime" : Timestamp(1639537503, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
 	},
-	"operationTime" : Timestamp(1639031869, 3)
+	"operationTime" : Timestamp(1639537503, 1)
 }
 
 

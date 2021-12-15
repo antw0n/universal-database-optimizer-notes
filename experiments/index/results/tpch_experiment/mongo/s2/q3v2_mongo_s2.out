@@ -1,6 +1,6 @@
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("04c366f9-b14b-47fd-a70b-3b62b479872d") }
+Implicit session: session { "id" : UUID("11f7b683-e1dc-47d2-adeb-88f5fe0cddc1") }
 MongoDB server version: 4.4.10
 {
 	"stages" : [
@@ -56,13 +56,13 @@ MongoDB server version: 4.4.10
 				"executionStats" : {
 					"executionSuccess" : true,
 					"nReturned" : 29752,
-					"executionTimeMillis" : 5279,
+					"executionTimeMillis" : 5659,
 					"totalKeysExamined" : 29752,
 					"totalDocsExamined" : 29752,
 					"executionStages" : {
 						"stage" : "PROJECTION_DEFAULT",
 						"nReturned" : 29752,
-						"executionTimeMillisEstimate" : 26,
+						"executionTimeMillisEstimate" : 75,
 						"works" : 29753,
 						"advanced" : 29752,
 						"needTime" : 0,
@@ -80,7 +80,1003 @@ MongoDB server version: 4.4.10
 						"inputStage" : {
 							"stage" : "FETCH",
 							"nReturned" : 29752,
-							"executionTimeMillisEstimate" : 20,
+							"executionTimeMillisEstimate" : 70,
+							"works" : 29753,
+							"advanced" : 29752,
+							"needTime" : 0,
+							"needYield" : 0,
+							"saveState" : 30,
+							"restoreState" : 30,
+							"isEOF" : 1,
+							"docsExamined" : 29752,
+							"alreadyHasObj" : 0,
+							"inputStage" : {
+								"stage" : "IXSCAN",
+								"nReturned" : 29752,
+								"executionTimeMillisEstimate" : 2,
+								"works" : 29753,
+								"advanced" : 29752,
+								"needTime" : 0,
+								"needYield" : 0,
+								"saveState" : 30,
+								"restoreState" : 30,
+								"isEOF" : 1,
+								"keyPattern" : {
+									"c_mktsegment" : 1
+								},
+								"indexName" : "idx_c_mktsegment",
+								"isMultiKey" : false,
+								"multiKeyPaths" : {
+									"c_mktsegment" : [ ]
+								},
+								"isUnique" : false,
+								"isSparse" : false,
+								"isPartial" : false,
+								"indexVersion" : 2,
+								"direction" : "forward",
+								"indexBounds" : {
+									"c_mktsegment" : [
+										"[\"AUTOMOBILE\", \"AUTOMOBILE\"]"
+									]
+								},
+								"keysExamined" : 29752,
+								"seeks" : 1,
+								"dupsTested" : 0,
+								"dupsDropped" : 0
+							}
+						}
+					},
+					"allPlansExecution" : [ ]
+				}
+			},
+			"nReturned" : NumberLong(29752),
+			"executionTimeMillisEstimate" : NumberLong(166)
+		},
+		{
+			"$lookup" : {
+				"from" : "orders",
+				"as" : "orders",
+				"localField" : "_id",
+				"foreignField" : "o_custkey",
+				"unwinding" : {
+					"preserveNullAndEmptyArrays" : false
+				},
+				"matching" : {
+					"o_orderdate" : {
+						"$lt" : ISODate("1992-01-02T00:00:00Z")
+					}
+				}
+			},
+			"nReturned" : NumberLong(113),
+			"executionTimeMillisEstimate" : NumberLong(5640)
+		},
+		{
+			"$lookup" : {
+				"from" : "lineitem",
+				"as" : "lineitems",
+				"localField" : "orders._id",
+				"foreignField" : "_id.l_orderkey"
+			},
+			"nReturned" : NumberLong(113),
+			"executionTimeMillisEstimate" : NumberLong(5656)
+		},
+		{
+			"$project" : {
+				"_id" : true,
+				"o_orderkey" : "$orders._id",
+				"o_orderdate" : "$orders.o_orderdate",
+				"o_shippriority" : "$orders.o_shippriority",
+				"lineitems" : {
+					"$filter" : {
+						"input" : "$lineitems",
+						"as" : "l",
+						"cond" : {
+							"$gt" : [
+								"$$l.l_shipdate",
+								{
+									"$const" : ISODate("1992-01-02T00:00:00Z")
+								}
+							]
+						}
+					}
+				}
+			},
+			"nReturned" : NumberLong(113),
+			"executionTimeMillisEstimate" : NumberLong(5656)
+		},
+		{
+			"$unwind" : {
+				"path" : "$lineitems"
+			},
+			"nReturned" : NumberLong(439),
+			"executionTimeMillisEstimate" : NumberLong(5656)
+		},
+		{
+			"$group" : {
+				"_id" : {
+					"l_orderkey" : "$o_orderkey",
+					"o_orderdate" : "$o_orderdate",
+					"o_shippriority" : "$o_shippriority"
+				},
+				"revenue" : {
+					"$sum" : {
+						"$multiply" : [
+							"$lineitems.l_extendedprice",
+							{
+								"$subtract" : [
+									{
+										"$const" : 1
+									},
+									"$lineitems.l_discount"
+								]
+							}
+						]
+					}
+				}
+			},
+			"nReturned" : NumberLong(113),
+			"executionTimeMillisEstimate" : NumberLong(5656)
+		},
+		{
+			"$sort" : {
+				"sortKey" : {
+					"revenue" : -1,
+					"_id.o_orderdate" : 1
+				},
+				"limit" : NumberLong(10)
+			},
+			"nReturned" : NumberLong(10),
+			"executionTimeMillisEstimate" : NumberLong(5656)
+		}
+	],
+	"serverInfo" : {
+		"host" : "mt-mongo-1",
+		"port" : 27011,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639534108, 4),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1639534108, 4)
+}
+
+
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("223f42db-96a4-4a50-8127-2f20dece45da") }
+MongoDB server version: 4.4.10
+{
+	"stages" : [
+		{
+			"$cursor" : {
+				"queryPlanner" : {
+					"plannerVersion" : 1,
+					"namespace" : "tpch_mongo_3c.customer",
+					"indexFilterSet" : false,
+					"parsedQuery" : {
+						"c_mktsegment" : {
+							"$eq" : "AUTOMOBILE"
+						}
+					},
+					"queryHash" : "D3320650",
+					"planCacheKey" : "29465EA8",
+					"winningPlan" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"transformBy" : {
+							"_id" : 1,
+							"lineitems" : 1,
+							"orders._id" : 1,
+							"orders.o_orderdate" : 1,
+							"orders.o_shippriority" : 1
+						},
+						"inputStage" : {
+							"stage" : "FETCH",
+							"inputStage" : {
+								"stage" : "IXSCAN",
+								"keyPattern" : {
+									"c_mktsegment" : 1
+								},
+								"indexName" : "idx_c_mktsegment",
+								"isMultiKey" : false,
+								"multiKeyPaths" : {
+									"c_mktsegment" : [ ]
+								},
+								"isUnique" : false,
+								"isSparse" : false,
+								"isPartial" : false,
+								"indexVersion" : 2,
+								"direction" : "forward",
+								"indexBounds" : {
+									"c_mktsegment" : [
+										"[\"AUTOMOBILE\", \"AUTOMOBILE\"]"
+									]
+								}
+							}
+						}
+					},
+					"rejectedPlans" : [ ]
+				},
+				"executionStats" : {
+					"executionSuccess" : true,
+					"nReturned" : 29752,
+					"executionTimeMillis" : 5440,
+					"totalKeysExamined" : 29752,
+					"totalDocsExamined" : 29752,
+					"executionStages" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"nReturned" : 29752,
+						"executionTimeMillisEstimate" : 52,
+						"works" : 29753,
+						"advanced" : 29752,
+						"needTime" : 0,
+						"needYield" : 0,
+						"saveState" : 30,
+						"restoreState" : 30,
+						"isEOF" : 1,
+						"transformBy" : {
+							"_id" : 1,
+							"lineitems" : 1,
+							"orders._id" : 1,
+							"orders.o_orderdate" : 1,
+							"orders.o_shippriority" : 1
+						},
+						"inputStage" : {
+							"stage" : "FETCH",
+							"nReturned" : 29752,
+							"executionTimeMillisEstimate" : 44,
+							"works" : 29753,
+							"advanced" : 29752,
+							"needTime" : 0,
+							"needYield" : 0,
+							"saveState" : 30,
+							"restoreState" : 30,
+							"isEOF" : 1,
+							"docsExamined" : 29752,
+							"alreadyHasObj" : 0,
+							"inputStage" : {
+								"stage" : "IXSCAN",
+								"nReturned" : 29752,
+								"executionTimeMillisEstimate" : 11,
+								"works" : 29753,
+								"advanced" : 29752,
+								"needTime" : 0,
+								"needYield" : 0,
+								"saveState" : 30,
+								"restoreState" : 30,
+								"isEOF" : 1,
+								"keyPattern" : {
+									"c_mktsegment" : 1
+								},
+								"indexName" : "idx_c_mktsegment",
+								"isMultiKey" : false,
+								"multiKeyPaths" : {
+									"c_mktsegment" : [ ]
+								},
+								"isUnique" : false,
+								"isSparse" : false,
+								"isPartial" : false,
+								"indexVersion" : 2,
+								"direction" : "forward",
+								"indexBounds" : {
+									"c_mktsegment" : [
+										"[\"AUTOMOBILE\", \"AUTOMOBILE\"]"
+									]
+								},
+								"keysExamined" : 29752,
+								"seeks" : 1,
+								"dupsTested" : 0,
+								"dupsDropped" : 0
+							}
+						}
+					},
+					"allPlansExecution" : [ ]
+				}
+			},
+			"nReturned" : NumberLong(29752),
+			"executionTimeMillisEstimate" : NumberLong(154)
+		},
+		{
+			"$lookup" : {
+				"from" : "orders",
+				"as" : "orders",
+				"localField" : "_id",
+				"foreignField" : "o_custkey",
+				"unwinding" : {
+					"preserveNullAndEmptyArrays" : false
+				},
+				"matching" : {
+					"o_orderdate" : {
+						"$lt" : ISODate("1992-01-02T00:00:00Z")
+					}
+				}
+			},
+			"nReturned" : NumberLong(113),
+			"executionTimeMillisEstimate" : NumberLong(5424)
+		},
+		{
+			"$lookup" : {
+				"from" : "lineitem",
+				"as" : "lineitems",
+				"localField" : "orders._id",
+				"foreignField" : "_id.l_orderkey"
+			},
+			"nReturned" : NumberLong(113),
+			"executionTimeMillisEstimate" : NumberLong(5437)
+		},
+		{
+			"$project" : {
+				"_id" : true,
+				"o_orderkey" : "$orders._id",
+				"o_orderdate" : "$orders.o_orderdate",
+				"o_shippriority" : "$orders.o_shippriority",
+				"lineitems" : {
+					"$filter" : {
+						"input" : "$lineitems",
+						"as" : "l",
+						"cond" : {
+							"$gt" : [
+								"$$l.l_shipdate",
+								{
+									"$const" : ISODate("1992-01-02T00:00:00Z")
+								}
+							]
+						}
+					}
+				}
+			},
+			"nReturned" : NumberLong(113),
+			"executionTimeMillisEstimate" : NumberLong(5437)
+		},
+		{
+			"$unwind" : {
+				"path" : "$lineitems"
+			},
+			"nReturned" : NumberLong(439),
+			"executionTimeMillisEstimate" : NumberLong(5437)
+		},
+		{
+			"$group" : {
+				"_id" : {
+					"l_orderkey" : "$o_orderkey",
+					"o_orderdate" : "$o_orderdate",
+					"o_shippriority" : "$o_shippriority"
+				},
+				"revenue" : {
+					"$sum" : {
+						"$multiply" : [
+							"$lineitems.l_extendedprice",
+							{
+								"$subtract" : [
+									{
+										"$const" : 1
+									},
+									"$lineitems.l_discount"
+								]
+							}
+						]
+					}
+				}
+			},
+			"nReturned" : NumberLong(113),
+			"executionTimeMillisEstimate" : NumberLong(5437)
+		},
+		{
+			"$sort" : {
+				"sortKey" : {
+					"revenue" : -1,
+					"_id.o_orderdate" : 1
+				},
+				"limit" : NumberLong(10)
+			},
+			"nReturned" : NumberLong(10),
+			"executionTimeMillisEstimate" : NumberLong(5437)
+		}
+	],
+	"serverInfo" : {
+		"host" : "mt-mongo-1",
+		"port" : 27011,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639534188, 4),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1639534188, 4)
+}
+
+
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("ed26d45c-55b5-4de7-84a5-3eda4a5f4c6d") }
+MongoDB server version: 4.4.10
+{
+	"stages" : [
+		{
+			"$cursor" : {
+				"queryPlanner" : {
+					"plannerVersion" : 1,
+					"namespace" : "tpch_mongo_3c.customer",
+					"indexFilterSet" : false,
+					"parsedQuery" : {
+						"c_mktsegment" : {
+							"$eq" : "AUTOMOBILE"
+						}
+					},
+					"queryHash" : "D3320650",
+					"planCacheKey" : "29465EA8",
+					"winningPlan" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"transformBy" : {
+							"_id" : 1,
+							"lineitems" : 1,
+							"orders._id" : 1,
+							"orders.o_orderdate" : 1,
+							"orders.o_shippriority" : 1
+						},
+						"inputStage" : {
+							"stage" : "FETCH",
+							"inputStage" : {
+								"stage" : "IXSCAN",
+								"keyPattern" : {
+									"c_mktsegment" : 1
+								},
+								"indexName" : "idx_c_mktsegment",
+								"isMultiKey" : false,
+								"multiKeyPaths" : {
+									"c_mktsegment" : [ ]
+								},
+								"isUnique" : false,
+								"isSparse" : false,
+								"isPartial" : false,
+								"indexVersion" : 2,
+								"direction" : "forward",
+								"indexBounds" : {
+									"c_mktsegment" : [
+										"[\"AUTOMOBILE\", \"AUTOMOBILE\"]"
+									]
+								}
+							}
+						}
+					},
+					"rejectedPlans" : [ ]
+				},
+				"executionStats" : {
+					"executionSuccess" : true,
+					"nReturned" : 29752,
+					"executionTimeMillis" : 5543,
+					"totalKeysExamined" : 29752,
+					"totalDocsExamined" : 29752,
+					"executionStages" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"nReturned" : 29752,
+						"executionTimeMillisEstimate" : 66,
+						"works" : 29753,
+						"advanced" : 29752,
+						"needTime" : 0,
+						"needYield" : 0,
+						"saveState" : 30,
+						"restoreState" : 30,
+						"isEOF" : 1,
+						"transformBy" : {
+							"_id" : 1,
+							"lineitems" : 1,
+							"orders._id" : 1,
+							"orders.o_orderdate" : 1,
+							"orders.o_shippriority" : 1
+						},
+						"inputStage" : {
+							"stage" : "FETCH",
+							"nReturned" : 29752,
+							"executionTimeMillisEstimate" : 52,
+							"works" : 29753,
+							"advanced" : 29752,
+							"needTime" : 0,
+							"needYield" : 0,
+							"saveState" : 30,
+							"restoreState" : 30,
+							"isEOF" : 1,
+							"docsExamined" : 29752,
+							"alreadyHasObj" : 0,
+							"inputStage" : {
+								"stage" : "IXSCAN",
+								"nReturned" : 29752,
+								"executionTimeMillisEstimate" : 4,
+								"works" : 29753,
+								"advanced" : 29752,
+								"needTime" : 0,
+								"needYield" : 0,
+								"saveState" : 30,
+								"restoreState" : 30,
+								"isEOF" : 1,
+								"keyPattern" : {
+									"c_mktsegment" : 1
+								},
+								"indexName" : "idx_c_mktsegment",
+								"isMultiKey" : false,
+								"multiKeyPaths" : {
+									"c_mktsegment" : [ ]
+								},
+								"isUnique" : false,
+								"isSparse" : false,
+								"isPartial" : false,
+								"indexVersion" : 2,
+								"direction" : "forward",
+								"indexBounds" : {
+									"c_mktsegment" : [
+										"[\"AUTOMOBILE\", \"AUTOMOBILE\"]"
+									]
+								},
+								"keysExamined" : 29752,
+								"seeks" : 1,
+								"dupsTested" : 0,
+								"dupsDropped" : 0
+							}
+						}
+					},
+					"allPlansExecution" : [ ]
+				}
+			},
+			"nReturned" : NumberLong(29752),
+			"executionTimeMillisEstimate" : NumberLong(161)
+		},
+		{
+			"$lookup" : {
+				"from" : "orders",
+				"as" : "orders",
+				"localField" : "_id",
+				"foreignField" : "o_custkey",
+				"unwinding" : {
+					"preserveNullAndEmptyArrays" : false
+				},
+				"matching" : {
+					"o_orderdate" : {
+						"$lt" : ISODate("1992-01-02T00:00:00Z")
+					}
+				}
+			},
+			"nReturned" : NumberLong(113),
+			"executionTimeMillisEstimate" : NumberLong(5534)
+		},
+		{
+			"$lookup" : {
+				"from" : "lineitem",
+				"as" : "lineitems",
+				"localField" : "orders._id",
+				"foreignField" : "_id.l_orderkey"
+			},
+			"nReturned" : NumberLong(113),
+			"executionTimeMillisEstimate" : NumberLong(5542)
+		},
+		{
+			"$project" : {
+				"_id" : true,
+				"o_orderkey" : "$orders._id",
+				"o_orderdate" : "$orders.o_orderdate",
+				"o_shippriority" : "$orders.o_shippriority",
+				"lineitems" : {
+					"$filter" : {
+						"input" : "$lineitems",
+						"as" : "l",
+						"cond" : {
+							"$gt" : [
+								"$$l.l_shipdate",
+								{
+									"$const" : ISODate("1992-01-02T00:00:00Z")
+								}
+							]
+						}
+					}
+				}
+			},
+			"nReturned" : NumberLong(113),
+			"executionTimeMillisEstimate" : NumberLong(5542)
+		},
+		{
+			"$unwind" : {
+				"path" : "$lineitems"
+			},
+			"nReturned" : NumberLong(439),
+			"executionTimeMillisEstimate" : NumberLong(5542)
+		},
+		{
+			"$group" : {
+				"_id" : {
+					"l_orderkey" : "$o_orderkey",
+					"o_orderdate" : "$o_orderdate",
+					"o_shippriority" : "$o_shippriority"
+				},
+				"revenue" : {
+					"$sum" : {
+						"$multiply" : [
+							"$lineitems.l_extendedprice",
+							{
+								"$subtract" : [
+									{
+										"$const" : 1
+									},
+									"$lineitems.l_discount"
+								]
+							}
+						]
+					}
+				}
+			},
+			"nReturned" : NumberLong(113),
+			"executionTimeMillisEstimate" : NumberLong(5542)
+		},
+		{
+			"$sort" : {
+				"sortKey" : {
+					"revenue" : -1,
+					"_id.o_orderdate" : 1
+				},
+				"limit" : NumberLong(10)
+			},
+			"nReturned" : NumberLong(10),
+			"executionTimeMillisEstimate" : NumberLong(5542)
+		}
+	],
+	"serverInfo" : {
+		"host" : "mt-mongo-2",
+		"port" : 27012,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639534280, 3),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1639534280, 3)
+}
+
+
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("65606ded-6716-4d5f-824a-7091b6e3cc39") }
+MongoDB server version: 4.4.10
+{
+	"stages" : [
+		{
+			"$cursor" : {
+				"queryPlanner" : {
+					"plannerVersion" : 1,
+					"namespace" : "tpch_mongo_3c.customer",
+					"indexFilterSet" : false,
+					"parsedQuery" : {
+						"c_mktsegment" : {
+							"$eq" : "AUTOMOBILE"
+						}
+					},
+					"queryHash" : "D3320650",
+					"planCacheKey" : "29465EA8",
+					"winningPlan" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"transformBy" : {
+							"_id" : 1,
+							"lineitems" : 1,
+							"orders._id" : 1,
+							"orders.o_orderdate" : 1,
+							"orders.o_shippriority" : 1
+						},
+						"inputStage" : {
+							"stage" : "FETCH",
+							"inputStage" : {
+								"stage" : "IXSCAN",
+								"keyPattern" : {
+									"c_mktsegment" : 1
+								},
+								"indexName" : "idx_c_mktsegment",
+								"isMultiKey" : false,
+								"multiKeyPaths" : {
+									"c_mktsegment" : [ ]
+								},
+								"isUnique" : false,
+								"isSparse" : false,
+								"isPartial" : false,
+								"indexVersion" : 2,
+								"direction" : "forward",
+								"indexBounds" : {
+									"c_mktsegment" : [
+										"[\"AUTOMOBILE\", \"AUTOMOBILE\"]"
+									]
+								}
+							}
+						}
+					},
+					"rejectedPlans" : [ ]
+				},
+				"executionStats" : {
+					"executionSuccess" : true,
+					"nReturned" : 29752,
+					"executionTimeMillis" : 5353,
+					"totalKeysExamined" : 29752,
+					"totalDocsExamined" : 29752,
+					"executionStages" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"nReturned" : 29752,
+						"executionTimeMillisEstimate" : 48,
+						"works" : 29753,
+						"advanced" : 29752,
+						"needTime" : 0,
+						"needYield" : 0,
+						"saveState" : 30,
+						"restoreState" : 30,
+						"isEOF" : 1,
+						"transformBy" : {
+							"_id" : 1,
+							"lineitems" : 1,
+							"orders._id" : 1,
+							"orders.o_orderdate" : 1,
+							"orders.o_shippriority" : 1
+						},
+						"inputStage" : {
+							"stage" : "FETCH",
+							"nReturned" : 29752,
+							"executionTimeMillisEstimate" : 28,
+							"works" : 29753,
+							"advanced" : 29752,
+							"needTime" : 0,
+							"needYield" : 0,
+							"saveState" : 30,
+							"restoreState" : 30,
+							"isEOF" : 1,
+							"docsExamined" : 29752,
+							"alreadyHasObj" : 0,
+							"inputStage" : {
+								"stage" : "IXSCAN",
+								"nReturned" : 29752,
+								"executionTimeMillisEstimate" : 6,
+								"works" : 29753,
+								"advanced" : 29752,
+								"needTime" : 0,
+								"needYield" : 0,
+								"saveState" : 30,
+								"restoreState" : 30,
+								"isEOF" : 1,
+								"keyPattern" : {
+									"c_mktsegment" : 1
+								},
+								"indexName" : "idx_c_mktsegment",
+								"isMultiKey" : false,
+								"multiKeyPaths" : {
+									"c_mktsegment" : [ ]
+								},
+								"isUnique" : false,
+								"isSparse" : false,
+								"isPartial" : false,
+								"indexVersion" : 2,
+								"direction" : "forward",
+								"indexBounds" : {
+									"c_mktsegment" : [
+										"[\"AUTOMOBILE\", \"AUTOMOBILE\"]"
+									]
+								},
+								"keysExamined" : 29752,
+								"seeks" : 1,
+								"dupsTested" : 0,
+								"dupsDropped" : 0
+							}
+						}
+					},
+					"allPlansExecution" : [ ]
+				}
+			},
+			"nReturned" : NumberLong(29752),
+			"executionTimeMillisEstimate" : NumberLong(162)
+		},
+		{
+			"$lookup" : {
+				"from" : "orders",
+				"as" : "orders",
+				"localField" : "_id",
+				"foreignField" : "o_custkey",
+				"unwinding" : {
+					"preserveNullAndEmptyArrays" : false
+				},
+				"matching" : {
+					"o_orderdate" : {
+						"$lt" : ISODate("1992-01-02T00:00:00Z")
+					}
+				}
+			},
+			"nReturned" : NumberLong(113),
+			"executionTimeMillisEstimate" : NumberLong(5341)
+		},
+		{
+			"$lookup" : {
+				"from" : "lineitem",
+				"as" : "lineitems",
+				"localField" : "orders._id",
+				"foreignField" : "_id.l_orderkey"
+			},
+			"nReturned" : NumberLong(113),
+			"executionTimeMillisEstimate" : NumberLong(5351)
+		},
+		{
+			"$project" : {
+				"_id" : true,
+				"o_orderkey" : "$orders._id",
+				"o_orderdate" : "$orders.o_orderdate",
+				"o_shippriority" : "$orders.o_shippriority",
+				"lineitems" : {
+					"$filter" : {
+						"input" : "$lineitems",
+						"as" : "l",
+						"cond" : {
+							"$gt" : [
+								"$$l.l_shipdate",
+								{
+									"$const" : ISODate("1992-01-02T00:00:00Z")
+								}
+							]
+						}
+					}
+				}
+			},
+			"nReturned" : NumberLong(113),
+			"executionTimeMillisEstimate" : NumberLong(5351)
+		},
+		{
+			"$unwind" : {
+				"path" : "$lineitems"
+			},
+			"nReturned" : NumberLong(439),
+			"executionTimeMillisEstimate" : NumberLong(5351)
+		},
+		{
+			"$group" : {
+				"_id" : {
+					"l_orderkey" : "$o_orderkey",
+					"o_orderdate" : "$o_orderdate",
+					"o_shippriority" : "$o_shippriority"
+				},
+				"revenue" : {
+					"$sum" : {
+						"$multiply" : [
+							"$lineitems.l_extendedprice",
+							{
+								"$subtract" : [
+									{
+										"$const" : 1
+									},
+									"$lineitems.l_discount"
+								]
+							}
+						]
+					}
+				}
+			},
+			"nReturned" : NumberLong(113),
+			"executionTimeMillisEstimate" : NumberLong(5352)
+		},
+		{
+			"$sort" : {
+				"sortKey" : {
+					"revenue" : -1,
+					"_id.o_orderdate" : 1
+				},
+				"limit" : NumberLong(10)
+			},
+			"nReturned" : NumberLong(10),
+			"executionTimeMillisEstimate" : NumberLong(5352)
+		}
+	],
+	"serverInfo" : {
+		"host" : "mt-mongo-2",
+		"port" : 27012,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639534363, 3),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1639534363, 3)
+}
+
+
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("917c1d38-eb80-496c-91e6-18371f58f6b5") }
+MongoDB server version: 4.4.10
+{
+	"stages" : [
+		{
+			"$cursor" : {
+				"queryPlanner" : {
+					"plannerVersion" : 1,
+					"namespace" : "tpch_mongo_3c.customer",
+					"indexFilterSet" : false,
+					"parsedQuery" : {
+						"c_mktsegment" : {
+							"$eq" : "AUTOMOBILE"
+						}
+					},
+					"queryHash" : "D3320650",
+					"planCacheKey" : "29465EA8",
+					"winningPlan" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"transformBy" : {
+							"_id" : 1,
+							"lineitems" : 1,
+							"orders._id" : 1,
+							"orders.o_orderdate" : 1,
+							"orders.o_shippriority" : 1
+						},
+						"inputStage" : {
+							"stage" : "FETCH",
+							"inputStage" : {
+								"stage" : "IXSCAN",
+								"keyPattern" : {
+									"c_mktsegment" : 1
+								},
+								"indexName" : "idx_c_mktsegment",
+								"isMultiKey" : false,
+								"multiKeyPaths" : {
+									"c_mktsegment" : [ ]
+								},
+								"isUnique" : false,
+								"isSparse" : false,
+								"isPartial" : false,
+								"indexVersion" : 2,
+								"direction" : "forward",
+								"indexBounds" : {
+									"c_mktsegment" : [
+										"[\"AUTOMOBILE\", \"AUTOMOBILE\"]"
+									]
+								}
+							}
+						}
+					},
+					"rejectedPlans" : [ ]
+				},
+				"executionStats" : {
+					"executionSuccess" : true,
+					"nReturned" : 29752,
+					"executionTimeMillis" : 5497,
+					"totalKeysExamined" : 29752,
+					"totalDocsExamined" : 29752,
+					"executionStages" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"nReturned" : 29752,
+						"executionTimeMillisEstimate" : 44,
+						"works" : 29753,
+						"advanced" : 29752,
+						"needTime" : 0,
+						"needYield" : 0,
+						"saveState" : 30,
+						"restoreState" : 30,
+						"isEOF" : 1,
+						"transformBy" : {
+							"_id" : 1,
+							"lineitems" : 1,
+							"orders._id" : 1,
+							"orders.o_orderdate" : 1,
+							"orders.o_shippriority" : 1
+						},
+						"inputStage" : {
+							"stage" : "FETCH",
+							"nReturned" : 29752,
+							"executionTimeMillisEstimate" : 39,
 							"works" : 29753,
 							"advanced" : 29752,
 							"needTime" : 0,
@@ -130,7 +1126,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(29752),
-			"executionTimeMillisEstimate" : NumberLong(119)
+			"executionTimeMillisEstimate" : NumberLong(163)
 		},
 		{
 			"$lookup" : {
@@ -148,7 +1144,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(113),
-			"executionTimeMillisEstimate" : NumberLong(5267)
+			"executionTimeMillisEstimate" : NumberLong(5480)
 		},
 		{
 			"$lookup" : {
@@ -158,7 +1154,7 @@ MongoDB server version: 4.4.10
 				"foreignField" : "_id.l_orderkey"
 			},
 			"nReturned" : NumberLong(113),
-			"executionTimeMillisEstimate" : NumberLong(5278)
+			"executionTimeMillisEstimate" : NumberLong(5495)
 		},
 		{
 			"$project" : {
@@ -182,14 +1178,14 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(113),
-			"executionTimeMillisEstimate" : NumberLong(5278)
+			"executionTimeMillisEstimate" : NumberLong(5495)
 		},
 		{
 			"$unwind" : {
 				"path" : "$lineitems"
 			},
 			"nReturned" : NumberLong(439),
-			"executionTimeMillisEstimate" : NumberLong(5278)
+			"executionTimeMillisEstimate" : NumberLong(5495)
 		},
 		{
 			"$group" : {
@@ -215,7 +1211,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(113),
-			"executionTimeMillisEstimate" : NumberLong(5278)
+			"executionTimeMillisEstimate" : NumberLong(5495)
 		},
 		{
 			"$sort" : {
@@ -226,7 +1222,7 @@ MongoDB server version: 4.4.10
 				"limit" : NumberLong(10)
 			},
 			"nReturned" : NumberLong(10),
-			"executionTimeMillisEstimate" : NumberLong(5278)
+			"executionTimeMillisEstimate" : NumberLong(5495)
 		}
 	],
 	"serverInfo" : {
@@ -237,1009 +1233,13 @@ MongoDB server version: 4.4.10
 	},
 	"ok" : 1,
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639028825, 3),
+		"clusterTime" : Timestamp(1639534450, 3),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
 	},
-	"operationTime" : Timestamp(1639028825, 3)
-}
-
-
-MongoDB shell version v4.4.10
-connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("f086fdda-c731-4c30-9a31-19acd4548d10") }
-MongoDB server version: 4.4.10
-{
-	"stages" : [
-		{
-			"$cursor" : {
-				"queryPlanner" : {
-					"plannerVersion" : 1,
-					"namespace" : "tpch_mongo_3c.customer",
-					"indexFilterSet" : false,
-					"parsedQuery" : {
-						"c_mktsegment" : {
-							"$eq" : "AUTOMOBILE"
-						}
-					},
-					"queryHash" : "D3320650",
-					"planCacheKey" : "29465EA8",
-					"winningPlan" : {
-						"stage" : "PROJECTION_DEFAULT",
-						"transformBy" : {
-							"_id" : 1,
-							"lineitems" : 1,
-							"orders._id" : 1,
-							"orders.o_orderdate" : 1,
-							"orders.o_shippriority" : 1
-						},
-						"inputStage" : {
-							"stage" : "FETCH",
-							"inputStage" : {
-								"stage" : "IXSCAN",
-								"keyPattern" : {
-									"c_mktsegment" : 1
-								},
-								"indexName" : "idx_c_mktsegment",
-								"isMultiKey" : false,
-								"multiKeyPaths" : {
-									"c_mktsegment" : [ ]
-								},
-								"isUnique" : false,
-								"isSparse" : false,
-								"isPartial" : false,
-								"indexVersion" : 2,
-								"direction" : "forward",
-								"indexBounds" : {
-									"c_mktsegment" : [
-										"[\"AUTOMOBILE\", \"AUTOMOBILE\"]"
-									]
-								}
-							}
-						}
-					},
-					"rejectedPlans" : [ ]
-				},
-				"executionStats" : {
-					"executionSuccess" : true,
-					"nReturned" : 29752,
-					"executionTimeMillis" : 5307,
-					"totalKeysExamined" : 29752,
-					"totalDocsExamined" : 29752,
-					"executionStages" : {
-						"stage" : "PROJECTION_DEFAULT",
-						"nReturned" : 29752,
-						"executionTimeMillisEstimate" : 42,
-						"works" : 29753,
-						"advanced" : 29752,
-						"needTime" : 0,
-						"needYield" : 0,
-						"saveState" : 30,
-						"restoreState" : 30,
-						"isEOF" : 1,
-						"transformBy" : {
-							"_id" : 1,
-							"lineitems" : 1,
-							"orders._id" : 1,
-							"orders.o_orderdate" : 1,
-							"orders.o_shippriority" : 1
-						},
-						"inputStage" : {
-							"stage" : "FETCH",
-							"nReturned" : 29752,
-							"executionTimeMillisEstimate" : 40,
-							"works" : 29753,
-							"advanced" : 29752,
-							"needTime" : 0,
-							"needYield" : 0,
-							"saveState" : 30,
-							"restoreState" : 30,
-							"isEOF" : 1,
-							"docsExamined" : 29752,
-							"alreadyHasObj" : 0,
-							"inputStage" : {
-								"stage" : "IXSCAN",
-								"nReturned" : 29752,
-								"executionTimeMillisEstimate" : 21,
-								"works" : 29753,
-								"advanced" : 29752,
-								"needTime" : 0,
-								"needYield" : 0,
-								"saveState" : 30,
-								"restoreState" : 30,
-								"isEOF" : 1,
-								"keyPattern" : {
-									"c_mktsegment" : 1
-								},
-								"indexName" : "idx_c_mktsegment",
-								"isMultiKey" : false,
-								"multiKeyPaths" : {
-									"c_mktsegment" : [ ]
-								},
-								"isUnique" : false,
-								"isSparse" : false,
-								"isPartial" : false,
-								"indexVersion" : 2,
-								"direction" : "forward",
-								"indexBounds" : {
-									"c_mktsegment" : [
-										"[\"AUTOMOBILE\", \"AUTOMOBILE\"]"
-									]
-								},
-								"keysExamined" : 29752,
-								"seeks" : 1,
-								"dupsTested" : 0,
-								"dupsDropped" : 0
-							}
-						}
-					},
-					"allPlansExecution" : [ ]
-				}
-			},
-			"nReturned" : NumberLong(29752),
-			"executionTimeMillisEstimate" : NumberLong(127)
-		},
-		{
-			"$lookup" : {
-				"from" : "orders",
-				"as" : "orders",
-				"localField" : "_id",
-				"foreignField" : "o_custkey",
-				"unwinding" : {
-					"preserveNullAndEmptyArrays" : false
-				},
-				"matching" : {
-					"o_orderdate" : {
-						"$lt" : ISODate("1992-01-02T00:00:00Z")
-					}
-				}
-			},
-			"nReturned" : NumberLong(113),
-			"executionTimeMillisEstimate" : NumberLong(5297)
-		},
-		{
-			"$lookup" : {
-				"from" : "lineitem",
-				"as" : "lineitems",
-				"localField" : "orders._id",
-				"foreignField" : "_id.l_orderkey"
-			},
-			"nReturned" : NumberLong(113),
-			"executionTimeMillisEstimate" : NumberLong(5304)
-		},
-		{
-			"$project" : {
-				"_id" : true,
-				"o_orderkey" : "$orders._id",
-				"o_orderdate" : "$orders.o_orderdate",
-				"o_shippriority" : "$orders.o_shippriority",
-				"lineitems" : {
-					"$filter" : {
-						"input" : "$lineitems",
-						"as" : "l",
-						"cond" : {
-							"$gt" : [
-								"$$l.l_shipdate",
-								{
-									"$const" : ISODate("1992-01-02T00:00:00Z")
-								}
-							]
-						}
-					}
-				}
-			},
-			"nReturned" : NumberLong(113),
-			"executionTimeMillisEstimate" : NumberLong(5304)
-		},
-		{
-			"$unwind" : {
-				"path" : "$lineitems"
-			},
-			"nReturned" : NumberLong(439),
-			"executionTimeMillisEstimate" : NumberLong(5304)
-		},
-		{
-			"$group" : {
-				"_id" : {
-					"l_orderkey" : "$o_orderkey",
-					"o_orderdate" : "$o_orderdate",
-					"o_shippriority" : "$o_shippriority"
-				},
-				"revenue" : {
-					"$sum" : {
-						"$multiply" : [
-							"$lineitems.l_extendedprice",
-							{
-								"$subtract" : [
-									{
-										"$const" : 1
-									},
-									"$lineitems.l_discount"
-								]
-							}
-						]
-					}
-				}
-			},
-			"nReturned" : NumberLong(113),
-			"executionTimeMillisEstimate" : NumberLong(5305)
-		},
-		{
-			"$sort" : {
-				"sortKey" : {
-					"revenue" : -1,
-					"_id.o_orderdate" : 1
-				},
-				"limit" : NumberLong(10)
-			},
-			"nReturned" : NumberLong(10),
-			"executionTimeMillisEstimate" : NumberLong(5305)
-		}
-	],
-	"serverInfo" : {
-		"host" : "mt-mongo-1",
-		"port" : 27011,
-		"version" : "4.4.10",
-		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
-	},
-	"ok" : 1,
-	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639028880, 3),
-		"signature" : {
-			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
-			"keyId" : NumberLong(0)
-		}
-	},
-	"operationTime" : Timestamp(1639028880, 3)
-}
-
-
-MongoDB shell version v4.4.10
-connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("9f174c57-bbad-4679-b16e-58dc1ded7bf5") }
-MongoDB server version: 4.4.10
-{
-	"stages" : [
-		{
-			"$cursor" : {
-				"queryPlanner" : {
-					"plannerVersion" : 1,
-					"namespace" : "tpch_mongo_3c.customer",
-					"indexFilterSet" : false,
-					"parsedQuery" : {
-						"c_mktsegment" : {
-							"$eq" : "AUTOMOBILE"
-						}
-					},
-					"queryHash" : "D3320650",
-					"planCacheKey" : "29465EA8",
-					"winningPlan" : {
-						"stage" : "PROJECTION_DEFAULT",
-						"transformBy" : {
-							"_id" : 1,
-							"lineitems" : 1,
-							"orders._id" : 1,
-							"orders.o_orderdate" : 1,
-							"orders.o_shippriority" : 1
-						},
-						"inputStage" : {
-							"stage" : "FETCH",
-							"inputStage" : {
-								"stage" : "IXSCAN",
-								"keyPattern" : {
-									"c_mktsegment" : 1
-								},
-								"indexName" : "idx_c_mktsegment",
-								"isMultiKey" : false,
-								"multiKeyPaths" : {
-									"c_mktsegment" : [ ]
-								},
-								"isUnique" : false,
-								"isSparse" : false,
-								"isPartial" : false,
-								"indexVersion" : 2,
-								"direction" : "forward",
-								"indexBounds" : {
-									"c_mktsegment" : [
-										"[\"AUTOMOBILE\", \"AUTOMOBILE\"]"
-									]
-								}
-							}
-						}
-					},
-					"rejectedPlans" : [ ]
-				},
-				"executionStats" : {
-					"executionSuccess" : true,
-					"nReturned" : 29752,
-					"executionTimeMillis" : 5690,
-					"totalKeysExamined" : 29752,
-					"totalDocsExamined" : 29752,
-					"executionStages" : {
-						"stage" : "PROJECTION_DEFAULT",
-						"nReturned" : 29752,
-						"executionTimeMillisEstimate" : 70,
-						"works" : 29753,
-						"advanced" : 29752,
-						"needTime" : 0,
-						"needYield" : 0,
-						"saveState" : 30,
-						"restoreState" : 30,
-						"isEOF" : 1,
-						"transformBy" : {
-							"_id" : 1,
-							"lineitems" : 1,
-							"orders._id" : 1,
-							"orders.o_orderdate" : 1,
-							"orders.o_shippriority" : 1
-						},
-						"inputStage" : {
-							"stage" : "FETCH",
-							"nReturned" : 29752,
-							"executionTimeMillisEstimate" : 63,
-							"works" : 29753,
-							"advanced" : 29752,
-							"needTime" : 0,
-							"needYield" : 0,
-							"saveState" : 30,
-							"restoreState" : 30,
-							"isEOF" : 1,
-							"docsExamined" : 29752,
-							"alreadyHasObj" : 0,
-							"inputStage" : {
-								"stage" : "IXSCAN",
-								"nReturned" : 29752,
-								"executionTimeMillisEstimate" : 10,
-								"works" : 29753,
-								"advanced" : 29752,
-								"needTime" : 0,
-								"needYield" : 0,
-								"saveState" : 30,
-								"restoreState" : 30,
-								"isEOF" : 1,
-								"keyPattern" : {
-									"c_mktsegment" : 1
-								},
-								"indexName" : "idx_c_mktsegment",
-								"isMultiKey" : false,
-								"multiKeyPaths" : {
-									"c_mktsegment" : [ ]
-								},
-								"isUnique" : false,
-								"isSparse" : false,
-								"isPartial" : false,
-								"indexVersion" : 2,
-								"direction" : "forward",
-								"indexBounds" : {
-									"c_mktsegment" : [
-										"[\"AUTOMOBILE\", \"AUTOMOBILE\"]"
-									]
-								},
-								"keysExamined" : 29752,
-								"seeks" : 1,
-								"dupsTested" : 0,
-								"dupsDropped" : 0
-							}
-						}
-					},
-					"allPlansExecution" : [ ]
-				}
-			},
-			"nReturned" : NumberLong(29752),
-			"executionTimeMillisEstimate" : NumberLong(167)
-		},
-		{
-			"$lookup" : {
-				"from" : "orders",
-				"as" : "orders",
-				"localField" : "_id",
-				"foreignField" : "o_custkey",
-				"unwinding" : {
-					"preserveNullAndEmptyArrays" : false
-				},
-				"matching" : {
-					"o_orderdate" : {
-						"$lt" : ISODate("1992-01-02T00:00:00Z")
-					}
-				}
-			},
-			"nReturned" : NumberLong(113),
-			"executionTimeMillisEstimate" : NumberLong(5678)
-		},
-		{
-			"$lookup" : {
-				"from" : "lineitem",
-				"as" : "lineitems",
-				"localField" : "orders._id",
-				"foreignField" : "_id.l_orderkey"
-			},
-			"nReturned" : NumberLong(113),
-			"executionTimeMillisEstimate" : NumberLong(5687)
-		},
-		{
-			"$project" : {
-				"_id" : true,
-				"o_orderkey" : "$orders._id",
-				"o_orderdate" : "$orders.o_orderdate",
-				"o_shippriority" : "$orders.o_shippriority",
-				"lineitems" : {
-					"$filter" : {
-						"input" : "$lineitems",
-						"as" : "l",
-						"cond" : {
-							"$gt" : [
-								"$$l.l_shipdate",
-								{
-									"$const" : ISODate("1992-01-02T00:00:00Z")
-								}
-							]
-						}
-					}
-				}
-			},
-			"nReturned" : NumberLong(113),
-			"executionTimeMillisEstimate" : NumberLong(5688)
-		},
-		{
-			"$unwind" : {
-				"path" : "$lineitems"
-			},
-			"nReturned" : NumberLong(439),
-			"executionTimeMillisEstimate" : NumberLong(5688)
-		},
-		{
-			"$group" : {
-				"_id" : {
-					"l_orderkey" : "$o_orderkey",
-					"o_orderdate" : "$o_orderdate",
-					"o_shippriority" : "$o_shippriority"
-				},
-				"revenue" : {
-					"$sum" : {
-						"$multiply" : [
-							"$lineitems.l_extendedprice",
-							{
-								"$subtract" : [
-									{
-										"$const" : 1
-									},
-									"$lineitems.l_discount"
-								]
-							}
-						]
-					}
-				}
-			},
-			"nReturned" : NumberLong(113),
-			"executionTimeMillisEstimate" : NumberLong(5688)
-		},
-		{
-			"$sort" : {
-				"sortKey" : {
-					"revenue" : -1,
-					"_id.o_orderdate" : 1
-				},
-				"limit" : NumberLong(10)
-			},
-			"nReturned" : NumberLong(10),
-			"executionTimeMillisEstimate" : NumberLong(5688)
-		}
-	],
-	"serverInfo" : {
-		"host" : "mt-mongo-1",
-		"port" : 27011,
-		"version" : "4.4.10",
-		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
-	},
-	"ok" : 1,
-	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639028947, 3),
-		"signature" : {
-			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
-			"keyId" : NumberLong(0)
-		}
-	},
-	"operationTime" : Timestamp(1639028947, 3)
-}
-
-
-MongoDB shell version v4.4.10
-connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("511657bd-3734-457c-9c58-acf381b252b2") }
-MongoDB server version: 4.4.10
-{
-	"stages" : [
-		{
-			"$cursor" : {
-				"queryPlanner" : {
-					"plannerVersion" : 1,
-					"namespace" : "tpch_mongo_3c.customer",
-					"indexFilterSet" : false,
-					"parsedQuery" : {
-						"c_mktsegment" : {
-							"$eq" : "AUTOMOBILE"
-						}
-					},
-					"queryHash" : "D3320650",
-					"planCacheKey" : "29465EA8",
-					"winningPlan" : {
-						"stage" : "PROJECTION_DEFAULT",
-						"transformBy" : {
-							"_id" : 1,
-							"lineitems" : 1,
-							"orders._id" : 1,
-							"orders.o_orderdate" : 1,
-							"orders.o_shippriority" : 1
-						},
-						"inputStage" : {
-							"stage" : "FETCH",
-							"inputStage" : {
-								"stage" : "IXSCAN",
-								"keyPattern" : {
-									"c_mktsegment" : 1
-								},
-								"indexName" : "idx_c_mktsegment",
-								"isMultiKey" : false,
-								"multiKeyPaths" : {
-									"c_mktsegment" : [ ]
-								},
-								"isUnique" : false,
-								"isSparse" : false,
-								"isPartial" : false,
-								"indexVersion" : 2,
-								"direction" : "forward",
-								"indexBounds" : {
-									"c_mktsegment" : [
-										"[\"AUTOMOBILE\", \"AUTOMOBILE\"]"
-									]
-								}
-							}
-						}
-					},
-					"rejectedPlans" : [ ]
-				},
-				"executionStats" : {
-					"executionSuccess" : true,
-					"nReturned" : 29752,
-					"executionTimeMillis" : 5224,
-					"totalKeysExamined" : 29752,
-					"totalDocsExamined" : 29752,
-					"executionStages" : {
-						"stage" : "PROJECTION_DEFAULT",
-						"nReturned" : 29752,
-						"executionTimeMillisEstimate" : 46,
-						"works" : 29753,
-						"advanced" : 29752,
-						"needTime" : 0,
-						"needYield" : 0,
-						"saveState" : 30,
-						"restoreState" : 30,
-						"isEOF" : 1,
-						"transformBy" : {
-							"_id" : 1,
-							"lineitems" : 1,
-							"orders._id" : 1,
-							"orders.o_orderdate" : 1,
-							"orders.o_shippriority" : 1
-						},
-						"inputStage" : {
-							"stage" : "FETCH",
-							"nReturned" : 29752,
-							"executionTimeMillisEstimate" : 42,
-							"works" : 29753,
-							"advanced" : 29752,
-							"needTime" : 0,
-							"needYield" : 0,
-							"saveState" : 30,
-							"restoreState" : 30,
-							"isEOF" : 1,
-							"docsExamined" : 29752,
-							"alreadyHasObj" : 0,
-							"inputStage" : {
-								"stage" : "IXSCAN",
-								"nReturned" : 29752,
-								"executionTimeMillisEstimate" : 13,
-								"works" : 29753,
-								"advanced" : 29752,
-								"needTime" : 0,
-								"needYield" : 0,
-								"saveState" : 30,
-								"restoreState" : 30,
-								"isEOF" : 1,
-								"keyPattern" : {
-									"c_mktsegment" : 1
-								},
-								"indexName" : "idx_c_mktsegment",
-								"isMultiKey" : false,
-								"multiKeyPaths" : {
-									"c_mktsegment" : [ ]
-								},
-								"isUnique" : false,
-								"isSparse" : false,
-								"isPartial" : false,
-								"indexVersion" : 2,
-								"direction" : "forward",
-								"indexBounds" : {
-									"c_mktsegment" : [
-										"[\"AUTOMOBILE\", \"AUTOMOBILE\"]"
-									]
-								},
-								"keysExamined" : 29752,
-								"seeks" : 1,
-								"dupsTested" : 0,
-								"dupsDropped" : 0
-							}
-						}
-					},
-					"allPlansExecution" : [ ]
-				}
-			},
-			"nReturned" : NumberLong(29752),
-			"executionTimeMillisEstimate" : NumberLong(137)
-		},
-		{
-			"$lookup" : {
-				"from" : "orders",
-				"as" : "orders",
-				"localField" : "_id",
-				"foreignField" : "o_custkey",
-				"unwinding" : {
-					"preserveNullAndEmptyArrays" : false
-				},
-				"matching" : {
-					"o_orderdate" : {
-						"$lt" : ISODate("1992-01-02T00:00:00Z")
-					}
-				}
-			},
-			"nReturned" : NumberLong(113),
-			"executionTimeMillisEstimate" : NumberLong(5210)
-		},
-		{
-			"$lookup" : {
-				"from" : "lineitem",
-				"as" : "lineitems",
-				"localField" : "orders._id",
-				"foreignField" : "_id.l_orderkey"
-			},
-			"nReturned" : NumberLong(113),
-			"executionTimeMillisEstimate" : NumberLong(5224)
-		},
-		{
-			"$project" : {
-				"_id" : true,
-				"o_orderkey" : "$orders._id",
-				"o_orderdate" : "$orders.o_orderdate",
-				"o_shippriority" : "$orders.o_shippriority",
-				"lineitems" : {
-					"$filter" : {
-						"input" : "$lineitems",
-						"as" : "l",
-						"cond" : {
-							"$gt" : [
-								"$$l.l_shipdate",
-								{
-									"$const" : ISODate("1992-01-02T00:00:00Z")
-								}
-							]
-						}
-					}
-				}
-			},
-			"nReturned" : NumberLong(113),
-			"executionTimeMillisEstimate" : NumberLong(5224)
-		},
-		{
-			"$unwind" : {
-				"path" : "$lineitems"
-			},
-			"nReturned" : NumberLong(439),
-			"executionTimeMillisEstimate" : NumberLong(5224)
-		},
-		{
-			"$group" : {
-				"_id" : {
-					"l_orderkey" : "$o_orderkey",
-					"o_orderdate" : "$o_orderdate",
-					"o_shippriority" : "$o_shippriority"
-				},
-				"revenue" : {
-					"$sum" : {
-						"$multiply" : [
-							"$lineitems.l_extendedprice",
-							{
-								"$subtract" : [
-									{
-										"$const" : 1
-									},
-									"$lineitems.l_discount"
-								]
-							}
-						]
-					}
-				}
-			},
-			"nReturned" : NumberLong(113),
-			"executionTimeMillisEstimate" : NumberLong(5224)
-		},
-		{
-			"$sort" : {
-				"sortKey" : {
-					"revenue" : -1,
-					"_id.o_orderdate" : 1
-				},
-				"limit" : NumberLong(10)
-			},
-			"nReturned" : NumberLong(10),
-			"executionTimeMillisEstimate" : NumberLong(5224)
-		}
-	],
-	"serverInfo" : {
-		"host" : "mt-mongo-3",
-		"port" : 27013,
-		"version" : "4.4.10",
-		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
-	},
-	"ok" : 1,
-	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639029017, 3),
-		"signature" : {
-			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
-			"keyId" : NumberLong(0)
-		}
-	},
-	"operationTime" : Timestamp(1639029017, 3)
-}
-
-
-MongoDB shell version v4.4.10
-connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("9e1e3da7-413a-4876-8afc-ae9750f48144") }
-MongoDB server version: 4.4.10
-{
-	"stages" : [
-		{
-			"$cursor" : {
-				"queryPlanner" : {
-					"plannerVersion" : 1,
-					"namespace" : "tpch_mongo_3c.customer",
-					"indexFilterSet" : false,
-					"parsedQuery" : {
-						"c_mktsegment" : {
-							"$eq" : "AUTOMOBILE"
-						}
-					},
-					"queryHash" : "D3320650",
-					"planCacheKey" : "29465EA8",
-					"winningPlan" : {
-						"stage" : "PROJECTION_DEFAULT",
-						"transformBy" : {
-							"_id" : 1,
-							"lineitems" : 1,
-							"orders._id" : 1,
-							"orders.o_orderdate" : 1,
-							"orders.o_shippriority" : 1
-						},
-						"inputStage" : {
-							"stage" : "FETCH",
-							"inputStage" : {
-								"stage" : "IXSCAN",
-								"keyPattern" : {
-									"c_mktsegment" : 1
-								},
-								"indexName" : "idx_c_mktsegment",
-								"isMultiKey" : false,
-								"multiKeyPaths" : {
-									"c_mktsegment" : [ ]
-								},
-								"isUnique" : false,
-								"isSparse" : false,
-								"isPartial" : false,
-								"indexVersion" : 2,
-								"direction" : "forward",
-								"indexBounds" : {
-									"c_mktsegment" : [
-										"[\"AUTOMOBILE\", \"AUTOMOBILE\"]"
-									]
-								}
-							}
-						}
-					},
-					"rejectedPlans" : [ ]
-				},
-				"executionStats" : {
-					"executionSuccess" : true,
-					"nReturned" : 29752,
-					"executionTimeMillis" : 5148,
-					"totalKeysExamined" : 29752,
-					"totalDocsExamined" : 29752,
-					"executionStages" : {
-						"stage" : "PROJECTION_DEFAULT",
-						"nReturned" : 29752,
-						"executionTimeMillisEstimate" : 41,
-						"works" : 29753,
-						"advanced" : 29752,
-						"needTime" : 0,
-						"needYield" : 0,
-						"saveState" : 30,
-						"restoreState" : 30,
-						"isEOF" : 1,
-						"transformBy" : {
-							"_id" : 1,
-							"lineitems" : 1,
-							"orders._id" : 1,
-							"orders.o_orderdate" : 1,
-							"orders.o_shippriority" : 1
-						},
-						"inputStage" : {
-							"stage" : "FETCH",
-							"nReturned" : 29752,
-							"executionTimeMillisEstimate" : 33,
-							"works" : 29753,
-							"advanced" : 29752,
-							"needTime" : 0,
-							"needYield" : 0,
-							"saveState" : 30,
-							"restoreState" : 30,
-							"isEOF" : 1,
-							"docsExamined" : 29752,
-							"alreadyHasObj" : 0,
-							"inputStage" : {
-								"stage" : "IXSCAN",
-								"nReturned" : 29752,
-								"executionTimeMillisEstimate" : 9,
-								"works" : 29753,
-								"advanced" : 29752,
-								"needTime" : 0,
-								"needYield" : 0,
-								"saveState" : 30,
-								"restoreState" : 30,
-								"isEOF" : 1,
-								"keyPattern" : {
-									"c_mktsegment" : 1
-								},
-								"indexName" : "idx_c_mktsegment",
-								"isMultiKey" : false,
-								"multiKeyPaths" : {
-									"c_mktsegment" : [ ]
-								},
-								"isUnique" : false,
-								"isSparse" : false,
-								"isPartial" : false,
-								"indexVersion" : 2,
-								"direction" : "forward",
-								"indexBounds" : {
-									"c_mktsegment" : [
-										"[\"AUTOMOBILE\", \"AUTOMOBILE\"]"
-									]
-								},
-								"keysExamined" : 29752,
-								"seeks" : 1,
-								"dupsTested" : 0,
-								"dupsDropped" : 0
-							}
-						}
-					},
-					"allPlansExecution" : [ ]
-				}
-			},
-			"nReturned" : NumberLong(29752),
-			"executionTimeMillisEstimate" : NumberLong(133)
-		},
-		{
-			"$lookup" : {
-				"from" : "orders",
-				"as" : "orders",
-				"localField" : "_id",
-				"foreignField" : "o_custkey",
-				"unwinding" : {
-					"preserveNullAndEmptyArrays" : false
-				},
-				"matching" : {
-					"o_orderdate" : {
-						"$lt" : ISODate("1992-01-02T00:00:00Z")
-					}
-				}
-			},
-			"nReturned" : NumberLong(113),
-			"executionTimeMillisEstimate" : NumberLong(5138)
-		},
-		{
-			"$lookup" : {
-				"from" : "lineitem",
-				"as" : "lineitems",
-				"localField" : "orders._id",
-				"foreignField" : "_id.l_orderkey"
-			},
-			"nReturned" : NumberLong(113),
-			"executionTimeMillisEstimate" : NumberLong(5147)
-		},
-		{
-			"$project" : {
-				"_id" : true,
-				"o_orderkey" : "$orders._id",
-				"o_orderdate" : "$orders.o_orderdate",
-				"o_shippriority" : "$orders.o_shippriority",
-				"lineitems" : {
-					"$filter" : {
-						"input" : "$lineitems",
-						"as" : "l",
-						"cond" : {
-							"$gt" : [
-								"$$l.l_shipdate",
-								{
-									"$const" : ISODate("1992-01-02T00:00:00Z")
-								}
-							]
-						}
-					}
-				}
-			},
-			"nReturned" : NumberLong(113),
-			"executionTimeMillisEstimate" : NumberLong(5147)
-		},
-		{
-			"$unwind" : {
-				"path" : "$lineitems"
-			},
-			"nReturned" : NumberLong(439),
-			"executionTimeMillisEstimate" : NumberLong(5147)
-		},
-		{
-			"$group" : {
-				"_id" : {
-					"l_orderkey" : "$o_orderkey",
-					"o_orderdate" : "$o_orderdate",
-					"o_shippriority" : "$o_shippriority"
-				},
-				"revenue" : {
-					"$sum" : {
-						"$multiply" : [
-							"$lineitems.l_extendedprice",
-							{
-								"$subtract" : [
-									{
-										"$const" : 1
-									},
-									"$lineitems.l_discount"
-								]
-							}
-						]
-					}
-				}
-			},
-			"nReturned" : NumberLong(113),
-			"executionTimeMillisEstimate" : NumberLong(5147)
-		},
-		{
-			"$sort" : {
-				"sortKey" : {
-					"revenue" : -1,
-					"_id.o_orderdate" : 1
-				},
-				"limit" : NumberLong(10)
-			},
-			"nReturned" : NumberLong(10),
-			"executionTimeMillisEstimate" : NumberLong(5147)
-		}
-	],
-	"serverInfo" : {
-		"host" : "mt-mongo-2",
-		"port" : 27012,
-		"version" : "4.4.10",
-		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
-	},
-	"ok" : 1,
-	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639029092, 3),
-		"signature" : {
-			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
-			"keyId" : NumberLong(0)
-		}
-	},
-	"operationTime" : Timestamp(1639029092, 3)
+	"operationTime" : Timestamp(1639534450, 3)
 }
 
 

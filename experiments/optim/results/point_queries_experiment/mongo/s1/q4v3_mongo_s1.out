@@ -1,6 +1,6 @@
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("ab91bb41-da99-4960-9920-e20ff7f04671") }
+Implicit session: session { "id" : UUID("8de1ab1f-b32a-4dd6-9833-e0532d27da0c") }
 MongoDB server version: 4.4.10
 {
 	"queryPlanner" : {
@@ -67,13 +67,511 @@ MongoDB server version: 4.4.10
 	"executionStats" : {
 		"executionSuccess" : true,
 		"nReturned" : 13559,
-		"executionTimeMillis" : 76,
+		"executionTimeMillis" : 87,
 		"totalKeysExamined" : 13559,
 		"totalDocsExamined" : 13559,
 		"executionStages" : {
 			"stage" : "FETCH",
 			"nReturned" : 13559,
-			"executionTimeMillisEstimate" : 20,
+			"executionTimeMillisEstimate" : 21,
+			"works" : 13560,
+			"advanced" : 13559,
+			"needTime" : 0,
+			"needYield" : 0,
+			"saveState" : 13,
+			"restoreState" : 13,
+			"isEOF" : 1,
+			"docsExamined" : 13559,
+			"alreadyHasObj" : 0,
+			"inputStage" : {
+				"stage" : "IXSCAN",
+				"nReturned" : 13559,
+				"executionTimeMillisEstimate" : 15,
+				"works" : 13560,
+				"advanced" : 13559,
+				"needTime" : 0,
+				"needYield" : 0,
+				"saveState" : 13,
+				"restoreState" : 13,
+				"isEOF" : 1,
+				"keyPattern" : {
+					"c_acctbal" : -1
+				},
+				"indexName" : "idx_customer_d",
+				"isMultiKey" : false,
+				"multiKeyPaths" : {
+					"c_acctbal" : [ ]
+				},
+				"isUnique" : false,
+				"isSparse" : false,
+				"isPartial" : false,
+				"indexVersion" : 2,
+				"direction" : "forward",
+				"indexBounds" : {
+					"c_acctbal" : [
+						"(-10.0, -inf.0]"
+					]
+				},
+				"keysExamined" : 13559,
+				"seeks" : 1,
+				"dupsTested" : 0,
+				"dupsDropped" : 0
+			}
+		},
+		"allPlansExecution" : [
+			{
+				"nReturned" : 101,
+				"executionTimeMillisEstimate" : 0,
+				"totalKeysExamined" : 101,
+				"totalDocsExamined" : 101,
+				"executionStages" : {
+					"stage" : "FETCH",
+					"nReturned" : 101,
+					"executionTimeMillisEstimate" : 0,
+					"works" : 101,
+					"advanced" : 101,
+					"needTime" : 0,
+					"needYield" : 0,
+					"saveState" : 0,
+					"restoreState" : 0,
+					"isEOF" : 0,
+					"docsExamined" : 101,
+					"alreadyHasObj" : 0,
+					"inputStage" : {
+						"stage" : "IXSCAN",
+						"nReturned" : 101,
+						"executionTimeMillisEstimate" : 0,
+						"works" : 101,
+						"advanced" : 101,
+						"needTime" : 0,
+						"needYield" : 0,
+						"saveState" : 0,
+						"restoreState" : 0,
+						"isEOF" : 0,
+						"keyPattern" : {
+							"c_acctbal" : -1
+						},
+						"indexName" : "idx_customer_d",
+						"isMultiKey" : false,
+						"multiKeyPaths" : {
+							"c_acctbal" : [ ]
+						},
+						"isUnique" : false,
+						"isSparse" : false,
+						"isPartial" : false,
+						"indexVersion" : 2,
+						"direction" : "forward",
+						"indexBounds" : {
+							"c_acctbal" : [
+								"(-10.0, -inf.0]"
+							]
+						},
+						"keysExamined" : 101,
+						"seeks" : 1,
+						"dupsTested" : 0,
+						"dupsDropped" : 0
+					}
+				}
+			},
+			{
+				"nReturned" : 101,
+				"executionTimeMillisEstimate" : 0,
+				"totalKeysExamined" : 101,
+				"totalDocsExamined" : 101,
+				"executionStages" : {
+					"stage" : "FETCH",
+					"nReturned" : 101,
+					"executionTimeMillisEstimate" : 0,
+					"works" : 101,
+					"advanced" : 101,
+					"needTime" : 0,
+					"needYield" : 0,
+					"saveState" : 13,
+					"restoreState" : 13,
+					"isEOF" : 0,
+					"docsExamined" : 101,
+					"alreadyHasObj" : 0,
+					"inputStage" : {
+						"stage" : "IXSCAN",
+						"nReturned" : 101,
+						"executionTimeMillisEstimate" : 0,
+						"works" : 101,
+						"advanced" : 101,
+						"needTime" : 0,
+						"needYield" : 0,
+						"saveState" : 13,
+						"restoreState" : 13,
+						"isEOF" : 0,
+						"keyPattern" : {
+							"c_acctbal" : 1
+						},
+						"indexName" : "idx_customer_a",
+						"isMultiKey" : false,
+						"multiKeyPaths" : {
+							"c_acctbal" : [ ]
+						},
+						"isUnique" : false,
+						"isSparse" : false,
+						"isPartial" : false,
+						"indexVersion" : 2,
+						"direction" : "forward",
+						"indexBounds" : {
+							"c_acctbal" : [
+								"[-inf.0, -10.0)"
+							]
+						},
+						"keysExamined" : 101,
+						"seeks" : 1,
+						"dupsTested" : 0,
+						"dupsDropped" : 0
+					}
+				}
+			}
+		]
+	},
+	"serverInfo" : {
+		"host" : "mt-mongo-1",
+		"port" : 27011,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639504052, 5),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1639504052, 5)
+}
+
+
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("83386800-003d-4954-9f40-f6778137bb8e") }
+MongoDB server version: 4.4.10
+{
+	"queryPlanner" : {
+		"plannerVersion" : 1,
+		"namespace" : "tpch_mongo_1c.scale1",
+		"indexFilterSet" : false,
+		"parsedQuery" : {
+			"c_acctbal" : {
+				"$lt" : -10
+			}
+		},
+		"optimizedPipeline" : true,
+		"winningPlan" : {
+			"stage" : "FETCH",
+			"inputStage" : {
+				"stage" : "IXSCAN",
+				"keyPattern" : {
+					"c_acctbal" : -1
+				},
+				"indexName" : "idx_customer_d",
+				"isMultiKey" : false,
+				"multiKeyPaths" : {
+					"c_acctbal" : [ ]
+				},
+				"isUnique" : false,
+				"isSparse" : false,
+				"isPartial" : false,
+				"indexVersion" : 2,
+				"direction" : "forward",
+				"indexBounds" : {
+					"c_acctbal" : [
+						"(-10.0, -inf.0]"
+					]
+				}
+			}
+		},
+		"rejectedPlans" : [
+			{
+				"stage" : "FETCH",
+				"inputStage" : {
+					"stage" : "IXSCAN",
+					"keyPattern" : {
+						"c_acctbal" : 1
+					},
+					"indexName" : "idx_customer_a",
+					"isMultiKey" : false,
+					"multiKeyPaths" : {
+						"c_acctbal" : [ ]
+					},
+					"isUnique" : false,
+					"isSparse" : false,
+					"isPartial" : false,
+					"indexVersion" : 2,
+					"direction" : "forward",
+					"indexBounds" : {
+						"c_acctbal" : [
+							"[-inf.0, -10.0)"
+						]
+					}
+				}
+			}
+		]
+	},
+	"executionStats" : {
+		"executionSuccess" : true,
+		"nReturned" : 13559,
+		"executionTimeMillis" : 65,
+		"totalKeysExamined" : 13559,
+		"totalDocsExamined" : 13559,
+		"executionStages" : {
+			"stage" : "FETCH",
+			"nReturned" : 13559,
+			"executionTimeMillisEstimate" : 16,
+			"works" : 13560,
+			"advanced" : 13559,
+			"needTime" : 0,
+			"needYield" : 0,
+			"saveState" : 13,
+			"restoreState" : 13,
+			"isEOF" : 1,
+			"docsExamined" : 13559,
+			"alreadyHasObj" : 0,
+			"inputStage" : {
+				"stage" : "IXSCAN",
+				"nReturned" : 13559,
+				"executionTimeMillisEstimate" : 4,
+				"works" : 13560,
+				"advanced" : 13559,
+				"needTime" : 0,
+				"needYield" : 0,
+				"saveState" : 13,
+				"restoreState" : 13,
+				"isEOF" : 1,
+				"keyPattern" : {
+					"c_acctbal" : -1
+				},
+				"indexName" : "idx_customer_d",
+				"isMultiKey" : false,
+				"multiKeyPaths" : {
+					"c_acctbal" : [ ]
+				},
+				"isUnique" : false,
+				"isSparse" : false,
+				"isPartial" : false,
+				"indexVersion" : 2,
+				"direction" : "forward",
+				"indexBounds" : {
+					"c_acctbal" : [
+						"(-10.0, -inf.0]"
+					]
+				},
+				"keysExamined" : 13559,
+				"seeks" : 1,
+				"dupsTested" : 0,
+				"dupsDropped" : 0
+			}
+		},
+		"allPlansExecution" : [
+			{
+				"nReturned" : 101,
+				"executionTimeMillisEstimate" : 0,
+				"totalKeysExamined" : 101,
+				"totalDocsExamined" : 101,
+				"executionStages" : {
+					"stage" : "FETCH",
+					"nReturned" : 101,
+					"executionTimeMillisEstimate" : 0,
+					"works" : 101,
+					"advanced" : 101,
+					"needTime" : 0,
+					"needYield" : 0,
+					"saveState" : 0,
+					"restoreState" : 0,
+					"isEOF" : 0,
+					"docsExamined" : 101,
+					"alreadyHasObj" : 0,
+					"inputStage" : {
+						"stage" : "IXSCAN",
+						"nReturned" : 101,
+						"executionTimeMillisEstimate" : 0,
+						"works" : 101,
+						"advanced" : 101,
+						"needTime" : 0,
+						"needYield" : 0,
+						"saveState" : 0,
+						"restoreState" : 0,
+						"isEOF" : 0,
+						"keyPattern" : {
+							"c_acctbal" : -1
+						},
+						"indexName" : "idx_customer_d",
+						"isMultiKey" : false,
+						"multiKeyPaths" : {
+							"c_acctbal" : [ ]
+						},
+						"isUnique" : false,
+						"isSparse" : false,
+						"isPartial" : false,
+						"indexVersion" : 2,
+						"direction" : "forward",
+						"indexBounds" : {
+							"c_acctbal" : [
+								"(-10.0, -inf.0]"
+							]
+						},
+						"keysExamined" : 101,
+						"seeks" : 1,
+						"dupsTested" : 0,
+						"dupsDropped" : 0
+					}
+				}
+			},
+			{
+				"nReturned" : 101,
+				"executionTimeMillisEstimate" : 0,
+				"totalKeysExamined" : 101,
+				"totalDocsExamined" : 101,
+				"executionStages" : {
+					"stage" : "FETCH",
+					"nReturned" : 101,
+					"executionTimeMillisEstimate" : 0,
+					"works" : 101,
+					"advanced" : 101,
+					"needTime" : 0,
+					"needYield" : 0,
+					"saveState" : 13,
+					"restoreState" : 13,
+					"isEOF" : 0,
+					"docsExamined" : 101,
+					"alreadyHasObj" : 0,
+					"inputStage" : {
+						"stage" : "IXSCAN",
+						"nReturned" : 101,
+						"executionTimeMillisEstimate" : 0,
+						"works" : 101,
+						"advanced" : 101,
+						"needTime" : 0,
+						"needYield" : 0,
+						"saveState" : 13,
+						"restoreState" : 13,
+						"isEOF" : 0,
+						"keyPattern" : {
+							"c_acctbal" : 1
+						},
+						"indexName" : "idx_customer_a",
+						"isMultiKey" : false,
+						"multiKeyPaths" : {
+							"c_acctbal" : [ ]
+						},
+						"isUnique" : false,
+						"isSparse" : false,
+						"isPartial" : false,
+						"indexVersion" : 2,
+						"direction" : "forward",
+						"indexBounds" : {
+							"c_acctbal" : [
+								"[-inf.0, -10.0)"
+							]
+						},
+						"keysExamined" : 101,
+						"seeks" : 1,
+						"dupsTested" : 0,
+						"dupsDropped" : 0
+					}
+				}
+			}
+		]
+	},
+	"serverInfo" : {
+		"host" : "mt-mongo-3",
+		"port" : 27013,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639504105, 10),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1639504105, 10)
+}
+
+
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("f92cedc4-c5c6-421a-a4c9-183f5da5fc4c") }
+MongoDB server version: 4.4.10
+{
+	"queryPlanner" : {
+		"plannerVersion" : 1,
+		"namespace" : "tpch_mongo_1c.scale1",
+		"indexFilterSet" : false,
+		"parsedQuery" : {
+			"c_acctbal" : {
+				"$lt" : -10
+			}
+		},
+		"optimizedPipeline" : true,
+		"winningPlan" : {
+			"stage" : "FETCH",
+			"inputStage" : {
+				"stage" : "IXSCAN",
+				"keyPattern" : {
+					"c_acctbal" : -1
+				},
+				"indexName" : "idx_customer_d",
+				"isMultiKey" : false,
+				"multiKeyPaths" : {
+					"c_acctbal" : [ ]
+				},
+				"isUnique" : false,
+				"isSparse" : false,
+				"isPartial" : false,
+				"indexVersion" : 2,
+				"direction" : "forward",
+				"indexBounds" : {
+					"c_acctbal" : [
+						"(-10.0, -inf.0]"
+					]
+				}
+			}
+		},
+		"rejectedPlans" : [
+			{
+				"stage" : "FETCH",
+				"inputStage" : {
+					"stage" : "IXSCAN",
+					"keyPattern" : {
+						"c_acctbal" : 1
+					},
+					"indexName" : "idx_customer_a",
+					"isMultiKey" : false,
+					"multiKeyPaths" : {
+						"c_acctbal" : [ ]
+					},
+					"isUnique" : false,
+					"isSparse" : false,
+					"isPartial" : false,
+					"indexVersion" : 2,
+					"direction" : "forward",
+					"indexBounds" : {
+						"c_acctbal" : [
+							"[-inf.0, -10.0)"
+						]
+					}
+				}
+			}
+		]
+	},
+	"executionStats" : {
+		"executionSuccess" : true,
+		"nReturned" : 13559,
+		"executionTimeMillis" : 69,
+		"totalKeysExamined" : 13559,
+		"totalDocsExamined" : 13559,
+		"executionStages" : {
+			"stage" : "FETCH",
+			"nReturned" : 13559,
+			"executionTimeMillisEstimate" : 9,
 			"works" : 13560,
 			"advanced" : 13559,
 			"needTime" : 0,
@@ -230,255 +728,6 @@ MongoDB server version: 4.4.10
 		]
 	},
 	"serverInfo" : {
-		"host" : "mt-mongo-1",
-		"port" : 27011,
-		"version" : "4.4.10",
-		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
-	},
-	"ok" : 1,
-	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639044113, 5),
-		"signature" : {
-			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
-			"keyId" : NumberLong(0)
-		}
-	},
-	"operationTime" : Timestamp(1639044113, 5)
-}
-
-
-MongoDB shell version v4.4.10
-connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("4fda3524-5f91-4c8e-ad78-4d91d0fe33e0") }
-MongoDB server version: 4.4.10
-{
-	"queryPlanner" : {
-		"plannerVersion" : 1,
-		"namespace" : "tpch_mongo_1c.scale1",
-		"indexFilterSet" : false,
-		"parsedQuery" : {
-			"c_acctbal" : {
-				"$lt" : -10
-			}
-		},
-		"optimizedPipeline" : true,
-		"winningPlan" : {
-			"stage" : "FETCH",
-			"inputStage" : {
-				"stage" : "IXSCAN",
-				"keyPattern" : {
-					"c_acctbal" : -1
-				},
-				"indexName" : "idx_customer_d",
-				"isMultiKey" : false,
-				"multiKeyPaths" : {
-					"c_acctbal" : [ ]
-				},
-				"isUnique" : false,
-				"isSparse" : false,
-				"isPartial" : false,
-				"indexVersion" : 2,
-				"direction" : "forward",
-				"indexBounds" : {
-					"c_acctbal" : [
-						"(-10.0, -inf.0]"
-					]
-				}
-			}
-		},
-		"rejectedPlans" : [
-			{
-				"stage" : "FETCH",
-				"inputStage" : {
-					"stage" : "IXSCAN",
-					"keyPattern" : {
-						"c_acctbal" : 1
-					},
-					"indexName" : "idx_customer_a",
-					"isMultiKey" : false,
-					"multiKeyPaths" : {
-						"c_acctbal" : [ ]
-					},
-					"isUnique" : false,
-					"isSparse" : false,
-					"isPartial" : false,
-					"indexVersion" : 2,
-					"direction" : "forward",
-					"indexBounds" : {
-						"c_acctbal" : [
-							"[-inf.0, -10.0)"
-						]
-					}
-				}
-			}
-		]
-	},
-	"executionStats" : {
-		"executionSuccess" : true,
-		"nReturned" : 13559,
-		"executionTimeMillis" : 70,
-		"totalKeysExamined" : 13559,
-		"totalDocsExamined" : 13559,
-		"executionStages" : {
-			"stage" : "FETCH",
-			"nReturned" : 13559,
-			"executionTimeMillisEstimate" : 22,
-			"works" : 13560,
-			"advanced" : 13559,
-			"needTime" : 0,
-			"needYield" : 0,
-			"saveState" : 13,
-			"restoreState" : 13,
-			"isEOF" : 1,
-			"docsExamined" : 13559,
-			"alreadyHasObj" : 0,
-			"inputStage" : {
-				"stage" : "IXSCAN",
-				"nReturned" : 13559,
-				"executionTimeMillisEstimate" : 6,
-				"works" : 13560,
-				"advanced" : 13559,
-				"needTime" : 0,
-				"needYield" : 0,
-				"saveState" : 13,
-				"restoreState" : 13,
-				"isEOF" : 1,
-				"keyPattern" : {
-					"c_acctbal" : -1
-				},
-				"indexName" : "idx_customer_d",
-				"isMultiKey" : false,
-				"multiKeyPaths" : {
-					"c_acctbal" : [ ]
-				},
-				"isUnique" : false,
-				"isSparse" : false,
-				"isPartial" : false,
-				"indexVersion" : 2,
-				"direction" : "forward",
-				"indexBounds" : {
-					"c_acctbal" : [
-						"(-10.0, -inf.0]"
-					]
-				},
-				"keysExamined" : 13559,
-				"seeks" : 1,
-				"dupsTested" : 0,
-				"dupsDropped" : 0
-			}
-		},
-		"allPlansExecution" : [
-			{
-				"nReturned" : 101,
-				"executionTimeMillisEstimate" : 0,
-				"totalKeysExamined" : 101,
-				"totalDocsExamined" : 101,
-				"executionStages" : {
-					"stage" : "FETCH",
-					"nReturned" : 101,
-					"executionTimeMillisEstimate" : 0,
-					"works" : 101,
-					"advanced" : 101,
-					"needTime" : 0,
-					"needYield" : 0,
-					"saveState" : 0,
-					"restoreState" : 0,
-					"isEOF" : 0,
-					"docsExamined" : 101,
-					"alreadyHasObj" : 0,
-					"inputStage" : {
-						"stage" : "IXSCAN",
-						"nReturned" : 101,
-						"executionTimeMillisEstimate" : 0,
-						"works" : 101,
-						"advanced" : 101,
-						"needTime" : 0,
-						"needYield" : 0,
-						"saveState" : 0,
-						"restoreState" : 0,
-						"isEOF" : 0,
-						"keyPattern" : {
-							"c_acctbal" : -1
-						},
-						"indexName" : "idx_customer_d",
-						"isMultiKey" : false,
-						"multiKeyPaths" : {
-							"c_acctbal" : [ ]
-						},
-						"isUnique" : false,
-						"isSparse" : false,
-						"isPartial" : false,
-						"indexVersion" : 2,
-						"direction" : "forward",
-						"indexBounds" : {
-							"c_acctbal" : [
-								"(-10.0, -inf.0]"
-							]
-						},
-						"keysExamined" : 101,
-						"seeks" : 1,
-						"dupsTested" : 0,
-						"dupsDropped" : 0
-					}
-				}
-			},
-			{
-				"nReturned" : 101,
-				"executionTimeMillisEstimate" : 0,
-				"totalKeysExamined" : 101,
-				"totalDocsExamined" : 101,
-				"executionStages" : {
-					"stage" : "FETCH",
-					"nReturned" : 101,
-					"executionTimeMillisEstimate" : 0,
-					"works" : 101,
-					"advanced" : 101,
-					"needTime" : 0,
-					"needYield" : 0,
-					"saveState" : 13,
-					"restoreState" : 13,
-					"isEOF" : 0,
-					"docsExamined" : 101,
-					"alreadyHasObj" : 0,
-					"inputStage" : {
-						"stage" : "IXSCAN",
-						"nReturned" : 101,
-						"executionTimeMillisEstimate" : 0,
-						"works" : 101,
-						"advanced" : 101,
-						"needTime" : 0,
-						"needYield" : 0,
-						"saveState" : 13,
-						"restoreState" : 13,
-						"isEOF" : 0,
-						"keyPattern" : {
-							"c_acctbal" : 1
-						},
-						"indexName" : "idx_customer_a",
-						"isMultiKey" : false,
-						"multiKeyPaths" : {
-							"c_acctbal" : [ ]
-						},
-						"isUnique" : false,
-						"isSparse" : false,
-						"isPartial" : false,
-						"indexVersion" : 2,
-						"direction" : "forward",
-						"indexBounds" : {
-							"c_acctbal" : [
-								"[-inf.0, -10.0)"
-							]
-						},
-						"keysExamined" : 101,
-						"seeks" : 1,
-						"dupsTested" : 0,
-						"dupsDropped" : 0
-					}
-				}
-			}
-		]
-	},
-	"serverInfo" : {
 		"host" : "mt-mongo-2",
 		"port" : 27012,
 		"version" : "4.4.10",
@@ -486,19 +735,19 @@ MongoDB server version: 4.4.10
 	},
 	"ok" : 1,
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639044155, 5),
+		"clusterTime" : Timestamp(1639504169, 5),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
 	},
-	"operationTime" : Timestamp(1639044155, 5)
+	"operationTime" : Timestamp(1639504169, 5)
 }
 
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("e1e226d8-1eba-489b-b7a3-9beb22522249") }
+Implicit session: session { "id" : UUID("0819a2f8-e270-4103-91b6-0b74fbe731eb") }
 MongoDB server version: 4.4.10
 {
 	"queryPlanner" : {
@@ -571,7 +820,7 @@ MongoDB server version: 4.4.10
 		"executionStages" : {
 			"stage" : "FETCH",
 			"nReturned" : 13559,
-			"executionTimeMillisEstimate" : 19,
+			"executionTimeMillisEstimate" : 21,
 			"works" : 13560,
 			"advanced" : 13559,
 			"needTime" : 0,
@@ -735,19 +984,19 @@ MongoDB server version: 4.4.10
 	},
 	"ok" : 1,
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639044193, 4),
+		"clusterTime" : Timestamp(1639504228, 10),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
 	},
-	"operationTime" : Timestamp(1639044193, 4)
+	"operationTime" : Timestamp(1639504228, 10)
 }
 
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("4e8c4a93-d443-4551-87f1-e0bc669bed3f") }
+Implicit session: session { "id" : UUID("f89af96b-d5af-44f4-8480-8dc6991dac43") }
 MongoDB server version: 4.4.10
 {
 	"queryPlanner" : {
@@ -814,13 +1063,13 @@ MongoDB server version: 4.4.10
 	"executionStats" : {
 		"executionSuccess" : true,
 		"nReturned" : 13559,
-		"executionTimeMillis" : 71,
+		"executionTimeMillis" : 68,
 		"totalKeysExamined" : 13559,
 		"totalDocsExamined" : 13559,
 		"executionStages" : {
 			"stage" : "FETCH",
 			"nReturned" : 13559,
-			"executionTimeMillisEstimate" : 23,
+			"executionTimeMillisEstimate" : 12,
 			"works" : 13560,
 			"advanced" : 13559,
 			"needTime" : 0,
@@ -833,7 +1082,7 @@ MongoDB server version: 4.4.10
 			"inputStage" : {
 				"stage" : "IXSCAN",
 				"nReturned" : 13559,
-				"executionTimeMillisEstimate" : 9,
+				"executionTimeMillisEstimate" : 1,
 				"works" : 13560,
 				"advanced" : 13559,
 				"needTime" : 0,
@@ -868,13 +1117,13 @@ MongoDB server version: 4.4.10
 		"allPlansExecution" : [
 			{
 				"nReturned" : 101,
-				"executionTimeMillisEstimate" : 1,
+				"executionTimeMillisEstimate" : 0,
 				"totalKeysExamined" : 101,
 				"totalDocsExamined" : 101,
 				"executionStages" : {
 					"stage" : "FETCH",
 					"nReturned" : 101,
-					"executionTimeMillisEstimate" : 1,
+					"executionTimeMillisEstimate" : 0,
 					"works" : 101,
 					"advanced" : 101,
 					"needTime" : 0,
@@ -887,7 +1136,7 @@ MongoDB server version: 4.4.10
 					"inputStage" : {
 						"stage" : "IXSCAN",
 						"nReturned" : 101,
-						"executionTimeMillisEstimate" : 1,
+						"executionTimeMillisEstimate" : 0,
 						"works" : 101,
 						"advanced" : 101,
 						"needTime" : 0,
@@ -984,262 +1233,13 @@ MongoDB server version: 4.4.10
 	},
 	"ok" : 1,
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639044242, 4),
+		"clusterTime" : Timestamp(1639504282, 5),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
 	},
-	"operationTime" : Timestamp(1639044242, 4)
-}
-
-
-MongoDB shell version v4.4.10
-connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("a9bb0c41-4902-438c-b5a6-10c93d9f45cf") }
-MongoDB server version: 4.4.10
-{
-	"queryPlanner" : {
-		"plannerVersion" : 1,
-		"namespace" : "tpch_mongo_1c.scale1",
-		"indexFilterSet" : false,
-		"parsedQuery" : {
-			"c_acctbal" : {
-				"$lt" : -10
-			}
-		},
-		"optimizedPipeline" : true,
-		"winningPlan" : {
-			"stage" : "FETCH",
-			"inputStage" : {
-				"stage" : "IXSCAN",
-				"keyPattern" : {
-					"c_acctbal" : -1
-				},
-				"indexName" : "idx_customer_d",
-				"isMultiKey" : false,
-				"multiKeyPaths" : {
-					"c_acctbal" : [ ]
-				},
-				"isUnique" : false,
-				"isSparse" : false,
-				"isPartial" : false,
-				"indexVersion" : 2,
-				"direction" : "forward",
-				"indexBounds" : {
-					"c_acctbal" : [
-						"(-10.0, -inf.0]"
-					]
-				}
-			}
-		},
-		"rejectedPlans" : [
-			{
-				"stage" : "FETCH",
-				"inputStage" : {
-					"stage" : "IXSCAN",
-					"keyPattern" : {
-						"c_acctbal" : 1
-					},
-					"indexName" : "idx_customer_a",
-					"isMultiKey" : false,
-					"multiKeyPaths" : {
-						"c_acctbal" : [ ]
-					},
-					"isUnique" : false,
-					"isSparse" : false,
-					"isPartial" : false,
-					"indexVersion" : 2,
-					"direction" : "forward",
-					"indexBounds" : {
-						"c_acctbal" : [
-							"[-inf.0, -10.0)"
-						]
-					}
-				}
-			}
-		]
-	},
-	"executionStats" : {
-		"executionSuccess" : true,
-		"nReturned" : 13559,
-		"executionTimeMillis" : 67,
-		"totalKeysExamined" : 13559,
-		"totalDocsExamined" : 13559,
-		"executionStages" : {
-			"stage" : "FETCH",
-			"nReturned" : 13559,
-			"executionTimeMillisEstimate" : 17,
-			"works" : 13560,
-			"advanced" : 13559,
-			"needTime" : 0,
-			"needYield" : 0,
-			"saveState" : 13,
-			"restoreState" : 13,
-			"isEOF" : 1,
-			"docsExamined" : 13559,
-			"alreadyHasObj" : 0,
-			"inputStage" : {
-				"stage" : "IXSCAN",
-				"nReturned" : 13559,
-				"executionTimeMillisEstimate" : 8,
-				"works" : 13560,
-				"advanced" : 13559,
-				"needTime" : 0,
-				"needYield" : 0,
-				"saveState" : 13,
-				"restoreState" : 13,
-				"isEOF" : 1,
-				"keyPattern" : {
-					"c_acctbal" : -1
-				},
-				"indexName" : "idx_customer_d",
-				"isMultiKey" : false,
-				"multiKeyPaths" : {
-					"c_acctbal" : [ ]
-				},
-				"isUnique" : false,
-				"isSparse" : false,
-				"isPartial" : false,
-				"indexVersion" : 2,
-				"direction" : "forward",
-				"indexBounds" : {
-					"c_acctbal" : [
-						"(-10.0, -inf.0]"
-					]
-				},
-				"keysExamined" : 13559,
-				"seeks" : 1,
-				"dupsTested" : 0,
-				"dupsDropped" : 0
-			}
-		},
-		"allPlansExecution" : [
-			{
-				"nReturned" : 101,
-				"executionTimeMillisEstimate" : 1,
-				"totalKeysExamined" : 101,
-				"totalDocsExamined" : 101,
-				"executionStages" : {
-					"stage" : "FETCH",
-					"nReturned" : 101,
-					"executionTimeMillisEstimate" : 1,
-					"works" : 101,
-					"advanced" : 101,
-					"needTime" : 0,
-					"needYield" : 0,
-					"saveState" : 0,
-					"restoreState" : 0,
-					"isEOF" : 0,
-					"docsExamined" : 101,
-					"alreadyHasObj" : 0,
-					"inputStage" : {
-						"stage" : "IXSCAN",
-						"nReturned" : 101,
-						"executionTimeMillisEstimate" : 1,
-						"works" : 101,
-						"advanced" : 101,
-						"needTime" : 0,
-						"needYield" : 0,
-						"saveState" : 0,
-						"restoreState" : 0,
-						"isEOF" : 0,
-						"keyPattern" : {
-							"c_acctbal" : -1
-						},
-						"indexName" : "idx_customer_d",
-						"isMultiKey" : false,
-						"multiKeyPaths" : {
-							"c_acctbal" : [ ]
-						},
-						"isUnique" : false,
-						"isSparse" : false,
-						"isPartial" : false,
-						"indexVersion" : 2,
-						"direction" : "forward",
-						"indexBounds" : {
-							"c_acctbal" : [
-								"(-10.0, -inf.0]"
-							]
-						},
-						"keysExamined" : 101,
-						"seeks" : 1,
-						"dupsTested" : 0,
-						"dupsDropped" : 0
-					}
-				}
-			},
-			{
-				"nReturned" : 101,
-				"executionTimeMillisEstimate" : 0,
-				"totalKeysExamined" : 101,
-				"totalDocsExamined" : 101,
-				"executionStages" : {
-					"stage" : "FETCH",
-					"nReturned" : 101,
-					"executionTimeMillisEstimate" : 0,
-					"works" : 101,
-					"advanced" : 101,
-					"needTime" : 0,
-					"needYield" : 0,
-					"saveState" : 13,
-					"restoreState" : 13,
-					"isEOF" : 0,
-					"docsExamined" : 101,
-					"alreadyHasObj" : 0,
-					"inputStage" : {
-						"stage" : "IXSCAN",
-						"nReturned" : 101,
-						"executionTimeMillisEstimate" : 0,
-						"works" : 101,
-						"advanced" : 101,
-						"needTime" : 0,
-						"needYield" : 0,
-						"saveState" : 13,
-						"restoreState" : 13,
-						"isEOF" : 0,
-						"keyPattern" : {
-							"c_acctbal" : 1
-						},
-						"indexName" : "idx_customer_a",
-						"isMultiKey" : false,
-						"multiKeyPaths" : {
-							"c_acctbal" : [ ]
-						},
-						"isUnique" : false,
-						"isSparse" : false,
-						"isPartial" : false,
-						"indexVersion" : 2,
-						"direction" : "forward",
-						"indexBounds" : {
-							"c_acctbal" : [
-								"[-inf.0, -10.0)"
-							]
-						},
-						"keysExamined" : 101,
-						"seeks" : 1,
-						"dupsTested" : 0,
-						"dupsDropped" : 0
-					}
-				}
-			}
-		]
-	},
-	"serverInfo" : {
-		"host" : "mt-mongo-2",
-		"port" : 27012,
-		"version" : "4.4.10",
-		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
-	},
-	"ok" : 1,
-	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639044285, 5),
-		"signature" : {
-			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
-			"keyId" : NumberLong(0)
-		}
-	},
-	"operationTime" : Timestamp(1639044285, 5)
+	"operationTime" : Timestamp(1639504282, 5)
 }
 
 

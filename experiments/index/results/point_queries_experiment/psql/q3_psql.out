@@ -2,37 +2,11 @@ You are now connected to database "tpch" as user "postgres".
 SET
                                                    QUERY PLAN                                                    
 -----------------------------------------------------------------------------------------------------------------
- Seq Scan on customer  (cost=0.00..5460.00 rows=13407 width=159) (actual time=0.444..156.022 rows=13559 loops=1)
+ Seq Scan on customer  (cost=0.00..5460.00 rows=13407 width=159) (actual time=0.287..151.758 rows=13559 loops=1)
    Filter: (c_acctbal < '-10'::numeric)
    Rows Removed by Filter: 136441
- Planning Time: 6.048 ms
- Execution Time: 157.843 ms
-(5 rows)
-
-
-
-You are now connected to database "tpch" as user "postgres".
-SET
-                                                   QUERY PLAN                                                    
------------------------------------------------------------------------------------------------------------------
- Seq Scan on customer  (cost=0.00..5460.00 rows=13407 width=159) (actual time=0.326..111.071 rows=13559 loops=1)
-   Filter: (c_acctbal < '-10'::numeric)
-   Rows Removed by Filter: 136441
- Planning Time: 7.357 ms
- Execution Time: 112.569 ms
-(5 rows)
-
-
-
-You are now connected to database "tpch" as user "postgres".
-SET
-                                                   QUERY PLAN                                                    
------------------------------------------------------------------------------------------------------------------
- Seq Scan on customer  (cost=0.00..5460.00 rows=13407 width=159) (actual time=0.487..149.902 rows=13559 loops=1)
-   Filter: (c_acctbal < '-10'::numeric)
-   Rows Removed by Filter: 136441
- Planning Time: 8.610 ms
- Execution Time: 151.678 ms
+ Planning Time: 5.276 ms
+ Execution Time: 153.284 ms
 (5 rows)
 
 
@@ -41,11 +15,11 @@ You are now connected to database "tpch" as user "postgres".
 SET
                                                    QUERY PLAN                                                   
 ----------------------------------------------------------------------------------------------------------------
- Seq Scan on customer  (cost=0.00..5460.00 rows=13407 width=159) (actual time=0.386..93.935 rows=13559 loops=1)
+ Seq Scan on customer  (cost=0.00..5460.00 rows=13407 width=159) (actual time=0.342..97.115 rows=13559 loops=1)
    Filter: (c_acctbal < '-10'::numeric)
    Rows Removed by Filter: 136441
- Planning Time: 7.189 ms
- Execution Time: 95.428 ms
+ Planning Time: 5.810 ms
+ Execution Time: 98.526 ms
 (5 rows)
 
 
@@ -54,11 +28,37 @@ You are now connected to database "tpch" as user "postgres".
 SET
                                                    QUERY PLAN                                                    
 -----------------------------------------------------------------------------------------------------------------
- Seq Scan on customer  (cost=0.00..5460.00 rows=13407 width=159) (actual time=0.392..131.218 rows=13559 loops=1)
+ Seq Scan on customer  (cost=0.00..5460.00 rows=13407 width=159) (actual time=0.400..112.085 rows=13559 loops=1)
    Filter: (c_acctbal < '-10'::numeric)
    Rows Removed by Filter: 136441
- Planning Time: 8.067 ms
- Execution Time: 132.920 ms
+ Planning Time: 7.712 ms
+ Execution Time: 113.742 ms
+(5 rows)
+
+
+
+You are now connected to database "tpch" as user "postgres".
+SET
+                                                   QUERY PLAN                                                    
+-----------------------------------------------------------------------------------------------------------------
+ Seq Scan on customer  (cost=0.00..5460.00 rows=13407 width=159) (actual time=0.390..135.130 rows=13559 loops=1)
+   Filter: (c_acctbal < '-10'::numeric)
+   Rows Removed by Filter: 136441
+ Planning Time: 6.609 ms
+ Execution Time: 136.641 ms
+(5 rows)
+
+
+
+You are now connected to database "tpch" as user "postgres".
+SET
+                                                   QUERY PLAN                                                   
+----------------------------------------------------------------------------------------------------------------
+ Seq Scan on customer  (cost=0.00..5460.00 rows=13407 width=159) (actual time=0.427..99.880 rows=13559 loops=1)
+   Filter: (c_acctbal < '-10'::numeric)
+   Rows Removed by Filter: 136441
+ Planning Time: 7.008 ms
+ Execution Time: 101.425 ms
 (5 rows)
 
 

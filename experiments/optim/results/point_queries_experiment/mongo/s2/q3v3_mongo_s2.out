@@ -1,15 +1,15 @@
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("3f069b42-e984-46ca-95b2-4fc89ce3d04c") }
+Implicit session: session { "id" : UUID("b0454bfc-6bb3-430e-96aa-2cb5fcfd30ea") }
 MongoDB server version: 4.4.10
 uncaught exception: Error: explain failed: {
-	"operationTime" : Timestamp(1639035246, 9),
+	"operationTime" : Timestamp(1639494407, 1),
 	"ok" : 0,
 	"errmsg" : "Error in $cursor stage :: caused by :: operation exceeded time limit",
 	"code" : 50,
 	"codeName" : "MaxTimeMSExpired",
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639035246, 9),
+		"clusterTime" : Timestamp(1639494407, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
@@ -26,16 +26,16 @@ exiting with code -3
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("02b0278e-7291-46ac-a1f2-1b7209164c56") }
+Implicit session: session { "id" : UUID("cebf4c60-5019-46f4-bc58-7d800e51dacc") }
 MongoDB server version: 4.4.10
 uncaught exception: Error: explain failed: {
-	"operationTime" : Timestamp(1639035412, 1),
+	"operationTime" : Timestamp(1639494602, 1),
 	"ok" : 0,
 	"errmsg" : "Error in $cursor stage :: caused by :: operation exceeded time limit",
 	"code" : 50,
 	"codeName" : "MaxTimeMSExpired",
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639035412, 1),
+		"clusterTime" : Timestamp(1639494602, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
@@ -52,16 +52,16 @@ exiting with code -3
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("c44e0de7-6845-4a6a-be22-a180988a4d3d") }
+Implicit session: session { "id" : UUID("b514063c-f560-417d-8390-3db65e87e54f") }
 MongoDB server version: 4.4.10
 uncaught exception: Error: explain failed: {
-	"operationTime" : Timestamp(1639035581, 1),
+	"operationTime" : Timestamp(1639494794, 1),
 	"ok" : 0,
 	"errmsg" : "Error in $cursor stage :: caused by :: operation exceeded time limit",
 	"code" : 50,
 	"codeName" : "MaxTimeMSExpired",
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639035581, 1),
+		"clusterTime" : Timestamp(1639494794, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
@@ -78,16 +78,16 @@ exiting with code -3
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("f6715186-b59c-433e-8b64-ce636b19e2d9") }
+Implicit session: session { "id" : UUID("f89af857-1597-4179-b7db-78183dac6425") }
 MongoDB server version: 4.4.10
 uncaught exception: Error: explain failed: {
-	"operationTime" : Timestamp(1639035744, 8),
+	"operationTime" : Timestamp(1639494985, 1),
 	"ok" : 0,
 	"errmsg" : "Error in $cursor stage :: caused by :: operation exceeded time limit",
 	"code" : 50,
 	"codeName" : "MaxTimeMSExpired",
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639035744, 8),
+		"clusterTime" : Timestamp(1639494985, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
@@ -104,16 +104,16 @@ exiting with code -3
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("150dc86f-6c47-489c-b947-d2f367499f6f") }
+Implicit session: session { "id" : UUID("92b54a0f-58f6-4e7b-870a-f65008ee8030") }
 MongoDB server version: 4.4.10
 uncaught exception: Error: explain failed: {
-	"operationTime" : Timestamp(1639035912, 1),
+	"operationTime" : Timestamp(1639495177, 1),
 	"ok" : 0,
 	"errmsg" : "Error in $cursor stage :: caused by :: operation exceeded time limit",
 	"code" : 50,
 	"codeName" : "MaxTimeMSExpired",
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639035912, 1),
+		"clusterTime" : Timestamp(1639495177, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)

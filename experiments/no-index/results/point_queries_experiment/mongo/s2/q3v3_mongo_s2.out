@@ -1,15 +1,15 @@
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("c6af72c0-3362-45f6-ab34-65df0032c197") }
+Implicit session: session { "id" : UUID("b56f7aac-ea69-4b53-8bb8-c488acff88b7") }
 MongoDB server version: 4.4.10
 uncaught exception: Error: explain failed: {
-	"operationTime" : Timestamp(1639013116, 1),
+	"operationTime" : Timestamp(1639468894, 1),
 	"ok" : 0,
-	"errmsg" : "operation exceeded time limit",
+	"errmsg" : "Error in $cursor stage :: caused by :: operation exceeded time limit",
 	"code" : 50,
 	"codeName" : "MaxTimeMSExpired",
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639013116, 1),
+		"clusterTime" : Timestamp(1639468894, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
@@ -26,16 +26,16 @@ exiting with code -3
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("317fbcb4-6015-4dc5-af74-f9c9826b1c3b") }
+Implicit session: session { "id" : UUID("f437bed5-8ba3-491b-acf5-7d4f639dc4d9") }
 MongoDB server version: 4.4.10
 uncaught exception: Error: explain failed: {
-	"operationTime" : Timestamp(1639013307, 1),
+	"operationTime" : Timestamp(1639469049, 1),
 	"ok" : 0,
-	"errmsg" : "operation exceeded time limit",
+	"errmsg" : "Error in $cursor stage :: caused by :: operation exceeded time limit",
 	"code" : 50,
 	"codeName" : "MaxTimeMSExpired",
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639013307, 1),
+		"clusterTime" : Timestamp(1639469049, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
@@ -52,16 +52,16 @@ exiting with code -3
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("c19537d1-0e0d-4b50-a7d2-b30235896acf") }
+Implicit session: session { "id" : UUID("07b14969-b618-4983-99bb-a51822d9c213") }
 MongoDB server version: 4.4.10
 uncaught exception: Error: explain failed: {
-	"operationTime" : Timestamp(1639013502, 1),
+	"operationTime" : Timestamp(1639469209, 1),
 	"ok" : 0,
-	"errmsg" : "operation exceeded time limit",
+	"errmsg" : "Error in $cursor stage :: caused by :: operation exceeded time limit",
 	"code" : 50,
 	"codeName" : "MaxTimeMSExpired",
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639013502, 1),
+		"clusterTime" : Timestamp(1639469209, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
@@ -78,16 +78,16 @@ exiting with code -3
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("c280b3ea-b2d9-4dc9-a51e-ed1179d225a3") }
+Implicit session: session { "id" : UUID("a7bd84d4-bb58-40b6-9675-2c2a103d1e7f") }
 MongoDB server version: 4.4.10
 uncaught exception: Error: explain failed: {
-	"operationTime" : Timestamp(1639013680, 1),
+	"operationTime" : Timestamp(1639469372, 1),
 	"ok" : 0,
-	"errmsg" : "operation exceeded time limit",
+	"errmsg" : "Error in $cursor stage :: caused by :: operation exceeded time limit",
 	"code" : 50,
 	"codeName" : "MaxTimeMSExpired",
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639013680, 1),
+		"clusterTime" : Timestamp(1639469372, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
@@ -104,16 +104,16 @@ exiting with code -3
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("7155e51f-5f11-472f-9b20-3985f4118683") }
+Implicit session: session { "id" : UUID("aff3189c-1acd-47c5-9b5f-68017819871c") }
 MongoDB server version: 4.4.10
 uncaught exception: Error: explain failed: {
-	"operationTime" : Timestamp(1639013849, 1),
+	"operationTime" : Timestamp(1639469531, 1),
 	"ok" : 0,
-	"errmsg" : "operation exceeded time limit",
+	"errmsg" : "Error in $cursor stage :: caused by :: operation exceeded time limit",
 	"code" : 50,
 	"codeName" : "MaxTimeMSExpired",
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639013849, 1),
+		"clusterTime" : Timestamp(1639469531, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)

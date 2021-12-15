@@ -1,6 +1,6 @@
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("0ca2f961-9d86-4249-a654-7e6bfa407761") }
+Implicit session: session { "id" : UUID("2e338c14-30de-4210-96e8-c13718e7a460") }
 MongoDB server version: 4.4.10
 {
 	"queryPlanner" : {
@@ -20,7 +20,7 @@ MongoDB server version: 4.4.10
 				"keyPattern" : {
 					"c_acctbal" : 1
 				},
-				"indexName" : "idx_acctbal",
+				"indexName" : "idx_c_acctbal_mc",
 				"isMultiKey" : false,
 				"multiKeyPaths" : {
 					"c_acctbal" : [ ]
@@ -42,37 +42,37 @@ MongoDB server version: 4.4.10
 	"executionStats" : {
 		"executionSuccess" : true,
 		"nReturned" : 13559,
-		"executionTimeMillis" : 109,
+		"executionTimeMillis" : 110,
 		"totalKeysExamined" : 13559,
 		"totalDocsExamined" : 13559,
 		"executionStages" : {
 			"stage" : "FETCH",
 			"nReturned" : 13559,
-			"executionTimeMillisEstimate" : 62,
+			"executionTimeMillisEstimate" : 68,
 			"works" : 13560,
 			"advanced" : 13559,
 			"needTime" : 0,
 			"needYield" : 0,
-			"saveState" : 15,
-			"restoreState" : 15,
+			"saveState" : 16,
+			"restoreState" : 16,
 			"isEOF" : 1,
 			"docsExamined" : 13559,
 			"alreadyHasObj" : 0,
 			"inputStage" : {
 				"stage" : "IXSCAN",
 				"nReturned" : 13559,
-				"executionTimeMillisEstimate" : 10,
+				"executionTimeMillisEstimate" : 3,
 				"works" : 13560,
 				"advanced" : 13559,
 				"needTime" : 0,
 				"needYield" : 0,
-				"saveState" : 15,
-				"restoreState" : 15,
+				"saveState" : 16,
+				"restoreState" : 16,
 				"isEOF" : 1,
 				"keyPattern" : {
 					"c_acctbal" : 1
 				},
-				"indexName" : "idx_acctbal",
+				"indexName" : "idx_c_acctbal_mc",
 				"isMultiKey" : false,
 				"multiKeyPaths" : {
 					"c_acctbal" : [ ]
@@ -103,19 +103,19 @@ MongoDB server version: 4.4.10
 	},
 	"ok" : 1,
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639030031, 3),
+		"clusterTime" : Timestamp(1639535426, 5),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
 	},
-	"operationTime" : Timestamp(1639030031, 3)
+	"operationTime" : Timestamp(1639535426, 5)
 }
 
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("ffcae584-cafd-4e66-b008-6bcef367485b") }
+Implicit session: session { "id" : UUID("8e654dee-ba49-40c3-96f2-ff8dc379acc3") }
 MongoDB server version: 4.4.10
 {
 	"queryPlanner" : {
@@ -135,7 +135,7 @@ MongoDB server version: 4.4.10
 				"keyPattern" : {
 					"c_acctbal" : 1
 				},
-				"indexName" : "idx_acctbal",
+				"indexName" : "idx_c_acctbal_mc",
 				"isMultiKey" : false,
 				"multiKeyPaths" : {
 					"c_acctbal" : [ ]
@@ -157,13 +157,13 @@ MongoDB server version: 4.4.10
 	"executionStats" : {
 		"executionSuccess" : true,
 		"nReturned" : 13559,
-		"executionTimeMillis" : 109,
+		"executionTimeMillis" : 94,
 		"totalKeysExamined" : 13559,
 		"totalDocsExamined" : 13559,
 		"executionStages" : {
 			"stage" : "FETCH",
 			"nReturned" : 13559,
-			"executionTimeMillisEstimate" : 84,
+			"executionTimeMillisEstimate" : 56,
 			"works" : 13560,
 			"advanced" : 13559,
 			"needTime" : 0,
@@ -176,7 +176,7 @@ MongoDB server version: 4.4.10
 			"inputStage" : {
 				"stage" : "IXSCAN",
 				"nReturned" : 13559,
-				"executionTimeMillisEstimate" : 12,
+				"executionTimeMillisEstimate" : 4,
 				"works" : 13560,
 				"advanced" : 13559,
 				"needTime" : 0,
@@ -187,7 +187,7 @@ MongoDB server version: 4.4.10
 				"keyPattern" : {
 					"c_acctbal" : 1
 				},
-				"indexName" : "idx_acctbal",
+				"indexName" : "idx_c_acctbal_mc",
 				"isMultiKey" : false,
 				"multiKeyPaths" : {
 					"c_acctbal" : [ ]
@@ -218,19 +218,19 @@ MongoDB server version: 4.4.10
 	},
 	"ok" : 1,
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639030100, 3),
+		"clusterTime" : Timestamp(1639535468, 5),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
 	},
-	"operationTime" : Timestamp(1639030100, 3)
+	"operationTime" : Timestamp(1639535468, 5)
 }
 
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("5603f92e-52b2-4dc3-b315-73f4f3f31b15") }
+Implicit session: session { "id" : UUID("5db127da-ea5f-4960-959d-de1e0cbc1a24") }
 MongoDB server version: 4.4.10
 {
 	"queryPlanner" : {
@@ -250,7 +250,7 @@ MongoDB server version: 4.4.10
 				"keyPattern" : {
 					"c_acctbal" : 1
 				},
-				"indexName" : "idx_acctbal",
+				"indexName" : "idx_c_acctbal_mc",
 				"isMultiKey" : false,
 				"multiKeyPaths" : {
 					"c_acctbal" : [ ]
@@ -272,13 +272,13 @@ MongoDB server version: 4.4.10
 	"executionStats" : {
 		"executionSuccess" : true,
 		"nReturned" : 13559,
-		"executionTimeMillis" : 96,
+		"executionTimeMillis" : 83,
 		"totalKeysExamined" : 13559,
 		"totalDocsExamined" : 13559,
 		"executionStages" : {
 			"stage" : "FETCH",
 			"nReturned" : 13559,
-			"executionTimeMillisEstimate" : 59,
+			"executionTimeMillisEstimate" : 54,
 			"works" : 13560,
 			"advanced" : 13559,
 			"needTime" : 0,
@@ -291,7 +291,7 @@ MongoDB server version: 4.4.10
 			"inputStage" : {
 				"stage" : "IXSCAN",
 				"nReturned" : 13559,
-				"executionTimeMillisEstimate" : 3,
+				"executionTimeMillisEstimate" : 15,
 				"works" : 13560,
 				"advanced" : 13559,
 				"needTime" : 0,
@@ -302,7 +302,7 @@ MongoDB server version: 4.4.10
 				"keyPattern" : {
 					"c_acctbal" : 1
 				},
-				"indexName" : "idx_acctbal",
+				"indexName" : "idx_c_acctbal_mc",
 				"isMultiKey" : false,
 				"multiKeyPaths" : {
 					"c_acctbal" : [ ]
@@ -333,19 +333,19 @@ MongoDB server version: 4.4.10
 	},
 	"ok" : 1,
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639030168, 3),
+		"clusterTime" : Timestamp(1639535514, 5),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
 	},
-	"operationTime" : Timestamp(1639030168, 3)
+	"operationTime" : Timestamp(1639535514, 5)
 }
 
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("dc2e5d72-e834-4386-97ad-6cd334b2cd6c") }
+Implicit session: session { "id" : UUID("a4a5cec8-c761-4528-8a81-4fb2c420cbdd") }
 MongoDB server version: 4.4.10
 {
 	"queryPlanner" : {
@@ -365,122 +365,7 @@ MongoDB server version: 4.4.10
 				"keyPattern" : {
 					"c_acctbal" : 1
 				},
-				"indexName" : "idx_acctbal",
-				"isMultiKey" : false,
-				"multiKeyPaths" : {
-					"c_acctbal" : [ ]
-				},
-				"isUnique" : false,
-				"isSparse" : false,
-				"isPartial" : false,
-				"indexVersion" : 2,
-				"direction" : "forward",
-				"indexBounds" : {
-					"c_acctbal" : [
-						"[-inf.0, -10.0)"
-					]
-				}
-			}
-		},
-		"rejectedPlans" : [ ]
-	},
-	"executionStats" : {
-		"executionSuccess" : true,
-		"nReturned" : 13559,
-		"executionTimeMillis" : 72,
-		"totalKeysExamined" : 13559,
-		"totalDocsExamined" : 13559,
-		"executionStages" : {
-			"stage" : "FETCH",
-			"nReturned" : 13559,
-			"executionTimeMillisEstimate" : 25,
-			"works" : 13560,
-			"advanced" : 13559,
-			"needTime" : 0,
-			"needYield" : 0,
-			"saveState" : 13,
-			"restoreState" : 13,
-			"isEOF" : 1,
-			"docsExamined" : 13559,
-			"alreadyHasObj" : 0,
-			"inputStage" : {
-				"stage" : "IXSCAN",
-				"nReturned" : 13559,
-				"executionTimeMillisEstimate" : 0,
-				"works" : 13560,
-				"advanced" : 13559,
-				"needTime" : 0,
-				"needYield" : 0,
-				"saveState" : 13,
-				"restoreState" : 13,
-				"isEOF" : 1,
-				"keyPattern" : {
-					"c_acctbal" : 1
-				},
-				"indexName" : "idx_acctbal",
-				"isMultiKey" : false,
-				"multiKeyPaths" : {
-					"c_acctbal" : [ ]
-				},
-				"isUnique" : false,
-				"isSparse" : false,
-				"isPartial" : false,
-				"indexVersion" : 2,
-				"direction" : "forward",
-				"indexBounds" : {
-					"c_acctbal" : [
-						"[-inf.0, -10.0)"
-					]
-				},
-				"keysExamined" : 13559,
-				"seeks" : 1,
-				"dupsTested" : 0,
-				"dupsDropped" : 0
-			}
-		},
-		"allPlansExecution" : [ ]
-	},
-	"serverInfo" : {
-		"host" : "mt-mongo-1",
-		"port" : 27011,
-		"version" : "4.4.10",
-		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
-	},
-	"ok" : 1,
-	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639030219, 3),
-		"signature" : {
-			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
-			"keyId" : NumberLong(0)
-		}
-	},
-	"operationTime" : Timestamp(1639030219, 3)
-}
-
-
-MongoDB shell version v4.4.10
-connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("4af99c40-35f6-48db-9e64-561c3eef99b8") }
-MongoDB server version: 4.4.10
-{
-	"queryPlanner" : {
-		"plannerVersion" : 1,
-		"namespace" : "tpch_mongo_3c.customer",
-		"indexFilterSet" : false,
-		"parsedQuery" : {
-			"c_acctbal" : {
-				"$lt" : -10
-			}
-		},
-		"optimizedPipeline" : true,
-		"winningPlan" : {
-			"stage" : "FETCH",
-			"inputStage" : {
-				"stage" : "IXSCAN",
-				"keyPattern" : {
-					"c_acctbal" : 1
-				},
-				"indexName" : "idx_acctbal",
+				"indexName" : "idx_c_acctbal_mc",
 				"isMultiKey" : false,
 				"multiKeyPaths" : {
 					"c_acctbal" : [ ]
@@ -508,31 +393,31 @@ MongoDB server version: 4.4.10
 		"executionStages" : {
 			"stage" : "FETCH",
 			"nReturned" : 13559,
-			"executionTimeMillisEstimate" : 46,
+			"executionTimeMillisEstimate" : 60,
 			"works" : 13560,
 			"advanced" : 13559,
 			"needTime" : 0,
 			"needYield" : 0,
-			"saveState" : 13,
-			"restoreState" : 13,
+			"saveState" : 15,
+			"restoreState" : 15,
 			"isEOF" : 1,
 			"docsExamined" : 13559,
 			"alreadyHasObj" : 0,
 			"inputStage" : {
 				"stage" : "IXSCAN",
 				"nReturned" : 13559,
-				"executionTimeMillisEstimate" : 5,
+				"executionTimeMillisEstimate" : 7,
 				"works" : 13560,
 				"advanced" : 13559,
 				"needTime" : 0,
 				"needYield" : 0,
-				"saveState" : 13,
-				"restoreState" : 13,
+				"saveState" : 15,
+				"restoreState" : 15,
 				"isEOF" : 1,
 				"keyPattern" : {
 					"c_acctbal" : 1
 				},
-				"indexName" : "idx_acctbal",
+				"indexName" : "idx_c_acctbal_mc",
 				"isMultiKey" : false,
 				"multiKeyPaths" : {
 					"c_acctbal" : [ ]
@@ -556,20 +441,135 @@ MongoDB server version: 4.4.10
 		"allPlansExecution" : [ ]
 	},
 	"serverInfo" : {
-		"host" : "mt-mongo-1",
-		"port" : 27011,
+		"host" : "mt-mongo-2",
+		"port" : 27012,
 		"version" : "4.4.10",
 		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
 	},
 	"ok" : 1,
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639030269, 3),
+		"clusterTime" : Timestamp(1639535550, 4),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
 	},
-	"operationTime" : Timestamp(1639030269, 3)
+	"operationTime" : Timestamp(1639535550, 4)
+}
+
+
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("0440ee64-24f3-4b4f-bfb6-f97bfd6e5df6") }
+MongoDB server version: 4.4.10
+{
+	"queryPlanner" : {
+		"plannerVersion" : 1,
+		"namespace" : "tpch_mongo_3c.customer",
+		"indexFilterSet" : false,
+		"parsedQuery" : {
+			"c_acctbal" : {
+				"$lt" : -10
+			}
+		},
+		"optimizedPipeline" : true,
+		"winningPlan" : {
+			"stage" : "FETCH",
+			"inputStage" : {
+				"stage" : "IXSCAN",
+				"keyPattern" : {
+					"c_acctbal" : 1
+				},
+				"indexName" : "idx_c_acctbal_mc",
+				"isMultiKey" : false,
+				"multiKeyPaths" : {
+					"c_acctbal" : [ ]
+				},
+				"isUnique" : false,
+				"isSparse" : false,
+				"isPartial" : false,
+				"indexVersion" : 2,
+				"direction" : "forward",
+				"indexBounds" : {
+					"c_acctbal" : [
+						"[-inf.0, -10.0)"
+					]
+				}
+			}
+		},
+		"rejectedPlans" : [ ]
+	},
+	"executionStats" : {
+		"executionSuccess" : true,
+		"nReturned" : 13559,
+		"executionTimeMillis" : 81,
+		"totalKeysExamined" : 13559,
+		"totalDocsExamined" : 13559,
+		"executionStages" : {
+			"stage" : "FETCH",
+			"nReturned" : 13559,
+			"executionTimeMillisEstimate" : 44,
+			"works" : 13560,
+			"advanced" : 13559,
+			"needTime" : 0,
+			"needYield" : 0,
+			"saveState" : 15,
+			"restoreState" : 15,
+			"isEOF" : 1,
+			"docsExamined" : 13559,
+			"alreadyHasObj" : 0,
+			"inputStage" : {
+				"stage" : "IXSCAN",
+				"nReturned" : 13559,
+				"executionTimeMillisEstimate" : 8,
+				"works" : 13560,
+				"advanced" : 13559,
+				"needTime" : 0,
+				"needYield" : 0,
+				"saveState" : 15,
+				"restoreState" : 15,
+				"isEOF" : 1,
+				"keyPattern" : {
+					"c_acctbal" : 1
+				},
+				"indexName" : "idx_c_acctbal_mc",
+				"isMultiKey" : false,
+				"multiKeyPaths" : {
+					"c_acctbal" : [ ]
+				},
+				"isUnique" : false,
+				"isSparse" : false,
+				"isPartial" : false,
+				"indexVersion" : 2,
+				"direction" : "forward",
+				"indexBounds" : {
+					"c_acctbal" : [
+						"[-inf.0, -10.0)"
+					]
+				},
+				"keysExamined" : 13559,
+				"seeks" : 1,
+				"dupsTested" : 0,
+				"dupsDropped" : 0
+			}
+		},
+		"allPlansExecution" : [ ]
+	},
+	"serverInfo" : {
+		"host" : "mt-mongo-2",
+		"port" : 27012,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639535593, 5),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1639535593, 5)
 }
 
 

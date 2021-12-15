@@ -1,6 +1,6 @@
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("23a40635-41ec-4e4a-b16d-3d6830d0b8d5") }
+Implicit session: session { "id" : UUID("12b3955d-6d50-476e-ac23-6c29647edbd5") }
 MongoDB server version: 4.4.10
 {
 	"stages" : [
@@ -56,19 +56,219 @@ MongoDB server version: 4.4.10
 				"executionStats" : {
 					"executionSuccess" : true,
 					"nReturned" : 150000,
-					"executionTimeMillis" : 2909,
+					"executionTimeMillis" : 2873,
 					"totalKeysExamined" : 0,
 					"totalDocsExamined" : 150000,
 					"executionStages" : {
 						"stage" : "PROJECTION_DEFAULT",
 						"nReturned" : 150000,
-						"executionTimeMillisEstimate" : 1617,
+						"executionTimeMillisEstimate" : 1673,
 						"works" : 150002,
 						"advanced" : 150000,
 						"needTime" : 1,
 						"needYield" : 0,
-						"saveState" : 207,
-						"restoreState" : 207,
+						"saveState" : 212,
+						"restoreState" : 212,
+						"isEOF" : 1,
+						"transformBy" : {
+							"orders" : {
+								"$filter" : {
+									"input" : "$c_orders",
+									"as" : "o",
+									"cond" : {
+										"$and" : [
+											{
+												"$gte" : [
+													"$$o.o_orderdate",
+													{
+														"$const" : ISODate("1992-01-01T00:00:00Z")
+													}
+												]
+											},
+											{
+												"$lt" : [
+													"$$o.o_orderdate",
+													{
+														"$const" : ISODate("1992-04-01T00:00:00Z")
+													}
+												]
+											}
+										]
+									}
+								}
+							},
+							"_id" : false
+						},
+						"inputStage" : {
+							"stage" : "COLLSCAN",
+							"nReturned" : 150000,
+							"executionTimeMillisEstimate" : 175,
+							"works" : 150002,
+							"advanced" : 150000,
+							"needTime" : 1,
+							"needYield" : 0,
+							"saveState" : 212,
+							"restoreState" : 212,
+							"isEOF" : 1,
+							"direction" : "forward",
+							"docsExamined" : 150000
+						}
+					},
+					"allPlansExecution" : [ ]
+				}
+			},
+			"nReturned" : NumberLong(150000),
+			"executionTimeMillisEstimate" : NumberLong(2266)
+		},
+		{
+			"$unwind" : {
+				"path" : "$orders"
+			},
+			"nReturned" : NumberLong(56741),
+			"executionTimeMillisEstimate" : NumberLong(2309)
+		},
+		{
+			"$project" : {
+				"_id" : true,
+				"orderpriority" : "$orders.o_orderpriority",
+				"lineitems" : {
+					"$filter" : {
+						"input" : "$orders.o_lineitems",
+						"as" : "l",
+						"cond" : {
+							"$lt" : [
+								"$$l.l_commitdate",
+								"$$l.l_receiptdate"
+							]
+						}
+					}
+				}
+			},
+			"nReturned" : NumberLong(56741),
+			"executionTimeMillisEstimate" : NumberLong(2624)
+		},
+		{
+			"$match" : {
+				"lineitems" : {
+					"$not" : {
+						"$eq" : [ ]
+					}
+				}
+			},
+			"nReturned" : NumberLong(52002),
+			"executionTimeMillisEstimate" : NumberLong(2848)
+		},
+		{
+			"$group" : {
+				"_id" : "$orderpriority",
+				"order_count" : {
+					"$sum" : {
+						"$const" : 1
+					}
+				}
+			},
+			"nReturned" : NumberLong(5),
+			"executionTimeMillisEstimate" : NumberLong(2868)
+		},
+		{
+			"$sort" : {
+				"sortKey" : {
+					"_id" : 1
+				}
+			},
+			"nReturned" : NumberLong(5),
+			"executionTimeMillisEstimate" : NumberLong(2868)
+		}
+	],
+	"serverInfo" : {
+		"host" : "mt-mongo-1",
+		"port" : 27011,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639506909, 5),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1639506909, 5)
+}
+
+
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("d08a30ed-5083-48dd-8fe2-950818a953c9") }
+MongoDB server version: 4.4.10
+{
+	"stages" : [
+		{
+			"$cursor" : {
+				"queryPlanner" : {
+					"plannerVersion" : 1,
+					"namespace" : "tpch_mongo_1c.scale1",
+					"indexFilterSet" : false,
+					"parsedQuery" : {
+						
+					},
+					"queryHash" : "7D406A01",
+					"planCacheKey" : "7D406A01",
+					"winningPlan" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"transformBy" : {
+							"orders" : {
+								"$filter" : {
+									"input" : "$c_orders",
+									"as" : "o",
+									"cond" : {
+										"$and" : [
+											{
+												"$gte" : [
+													"$$o.o_orderdate",
+													{
+														"$const" : ISODate("1992-01-01T00:00:00Z")
+													}
+												]
+											},
+											{
+												"$lt" : [
+													"$$o.o_orderdate",
+													{
+														"$const" : ISODate("1992-04-01T00:00:00Z")
+													}
+												]
+											}
+										]
+									}
+								}
+							},
+							"_id" : false
+						},
+						"inputStage" : {
+							"stage" : "COLLSCAN",
+							"direction" : "forward"
+						}
+					},
+					"rejectedPlans" : [ ]
+				},
+				"executionStats" : {
+					"executionSuccess" : true,
+					"nReturned" : 150000,
+					"executionTimeMillis" : 3014,
+					"totalKeysExamined" : 0,
+					"totalDocsExamined" : 150000,
+					"executionStages" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"nReturned" : 150000,
+						"executionTimeMillisEstimate" : 1803,
+						"works" : 150002,
+						"advanced" : 150000,
+						"needTime" : 1,
+						"needYield" : 0,
+						"saveState" : 214,
+						"restoreState" : 214,
 						"isEOF" : 1,
 						"transformBy" : {
 							"orders" : {
@@ -107,8 +307,8 @@ MongoDB server version: 4.4.10
 							"advanced" : 150000,
 							"needTime" : 1,
 							"needYield" : 0,
-							"saveState" : 207,
-							"restoreState" : 207,
+							"saveState" : 214,
+							"restoreState" : 214,
 							"isEOF" : 1,
 							"direction" : "forward",
 							"docsExamined" : 150000
@@ -118,14 +318,14 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(150000),
-			"executionTimeMillisEstimate" : NumberLong(2225)
+			"executionTimeMillisEstimate" : NumberLong(2396)
 		},
 		{
 			"$unwind" : {
 				"path" : "$orders"
 			},
 			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(2298)
+			"executionTimeMillisEstimate" : NumberLong(2464)
 		},
 		{
 			"$project" : {
@@ -145,7 +345,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(2669)
+			"executionTimeMillisEstimate" : NumberLong(2768)
 		},
 		{
 			"$match" : {
@@ -156,7 +356,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(52002),
-			"executionTimeMillisEstimate" : NumberLong(2886)
+			"executionTimeMillisEstimate" : NumberLong(2985)
 		},
 		{
 			"$group" : {
@@ -168,7 +368,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(2906)
+			"executionTimeMillisEstimate" : NumberLong(3005)
 		},
 		{
 			"$sort" : {
@@ -177,7 +377,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(2906)
+			"executionTimeMillisEstimate" : NumberLong(3005)
 		}
 	],
 	"serverInfo" : {
@@ -188,19 +388,19 @@ MongoDB server version: 4.4.10
 	},
 	"ok" : 1,
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639046340, 5),
+		"clusterTime" : Timestamp(1639506957, 5),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
 	},
-	"operationTime" : Timestamp(1639046340, 5)
+	"operationTime" : Timestamp(1639506957, 5)
 }
 
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("f8d01842-f23e-4fd8-9c90-d24b1b7aad3a") }
+Implicit session: session { "id" : UUID("eccb0493-ef3d-4e2a-8986-2af5a37ae032") }
 MongoDB server version: 4.4.10
 {
 	"stages" : [
@@ -256,19 +456,19 @@ MongoDB server version: 4.4.10
 				"executionStats" : {
 					"executionSuccess" : true,
 					"nReturned" : 150000,
-					"executionTimeMillis" : 2983,
+					"executionTimeMillis" : 3134,
 					"totalKeysExamined" : 0,
 					"totalDocsExamined" : 150000,
 					"executionStages" : {
 						"stage" : "PROJECTION_DEFAULT",
 						"nReturned" : 150000,
-						"executionTimeMillisEstimate" : 1682,
+						"executionTimeMillisEstimate" : 1862,
 						"works" : 150002,
 						"advanced" : 150000,
 						"needTime" : 1,
 						"needYield" : 0,
-						"saveState" : 208,
-						"restoreState" : 208,
+						"saveState" : 218,
+						"restoreState" : 218,
 						"isEOF" : 1,
 						"transformBy" : {
 							"orders" : {
@@ -302,13 +502,13 @@ MongoDB server version: 4.4.10
 						"inputStage" : {
 							"stage" : "COLLSCAN",
 							"nReturned" : 150000,
-							"executionTimeMillisEstimate" : 209,
+							"executionTimeMillisEstimate" : 221,
 							"works" : 150002,
 							"advanced" : 150000,
 							"needTime" : 1,
 							"needYield" : 0,
-							"saveState" : 208,
-							"restoreState" : 208,
+							"saveState" : 218,
+							"restoreState" : 218,
 							"isEOF" : 1,
 							"direction" : "forward",
 							"docsExamined" : 150000
@@ -318,14 +518,14 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(150000),
-			"executionTimeMillisEstimate" : NumberLong(2354)
+			"executionTimeMillisEstimate" : NumberLong(2447)
 		},
 		{
 			"$unwind" : {
 				"path" : "$orders"
 			},
 			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(2458)
+			"executionTimeMillisEstimate" : NumberLong(2513)
 		},
 		{
 			"$project" : {
@@ -345,7 +545,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(2729)
+			"executionTimeMillisEstimate" : NumberLong(2915)
 		},
 		{
 			"$match" : {
@@ -356,7 +556,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(52002),
-			"executionTimeMillisEstimate" : NumberLong(2951)
+			"executionTimeMillisEstimate" : NumberLong(3127)
 		},
 		{
 			"$group" : {
@@ -368,7 +568,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(2982)
+			"executionTimeMillisEstimate" : NumberLong(3133)
 		},
 		{
 			"$sort" : {
@@ -377,207 +577,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(2982)
-		}
-	],
-	"serverInfo" : {
-		"host" : "mt-mongo-3",
-		"port" : 27013,
-		"version" : "4.4.10",
-		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
-	},
-	"ok" : 1,
-	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639046387, 3),
-		"signature" : {
-			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
-			"keyId" : NumberLong(0)
-		}
-	},
-	"operationTime" : Timestamp(1639046387, 3)
-}
-
-
-MongoDB shell version v4.4.10
-connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("9aa8aa13-b258-4467-bc11-dd85bb0cd3c2") }
-MongoDB server version: 4.4.10
-{
-	"stages" : [
-		{
-			"$cursor" : {
-				"queryPlanner" : {
-					"plannerVersion" : 1,
-					"namespace" : "tpch_mongo_1c.scale1",
-					"indexFilterSet" : false,
-					"parsedQuery" : {
-						
-					},
-					"queryHash" : "7D406A01",
-					"planCacheKey" : "7D406A01",
-					"winningPlan" : {
-						"stage" : "PROJECTION_DEFAULT",
-						"transformBy" : {
-							"orders" : {
-								"$filter" : {
-									"input" : "$c_orders",
-									"as" : "o",
-									"cond" : {
-										"$and" : [
-											{
-												"$gte" : [
-													"$$o.o_orderdate",
-													{
-														"$const" : ISODate("1992-01-01T00:00:00Z")
-													}
-												]
-											},
-											{
-												"$lt" : [
-													"$$o.o_orderdate",
-													{
-														"$const" : ISODate("1992-04-01T00:00:00Z")
-													}
-												]
-											}
-										]
-									}
-								}
-							},
-							"_id" : false
-						},
-						"inputStage" : {
-							"stage" : "COLLSCAN",
-							"direction" : "forward"
-						}
-					},
-					"rejectedPlans" : [ ]
-				},
-				"executionStats" : {
-					"executionSuccess" : true,
-					"nReturned" : 150000,
-					"executionTimeMillis" : 2638,
-					"totalKeysExamined" : 0,
-					"totalDocsExamined" : 150000,
-					"executionStages" : {
-						"stage" : "PROJECTION_DEFAULT",
-						"nReturned" : 150000,
-						"executionTimeMillisEstimate" : 1368,
-						"works" : 150002,
-						"advanced" : 150000,
-						"needTime" : 1,
-						"needYield" : 0,
-						"saveState" : 202,
-						"restoreState" : 202,
-						"isEOF" : 1,
-						"transformBy" : {
-							"orders" : {
-								"$filter" : {
-									"input" : "$c_orders",
-									"as" : "o",
-									"cond" : {
-										"$and" : [
-											{
-												"$gte" : [
-													"$$o.o_orderdate",
-													{
-														"$const" : ISODate("1992-01-01T00:00:00Z")
-													}
-												]
-											},
-											{
-												"$lt" : [
-													"$$o.o_orderdate",
-													{
-														"$const" : ISODate("1992-04-01T00:00:00Z")
-													}
-												]
-											}
-										]
-									}
-								}
-							},
-							"_id" : false
-						},
-						"inputStage" : {
-							"stage" : "COLLSCAN",
-							"nReturned" : 150000,
-							"executionTimeMillisEstimate" : 108,
-							"works" : 150002,
-							"advanced" : 150000,
-							"needTime" : 1,
-							"needYield" : 0,
-							"saveState" : 202,
-							"restoreState" : 202,
-							"isEOF" : 1,
-							"direction" : "forward",
-							"docsExamined" : 150000
-						}
-					},
-					"allPlansExecution" : [ ]
-				}
-			},
-			"nReturned" : NumberLong(150000),
-			"executionTimeMillisEstimate" : NumberLong(1995)
-		},
-		{
-			"$unwind" : {
-				"path" : "$orders"
-			},
-			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(2109)
-		},
-		{
-			"$project" : {
-				"_id" : true,
-				"orderpriority" : "$orders.o_orderpriority",
-				"lineitems" : {
-					"$filter" : {
-						"input" : "$orders.o_lineitems",
-						"as" : "l",
-						"cond" : {
-							"$lt" : [
-								"$$l.l_commitdate",
-								"$$l.l_receiptdate"
-							]
-						}
-					}
-				}
-			},
-			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(2439)
-		},
-		{
-			"$match" : {
-				"lineitems" : {
-					"$not" : {
-						"$eq" : [ ]
-					}
-				}
-			},
-			"nReturned" : NumberLong(52002),
-			"executionTimeMillisEstimate" : NumberLong(2615)
-		},
-		{
-			"$group" : {
-				"_id" : "$orderpriority",
-				"order_count" : {
-					"$sum" : {
-						"$const" : 1
-					}
-				}
-			},
-			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(2630)
-		},
-		{
-			"$sort" : {
-				"sortKey" : {
-					"_id" : 1
-				}
-			},
-			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(2630)
+			"executionTimeMillisEstimate" : NumberLong(3133)
 		}
 	],
 	"serverInfo" : {
@@ -588,19 +588,19 @@ MongoDB server version: 4.4.10
 	},
 	"ok" : 1,
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639046430, 5),
+		"clusterTime" : Timestamp(1639507013, 5),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
 	},
-	"operationTime" : Timestamp(1639046430, 5)
+	"operationTime" : Timestamp(1639507013, 5)
 }
 
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("d261edae-d52f-4039-926d-2556aad8188a") }
+Implicit session: session { "id" : UUID("b87c9a8c-e3f6-4994-9f37-d6e49123dba5") }
 MongoDB server version: 4.4.10
 {
 	"stages" : [
@@ -656,19 +656,19 @@ MongoDB server version: 4.4.10
 				"executionStats" : {
 					"executionSuccess" : true,
 					"nReturned" : 150000,
-					"executionTimeMillis" : 3058,
+					"executionTimeMillis" : 3102,
 					"totalKeysExamined" : 0,
 					"totalDocsExamined" : 150000,
 					"executionStages" : {
 						"stage" : "PROJECTION_DEFAULT",
 						"nReturned" : 150000,
-						"executionTimeMillisEstimate" : 1801,
+						"executionTimeMillisEstimate" : 1803,
 						"works" : 150002,
 						"advanced" : 150000,
 						"needTime" : 1,
 						"needYield" : 0,
-						"saveState" : 209,
-						"restoreState" : 209,
+						"saveState" : 218,
+						"restoreState" : 218,
 						"isEOF" : 1,
 						"transformBy" : {
 							"orders" : {
@@ -702,13 +702,13 @@ MongoDB server version: 4.4.10
 						"inputStage" : {
 							"stage" : "COLLSCAN",
 							"nReturned" : 150000,
-							"executionTimeMillisEstimate" : 211,
+							"executionTimeMillisEstimate" : 167,
 							"works" : 150002,
 							"advanced" : 150000,
 							"needTime" : 1,
 							"needYield" : 0,
-							"saveState" : 209,
-							"restoreState" : 209,
+							"saveState" : 218,
+							"restoreState" : 218,
 							"isEOF" : 1,
 							"direction" : "forward",
 							"docsExamined" : 150000
@@ -718,14 +718,14 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(150000),
-			"executionTimeMillisEstimate" : NumberLong(2392)
+			"executionTimeMillisEstimate" : NumberLong(2419)
 		},
 		{
 			"$unwind" : {
 				"path" : "$orders"
 			},
 			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(2471)
+			"executionTimeMillisEstimate" : NumberLong(2481)
 		},
 		{
 			"$project" : {
@@ -745,7 +745,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(2743)
+			"executionTimeMillisEstimate" : NumberLong(2843)
 		},
 		{
 			"$match" : {
@@ -756,7 +756,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(52002),
-			"executionTimeMillisEstimate" : NumberLong(3036)
+			"executionTimeMillisEstimate" : NumberLong(3092)
 		},
 		{
 			"$group" : {
@@ -768,7 +768,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(3052)
+			"executionTimeMillisEstimate" : NumberLong(3101)
 		},
 		{
 			"$sort" : {
@@ -777,207 +777,7 @@ MongoDB server version: 4.4.10
 				}
 			},
 			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(3052)
-		}
-	],
-	"serverInfo" : {
-		"host" : "mt-mongo-3",
-		"port" : 27013,
-		"version" : "4.4.10",
-		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
-	},
-	"ok" : 1,
-	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639046480, 5),
-		"signature" : {
-			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
-			"keyId" : NumberLong(0)
-		}
-	},
-	"operationTime" : Timestamp(1639046480, 5)
-}
-
-
-MongoDB shell version v4.4.10
-connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("a5e29162-7150-4f30-a4f1-453b5216fa2c") }
-MongoDB server version: 4.4.10
-{
-	"stages" : [
-		{
-			"$cursor" : {
-				"queryPlanner" : {
-					"plannerVersion" : 1,
-					"namespace" : "tpch_mongo_1c.scale1",
-					"indexFilterSet" : false,
-					"parsedQuery" : {
-						
-					},
-					"queryHash" : "7D406A01",
-					"planCacheKey" : "7D406A01",
-					"winningPlan" : {
-						"stage" : "PROJECTION_DEFAULT",
-						"transformBy" : {
-							"orders" : {
-								"$filter" : {
-									"input" : "$c_orders",
-									"as" : "o",
-									"cond" : {
-										"$and" : [
-											{
-												"$gte" : [
-													"$$o.o_orderdate",
-													{
-														"$const" : ISODate("1992-01-01T00:00:00Z")
-													}
-												]
-											},
-											{
-												"$lt" : [
-													"$$o.o_orderdate",
-													{
-														"$const" : ISODate("1992-04-01T00:00:00Z")
-													}
-												]
-											}
-										]
-									}
-								}
-							},
-							"_id" : false
-						},
-						"inputStage" : {
-							"stage" : "COLLSCAN",
-							"direction" : "forward"
-						}
-					},
-					"rejectedPlans" : [ ]
-				},
-				"executionStats" : {
-					"executionSuccess" : true,
-					"nReturned" : 150000,
-					"executionTimeMillis" : 2644,
-					"totalKeysExamined" : 0,
-					"totalDocsExamined" : 150000,
-					"executionStages" : {
-						"stage" : "PROJECTION_DEFAULT",
-						"nReturned" : 150000,
-						"executionTimeMillisEstimate" : 1341,
-						"works" : 150002,
-						"advanced" : 150000,
-						"needTime" : 1,
-						"needYield" : 0,
-						"saveState" : 200,
-						"restoreState" : 200,
-						"isEOF" : 1,
-						"transformBy" : {
-							"orders" : {
-								"$filter" : {
-									"input" : "$c_orders",
-									"as" : "o",
-									"cond" : {
-										"$and" : [
-											{
-												"$gte" : [
-													"$$o.o_orderdate",
-													{
-														"$const" : ISODate("1992-01-01T00:00:00Z")
-													}
-												]
-											},
-											{
-												"$lt" : [
-													"$$o.o_orderdate",
-													{
-														"$const" : ISODate("1992-04-01T00:00:00Z")
-													}
-												]
-											}
-										]
-									}
-								}
-							},
-							"_id" : false
-						},
-						"inputStage" : {
-							"stage" : "COLLSCAN",
-							"nReturned" : 150000,
-							"executionTimeMillisEstimate" : 210,
-							"works" : 150002,
-							"advanced" : 150000,
-							"needTime" : 1,
-							"needYield" : 0,
-							"saveState" : 200,
-							"restoreState" : 200,
-							"isEOF" : 1,
-							"direction" : "forward",
-							"docsExamined" : 150000
-						}
-					},
-					"allPlansExecution" : [ ]
-				}
-			},
-			"nReturned" : NumberLong(150000),
-			"executionTimeMillisEstimate" : NumberLong(2012)
-		},
-		{
-			"$unwind" : {
-				"path" : "$orders"
-			},
-			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(2060)
-		},
-		{
-			"$project" : {
-				"_id" : true,
-				"orderpriority" : "$orders.o_orderpriority",
-				"lineitems" : {
-					"$filter" : {
-						"input" : "$orders.o_lineitems",
-						"as" : "l",
-						"cond" : {
-							"$lt" : [
-								"$$l.l_commitdate",
-								"$$l.l_receiptdate"
-							]
-						}
-					}
-				}
-			},
-			"nReturned" : NumberLong(56741),
-			"executionTimeMillisEstimate" : NumberLong(2384)
-		},
-		{
-			"$match" : {
-				"lineitems" : {
-					"$not" : {
-						"$eq" : [ ]
-					}
-				}
-			},
-			"nReturned" : NumberLong(52002),
-			"executionTimeMillisEstimate" : NumberLong(2629)
-		},
-		{
-			"$group" : {
-				"_id" : "$orderpriority",
-				"order_count" : {
-					"$sum" : {
-						"$const" : 1
-					}
-				}
-			},
-			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(2639)
-		},
-		{
-			"$sort" : {
-				"sortKey" : {
-					"_id" : 1
-				}
-			},
-			"nReturned" : NumberLong(5),
-			"executionTimeMillisEstimate" : NumberLong(2639)
+			"executionTimeMillisEstimate" : NumberLong(3101)
 		}
 	],
 	"serverInfo" : {
@@ -988,13 +788,213 @@ MongoDB server version: 4.4.10
 	},
 	"ok" : 1,
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639046533, 3),
+		"clusterTime" : Timestamp(1639507065, 4),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
 	},
-	"operationTime" : Timestamp(1639046533, 3)
+	"operationTime" : Timestamp(1639507065, 4)
+}
+
+
+MongoDB shell version v4.4.10
+connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
+Implicit session: session { "id" : UUID("083a6ae7-f272-49aa-bb6b-d13781ecf9ce") }
+MongoDB server version: 4.4.10
+{
+	"stages" : [
+		{
+			"$cursor" : {
+				"queryPlanner" : {
+					"plannerVersion" : 1,
+					"namespace" : "tpch_mongo_1c.scale1",
+					"indexFilterSet" : false,
+					"parsedQuery" : {
+						
+					},
+					"queryHash" : "7D406A01",
+					"planCacheKey" : "7D406A01",
+					"winningPlan" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"transformBy" : {
+							"orders" : {
+								"$filter" : {
+									"input" : "$c_orders",
+									"as" : "o",
+									"cond" : {
+										"$and" : [
+											{
+												"$gte" : [
+													"$$o.o_orderdate",
+													{
+														"$const" : ISODate("1992-01-01T00:00:00Z")
+													}
+												]
+											},
+											{
+												"$lt" : [
+													"$$o.o_orderdate",
+													{
+														"$const" : ISODate("1992-04-01T00:00:00Z")
+													}
+												]
+											}
+										]
+									}
+								}
+							},
+							"_id" : false
+						},
+						"inputStage" : {
+							"stage" : "COLLSCAN",
+							"direction" : "forward"
+						}
+					},
+					"rejectedPlans" : [ ]
+				},
+				"executionStats" : {
+					"executionSuccess" : true,
+					"nReturned" : 150000,
+					"executionTimeMillis" : 3219,
+					"totalKeysExamined" : 0,
+					"totalDocsExamined" : 150000,
+					"executionStages" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"nReturned" : 150000,
+						"executionTimeMillisEstimate" : 1951,
+						"works" : 150002,
+						"advanced" : 150000,
+						"needTime" : 1,
+						"needYield" : 0,
+						"saveState" : 220,
+						"restoreState" : 220,
+						"isEOF" : 1,
+						"transformBy" : {
+							"orders" : {
+								"$filter" : {
+									"input" : "$c_orders",
+									"as" : "o",
+									"cond" : {
+										"$and" : [
+											{
+												"$gte" : [
+													"$$o.o_orderdate",
+													{
+														"$const" : ISODate("1992-01-01T00:00:00Z")
+													}
+												]
+											},
+											{
+												"$lt" : [
+													"$$o.o_orderdate",
+													{
+														"$const" : ISODate("1992-04-01T00:00:00Z")
+													}
+												]
+											}
+										]
+									}
+								}
+							},
+							"_id" : false
+						},
+						"inputStage" : {
+							"stage" : "COLLSCAN",
+							"nReturned" : 150000,
+							"executionTimeMillisEstimate" : 239,
+							"works" : 150002,
+							"advanced" : 150000,
+							"needTime" : 1,
+							"needYield" : 0,
+							"saveState" : 220,
+							"restoreState" : 220,
+							"isEOF" : 1,
+							"direction" : "forward",
+							"docsExamined" : 150000
+						}
+					},
+					"allPlansExecution" : [ ]
+				}
+			},
+			"nReturned" : NumberLong(150000),
+			"executionTimeMillisEstimate" : NumberLong(2550)
+		},
+		{
+			"$unwind" : {
+				"path" : "$orders"
+			},
+			"nReturned" : NumberLong(56741),
+			"executionTimeMillisEstimate" : NumberLong(2637)
+		},
+		{
+			"$project" : {
+				"_id" : true,
+				"orderpriority" : "$orders.o_orderpriority",
+				"lineitems" : {
+					"$filter" : {
+						"input" : "$orders.o_lineitems",
+						"as" : "l",
+						"cond" : {
+							"$lt" : [
+								"$$l.l_commitdate",
+								"$$l.l_receiptdate"
+							]
+						}
+					}
+				}
+			},
+			"nReturned" : NumberLong(56741),
+			"executionTimeMillisEstimate" : NumberLong(3018)
+		},
+		{
+			"$match" : {
+				"lineitems" : {
+					"$not" : {
+						"$eq" : [ ]
+					}
+				}
+			},
+			"nReturned" : NumberLong(52002),
+			"executionTimeMillisEstimate" : NumberLong(3200)
+		},
+		{
+			"$group" : {
+				"_id" : "$orderpriority",
+				"order_count" : {
+					"$sum" : {
+						"$const" : 1
+					}
+				}
+			},
+			"nReturned" : NumberLong(5),
+			"executionTimeMillisEstimate" : NumberLong(3218)
+		},
+		{
+			"$sort" : {
+				"sortKey" : {
+					"_id" : 1
+				}
+			},
+			"nReturned" : NumberLong(5),
+			"executionTimeMillisEstimate" : NumberLong(3218)
+		}
+	],
+	"serverInfo" : {
+		"host" : "mt-mongo-2",
+		"port" : 27012,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1639507123, 4),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1639507123, 4)
 }
 
 

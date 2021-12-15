@@ -1,130 +1,575 @@
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("d83664a4-c17d-4a91-b05b-953d54e557ac") }
+Implicit session: session { "id" : UUID("6889d5c6-8fc2-4614-b36a-158ffff72844") }
 MongoDB server version: 4.4.10
-uncaught exception: Error: explain failed: {
-	"operationTime" : Timestamp(1639036946, 1),
-	"ok" : 0,
-	"errmsg" : "Error in $cursor stage :: caused by :: operation exceeded time limit",
-	"code" : 50,
-	"codeName" : "MaxTimeMSExpired",
+{
+	"stages" : [
+		{
+			"$cursor" : {
+				"queryPlanner" : {
+					"plannerVersion" : 1,
+					"namespace" : "tpch_mongo_3c.customer",
+					"indexFilterSet" : false,
+					"parsedQuery" : {
+						
+					},
+					"queryHash" : "DDE43694",
+					"planCacheKey" : "DDE43694",
+					"winningPlan" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"transformBy" : {
+							"_id" : 1,
+							"c_name" : 1,
+							"orders.o_orderdate" : 1
+						},
+						"inputStage" : {
+							"stage" : "COLLSCAN",
+							"direction" : "forward"
+						}
+					},
+					"rejectedPlans" : [ ]
+				},
+				"executionStats" : {
+					"executionSuccess" : true,
+					"nReturned" : 150000,
+					"executionTimeMillis" : 26205,
+					"totalKeysExamined" : 0,
+					"totalDocsExamined" : 150000,
+					"executionStages" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"nReturned" : 150000,
+						"executionTimeMillisEstimate" : 23,
+						"works" : 150002,
+						"advanced" : 150000,
+						"needTime" : 1,
+						"needYield" : 0,
+						"saveState" : 157,
+						"restoreState" : 157,
+						"isEOF" : 1,
+						"transformBy" : {
+							"_id" : 1,
+							"c_name" : 1,
+							"orders.o_orderdate" : 1
+						},
+						"inputStage" : {
+							"stage" : "COLLSCAN",
+							"nReturned" : 150000,
+							"executionTimeMillisEstimate" : 5,
+							"works" : 150002,
+							"advanced" : 150000,
+							"needTime" : 1,
+							"needYield" : 0,
+							"saveState" : 157,
+							"restoreState" : 157,
+							"isEOF" : 1,
+							"direction" : "forward",
+							"docsExamined" : 150000
+						}
+					},
+					"allPlansExecution" : [ ]
+				}
+			},
+			"nReturned" : NumberLong(150000),
+			"executionTimeMillisEstimate" : NumberLong(210)
+		},
+		{
+			"$lookup" : {
+				"from" : "orders",
+				"as" : "orders",
+				"localField" : "_id",
+				"foreignField" : "o_custkey",
+				"unwinding" : {
+					"preserveNullAndEmptyArrays" : false
+				}
+			},
+			"nReturned" : NumberLong(1500000),
+			"executionTimeMillisEstimate" : NumberLong(26124)
+		},
+		{
+			"$project" : {
+				"_id" : true,
+				"c_name" : true,
+				"o_orderdate" : "$orders.o_orderdate"
+			},
+			"nReturned" : NumberLong(1500000),
+			"executionTimeMillisEstimate" : NumberLong(26191)
+		}
+	],
+	"serverInfo" : {
+		"host" : "mt-mongo-1",
+		"port" : 27011,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639036946, 1),
+		"clusterTime" : Timestamp(1639496197, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
-	}
-} :
-_getErrorWithCode@src/mongo/shell/utils.js:25:13
-throwOrReturn@src/mongo/shell/explainable.js:25:19
-constructor/this.aggregate@src/mongo/shell/explainable.js:125:24
-@/home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/point_queries_experiment/mongo/s2/q3v2_mongo_s2.js:1:11
-failed to load: /home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/point_queries_experiment/mongo/s2/q3v2_mongo_s2.js
-exiting with code -3
+	},
+	"operationTime" : Timestamp(1639496197, 1)
+}
 
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("e66dfc8f-c35b-4c13-9e4a-f74331449d6b") }
+Implicit session: session { "id" : UUID("0b8cb29b-6f09-4d68-b1f1-6e21d2a42768") }
 MongoDB server version: 4.4.10
-uncaught exception: Error: explain failed: {
-	"operationTime" : Timestamp(1639037109, 1),
-	"ok" : 0,
-	"errmsg" : "Error in $cursor stage :: caused by :: operation exceeded time limit",
-	"code" : 50,
-	"codeName" : "MaxTimeMSExpired",
+{
+	"stages" : [
+		{
+			"$cursor" : {
+				"queryPlanner" : {
+					"plannerVersion" : 1,
+					"namespace" : "tpch_mongo_3c.customer",
+					"indexFilterSet" : false,
+					"parsedQuery" : {
+						
+					},
+					"queryHash" : "DDE43694",
+					"planCacheKey" : "DDE43694",
+					"winningPlan" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"transformBy" : {
+							"_id" : 1,
+							"c_name" : 1,
+							"orders.o_orderdate" : 1
+						},
+						"inputStage" : {
+							"stage" : "COLLSCAN",
+							"direction" : "forward"
+						}
+					},
+					"rejectedPlans" : [ ]
+				},
+				"executionStats" : {
+					"executionSuccess" : true,
+					"nReturned" : 150000,
+					"executionTimeMillis" : 26954,
+					"totalKeysExamined" : 0,
+					"totalDocsExamined" : 150000,
+					"executionStages" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"nReturned" : 150000,
+						"executionTimeMillisEstimate" : 26,
+						"works" : 150002,
+						"advanced" : 150000,
+						"needTime" : 1,
+						"needYield" : 0,
+						"saveState" : 157,
+						"restoreState" : 157,
+						"isEOF" : 1,
+						"transformBy" : {
+							"_id" : 1,
+							"c_name" : 1,
+							"orders.o_orderdate" : 1
+						},
+						"inputStage" : {
+							"stage" : "COLLSCAN",
+							"nReturned" : 150000,
+							"executionTimeMillisEstimate" : 14,
+							"works" : 150002,
+							"advanced" : 150000,
+							"needTime" : 1,
+							"needYield" : 0,
+							"saveState" : 157,
+							"restoreState" : 157,
+							"isEOF" : 1,
+							"direction" : "forward",
+							"docsExamined" : 150000
+						}
+					},
+					"allPlansExecution" : [ ]
+				}
+			},
+			"nReturned" : NumberLong(150000),
+			"executionTimeMillisEstimate" : NumberLong(227)
+		},
+		{
+			"$lookup" : {
+				"from" : "orders",
+				"as" : "orders",
+				"localField" : "_id",
+				"foreignField" : "o_custkey",
+				"unwinding" : {
+					"preserveNullAndEmptyArrays" : false
+				}
+			},
+			"nReturned" : NumberLong(1500000),
+			"executionTimeMillisEstimate" : NumberLong(26787)
+		},
+		{
+			"$project" : {
+				"_id" : true,
+				"c_name" : true,
+				"o_orderdate" : "$orders.o_orderdate"
+			},
+			"nReturned" : NumberLong(1500000),
+			"executionTimeMillisEstimate" : NumberLong(26917)
+		}
+	],
+	"serverInfo" : {
+		"host" : "mt-mongo-3",
+		"port" : 27013,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639037109, 1),
+		"clusterTime" : Timestamp(1639496299, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
-	}
-} :
-_getErrorWithCode@src/mongo/shell/utils.js:25:13
-throwOrReturn@src/mongo/shell/explainable.js:25:19
-constructor/this.aggregate@src/mongo/shell/explainable.js:125:24
-@/home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/point_queries_experiment/mongo/s2/q3v2_mongo_s2.js:1:11
-failed to load: /home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/point_queries_experiment/mongo/s2/q3v2_mongo_s2.js
-exiting with code -3
+	},
+	"operationTime" : Timestamp(1639496299, 1)
+}
 
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("1065f82b-7599-4a9e-8e89-4e6d26634502") }
+Implicit session: session { "id" : UUID("0da818b9-aa00-4a3b-b4a3-06978250dc9b") }
 MongoDB server version: 4.4.10
-uncaught exception: Error: explain failed: {
-	"operationTime" : Timestamp(1639037282, 1),
-	"ok" : 0,
-	"errmsg" : "Error in $cursor stage :: caused by :: operation exceeded time limit",
-	"code" : 50,
-	"codeName" : "MaxTimeMSExpired",
+{
+	"stages" : [
+		{
+			"$cursor" : {
+				"queryPlanner" : {
+					"plannerVersion" : 1,
+					"namespace" : "tpch_mongo_3c.customer",
+					"indexFilterSet" : false,
+					"parsedQuery" : {
+						
+					},
+					"queryHash" : "DDE43694",
+					"planCacheKey" : "DDE43694",
+					"winningPlan" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"transformBy" : {
+							"_id" : 1,
+							"c_name" : 1,
+							"orders.o_orderdate" : 1
+						},
+						"inputStage" : {
+							"stage" : "COLLSCAN",
+							"direction" : "forward"
+						}
+					},
+					"rejectedPlans" : [ ]
+				},
+				"executionStats" : {
+					"executionSuccess" : true,
+					"nReturned" : 150000,
+					"executionTimeMillis" : 27286,
+					"totalKeysExamined" : 0,
+					"totalDocsExamined" : 150000,
+					"executionStages" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"nReturned" : 150000,
+						"executionTimeMillisEstimate" : 32,
+						"works" : 150002,
+						"advanced" : 150000,
+						"needTime" : 1,
+						"needYield" : 0,
+						"saveState" : 157,
+						"restoreState" : 157,
+						"isEOF" : 1,
+						"transformBy" : {
+							"_id" : 1,
+							"c_name" : 1,
+							"orders.o_orderdate" : 1
+						},
+						"inputStage" : {
+							"stage" : "COLLSCAN",
+							"nReturned" : 150000,
+							"executionTimeMillisEstimate" : 13,
+							"works" : 150002,
+							"advanced" : 150000,
+							"needTime" : 1,
+							"needYield" : 0,
+							"saveState" : 157,
+							"restoreState" : 157,
+							"isEOF" : 1,
+							"direction" : "forward",
+							"docsExamined" : 150000
+						}
+					},
+					"allPlansExecution" : [ ]
+				}
+			},
+			"nReturned" : NumberLong(150000),
+			"executionTimeMillisEstimate" : NumberLong(225)
+		},
+		{
+			"$lookup" : {
+				"from" : "orders",
+				"as" : "orders",
+				"localField" : "_id",
+				"foreignField" : "o_custkey",
+				"unwinding" : {
+					"preserveNullAndEmptyArrays" : false
+				}
+			},
+			"nReturned" : NumberLong(1500000),
+			"executionTimeMillisEstimate" : NumberLong(27095)
+		},
+		{
+			"$project" : {
+				"_id" : true,
+				"c_name" : true,
+				"o_orderdate" : "$orders.o_orderdate"
+			},
+			"nReturned" : NumberLong(1500000),
+			"executionTimeMillisEstimate" : NumberLong(27241)
+		}
+	],
+	"serverInfo" : {
+		"host" : "mt-mongo-2",
+		"port" : 27012,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639037282, 1),
+		"clusterTime" : Timestamp(1639496392, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
-	}
-} :
-_getErrorWithCode@src/mongo/shell/utils.js:25:13
-throwOrReturn@src/mongo/shell/explainable.js:25:19
-constructor/this.aggregate@src/mongo/shell/explainable.js:125:24
-@/home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/point_queries_experiment/mongo/s2/q3v2_mongo_s2.js:1:11
-failed to load: /home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/point_queries_experiment/mongo/s2/q3v2_mongo_s2.js
-exiting with code -3
+	},
+	"operationTime" : Timestamp(1639496392, 1)
+}
 
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("66c78ce2-77b6-4c07-b3f5-f18ab57e757b") }
+Implicit session: session { "id" : UUID("4b619844-82ee-494e-992a-6df93e6d35dc") }
 MongoDB server version: 4.4.10
-uncaught exception: Error: explain failed: {
-	"operationTime" : Timestamp(1639037458, 1),
-	"ok" : 0,
-	"errmsg" : "Error in $cursor stage :: caused by :: operation exceeded time limit",
-	"code" : 50,
-	"codeName" : "MaxTimeMSExpired",
+{
+	"stages" : [
+		{
+			"$cursor" : {
+				"queryPlanner" : {
+					"plannerVersion" : 1,
+					"namespace" : "tpch_mongo_3c.customer",
+					"indexFilterSet" : false,
+					"parsedQuery" : {
+						
+					},
+					"queryHash" : "DDE43694",
+					"planCacheKey" : "DDE43694",
+					"winningPlan" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"transformBy" : {
+							"_id" : 1,
+							"c_name" : 1,
+							"orders.o_orderdate" : 1
+						},
+						"inputStage" : {
+							"stage" : "COLLSCAN",
+							"direction" : "forward"
+						}
+					},
+					"rejectedPlans" : [ ]
+				},
+				"executionStats" : {
+					"executionSuccess" : true,
+					"nReturned" : 150000,
+					"executionTimeMillis" : 25930,
+					"totalKeysExamined" : 0,
+					"totalDocsExamined" : 150000,
+					"executionStages" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"nReturned" : 150000,
+						"executionTimeMillisEstimate" : 28,
+						"works" : 150002,
+						"advanced" : 150000,
+						"needTime" : 1,
+						"needYield" : 0,
+						"saveState" : 157,
+						"restoreState" : 157,
+						"isEOF" : 1,
+						"transformBy" : {
+							"_id" : 1,
+							"c_name" : 1,
+							"orders.o_orderdate" : 1
+						},
+						"inputStage" : {
+							"stage" : "COLLSCAN",
+							"nReturned" : 150000,
+							"executionTimeMillisEstimate" : 11,
+							"works" : 150002,
+							"advanced" : 150000,
+							"needTime" : 1,
+							"needYield" : 0,
+							"saveState" : 157,
+							"restoreState" : 157,
+							"isEOF" : 1,
+							"direction" : "forward",
+							"docsExamined" : 150000
+						}
+					},
+					"allPlansExecution" : [ ]
+				}
+			},
+			"nReturned" : NumberLong(150000),
+			"executionTimeMillisEstimate" : NumberLong(198)
+		},
+		{
+			"$lookup" : {
+				"from" : "orders",
+				"as" : "orders",
+				"localField" : "_id",
+				"foreignField" : "o_custkey",
+				"unwinding" : {
+					"preserveNullAndEmptyArrays" : false
+				}
+			},
+			"nReturned" : NumberLong(1500000),
+			"executionTimeMillisEstimate" : NumberLong(25781)
+		},
+		{
+			"$project" : {
+				"_id" : true,
+				"c_name" : true,
+				"o_orderdate" : "$orders.o_orderdate"
+			},
+			"nReturned" : NumberLong(1500000),
+			"executionTimeMillisEstimate" : NumberLong(25902)
+		}
+	],
+	"serverInfo" : {
+		"host" : "mt-mongo-3",
+		"port" : 27013,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639037458, 1),
+		"clusterTime" : Timestamp(1639496485, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
-	}
-} :
-_getErrorWithCode@src/mongo/shell/utils.js:25:13
-throwOrReturn@src/mongo/shell/explainable.js:25:19
-constructor/this.aggregate@src/mongo/shell/explainable.js:125:24
-@/home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/point_queries_experiment/mongo/s2/q3v2_mongo_s2.js:1:11
-failed to load: /home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/point_queries_experiment/mongo/s2/q3v2_mongo_s2.js
-exiting with code -3
+	},
+	"operationTime" : Timestamp(1639496485, 1)
+}
 
 
 MongoDB shell version v4.4.10
 connecting to: mongodb://mt-mongo-1:27011,mt-mongo-2:27012,mt-mongo-3:27013/?compressors=disabled&gssapiServiceName=mongodb&replicaSet=mt-exp-rs-001
-Implicit session: session { "id" : UUID("a1dead6f-2e60-4b1e-a33c-0b61eb4f6ad8") }
+Implicit session: session { "id" : UUID("58609cc6-6947-4311-89b7-66670524493f") }
 MongoDB server version: 4.4.10
-uncaught exception: Error: explain failed: {
-	"operationTime" : Timestamp(1639037626, 1),
-	"ok" : 0,
-	"errmsg" : "Error in $cursor stage :: caused by :: operation exceeded time limit",
-	"code" : 50,
-	"codeName" : "MaxTimeMSExpired",
+{
+	"stages" : [
+		{
+			"$cursor" : {
+				"queryPlanner" : {
+					"plannerVersion" : 1,
+					"namespace" : "tpch_mongo_3c.customer",
+					"indexFilterSet" : false,
+					"parsedQuery" : {
+						
+					},
+					"queryHash" : "DDE43694",
+					"planCacheKey" : "DDE43694",
+					"winningPlan" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"transformBy" : {
+							"_id" : 1,
+							"c_name" : 1,
+							"orders.o_orderdate" : 1
+						},
+						"inputStage" : {
+							"stage" : "COLLSCAN",
+							"direction" : "forward"
+						}
+					},
+					"rejectedPlans" : [ ]
+				},
+				"executionStats" : {
+					"executionSuccess" : true,
+					"nReturned" : 150000,
+					"executionTimeMillis" : 26465,
+					"totalKeysExamined" : 0,
+					"totalDocsExamined" : 150000,
+					"executionStages" : {
+						"stage" : "PROJECTION_DEFAULT",
+						"nReturned" : 150000,
+						"executionTimeMillisEstimate" : 22,
+						"works" : 150002,
+						"advanced" : 150000,
+						"needTime" : 1,
+						"needYield" : 0,
+						"saveState" : 157,
+						"restoreState" : 157,
+						"isEOF" : 1,
+						"transformBy" : {
+							"_id" : 1,
+							"c_name" : 1,
+							"orders.o_orderdate" : 1
+						},
+						"inputStage" : {
+							"stage" : "COLLSCAN",
+							"nReturned" : 150000,
+							"executionTimeMillisEstimate" : 13,
+							"works" : 150002,
+							"advanced" : 150000,
+							"needTime" : 1,
+							"needYield" : 0,
+							"saveState" : 157,
+							"restoreState" : 157,
+							"isEOF" : 1,
+							"direction" : "forward",
+							"docsExamined" : 150000
+						}
+					},
+					"allPlansExecution" : [ ]
+				}
+			},
+			"nReturned" : NumberLong(150000),
+			"executionTimeMillisEstimate" : NumberLong(214)
+		},
+		{
+			"$lookup" : {
+				"from" : "orders",
+				"as" : "orders",
+				"localField" : "_id",
+				"foreignField" : "o_custkey",
+				"unwinding" : {
+					"preserveNullAndEmptyArrays" : false
+				}
+			},
+			"nReturned" : NumberLong(1500000),
+			"executionTimeMillisEstimate" : NumberLong(26308)
+		},
+		{
+			"$project" : {
+				"_id" : true,
+				"c_name" : true,
+				"o_orderdate" : "$orders.o_orderdate"
+			},
+			"nReturned" : NumberLong(1500000),
+			"executionTimeMillisEstimate" : NumberLong(26424)
+		}
+	],
+	"serverInfo" : {
+		"host" : "mt-mongo-3",
+		"port" : 27013,
+		"version" : "4.4.10",
+		"gitVersion" : "58971da1ef93435a9f62bf4708a81713def6e88c"
+	},
+	"ok" : 1,
 	"$clusterTime" : {
-		"clusterTime" : Timestamp(1639037626, 1),
+		"clusterTime" : Timestamp(1639496578, 1),
 		"signature" : {
 			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
 			"keyId" : NumberLong(0)
 		}
-	}
-} :
-_getErrorWithCode@src/mongo/shell/utils.js:25:13
-throwOrReturn@src/mongo/shell/explainable.js:25:19
-constructor/this.aggregate@src/mongo/shell/explainable.js:125:24
-@/home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/point_queries_experiment/mongo/s2/q3v2_mongo_s2.js:1:11
-failed to load: /home/captain/git/antw0n-dss-sql-vs-nosql-experiments/output/queries/point_queries_experiment/mongo/s2/q3v2_mongo_s2.js
-exiting with code -3
+	},
+	"operationTime" : Timestamp(1639496578, 1)
+}
 
 
