@@ -1,8 +1,10 @@
-# Evaluation
+# Optimization
 
-This file contains notes on evaluation of UDO.
+This file contains notes on optimization of UDO.
 
 ## Point Queries Experiments
+
+[![Point Query Experiment](point_query_experiment.png)](https://docs.google.com/spreadsheets/d/e/2PACX-1vROFlzPXS8bckwC4oAGMKQNk4HrmGX28nE46sY4vd53UkBeXdVAK3HQaSDR730dtGs9nIlpO2XtDBvC/pubchart?oid=113601135&format=interactive)
 
 Point queries experiment according to the research work:
 
@@ -194,6 +196,8 @@ System Parameter Recommendation form MCTS according to metric 2:
 ```
 
 ## TPC-H Experiments
+
+[![TPC-H Experiment](tpc_h_experiment.png)](https://docs.google.com/spreadsheets/d/e/2PACX-1vROFlzPXS8bckwC4oAGMKQNk4HrmGX28nE46sY4vd53UkBeXdVAK3HQaSDR730dtGs9nIlpO2XtDBvC/pubchart?oid=840013874&format=interactive)
 
 TPC-H experiment according to the research work:
 

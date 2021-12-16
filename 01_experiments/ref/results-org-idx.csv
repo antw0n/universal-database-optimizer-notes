@@ -1,0 +1,6 @@
+tpch_experiment/psql/q3_psql 6053.99
+tpch_experiment/mongo/s1/q3v3_mongo_s1 9206.4
+tpch_experiment/mongo/s1/q3v1_mongo_s1 10481.4
+tpch_experiment/mongo/s1/q3v2_mongo_s1 10773.4
+tpch_experiment/psql/q22_psql 1188.48
+tpch_experiment/mongo/s1/q22_mongo_s1 213383

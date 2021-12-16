@@ -10,7 +10,7 @@ database:
   driver: udo.drivers.mongodriver:MongoDriver
   config:
     connection-string: mongodb://[username:password@]host1[:port1][,...hostN[:portN]][/[defaultauthdb][?options]]
-  queries: input/mongo/queries/s2/point_queries_experiment # Path to the query directory [set/experiment] sets=s1,s2,s3 experiments=point_queries_experiment,tpch_experiment
+  queries: input/mongo/queries/s2/point_queries_experiment # Path to the query directory [set/experiment] sets=s1,s2,s3 01_experiments=point_queries_experiment,tpch_experiment
   indexes: input/mongo/index.json # path to the index file
   sys-params: input/mongo/sysparams.json # path to the system parameters file
 
