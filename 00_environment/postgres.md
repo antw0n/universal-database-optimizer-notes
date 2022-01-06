@@ -1,6 +1,6 @@
 # PostgreSQL
 
-This file contains notes on installation and configuration of PostgreSQL.  
+This file contains notes on the installation and configuration of PostgreSQL.  
 
 ## Install PostgreSQL
    

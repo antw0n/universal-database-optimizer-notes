@@ -1,8 +1,8 @@
 # Python
 
-This file contains notes on installation and configuration of Python environment.  
+This file contains notes on the installation and configuration of the Python environment.  
 
-Further details: [How to setup a Python development environment?](https://www.laac.dev/blog/setting-up-modern-python-development-environment-ubuntu-20/)
+Further details: [How to set up a Python development environment?](https://www.laac.dev/blog/setting-up-modern-python-development-environment-ubuntu-20/)
 
 ## Prerequisite Packages
 

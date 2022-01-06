@@ -1,6 +1,6 @@
 # Notes
 
-This repository contains notes on installation, configuration and execution of Universal Database Optimizer (UDO).
+This repository contains notes on installation, configuration, and execution of Universal Database Optimizer (UDO).
 
 ## Evaluation Environment
 
@@ -26,13 +26,13 @@ The folder [01-experiments](01_experiments) contains notes on:
 - [index](01_experiments/index): an indexed experiment
 - [no-index](01_experiments/no-index): a non-indexed experiment
 - [optim](01_experiments/optim): an indexed experiment according to the suggestions of UDO
-- [org](01_experiments/ref): reference to the original non-indexed and indexed experiments
+- [ref](01_experiments/ref): reference to the original non-indexed and indexed experiments
 
 Each experiment (`index`, `no-index` and `optim`) contains:
 - `queries`: according to the experiment referred above organized in the sub-folders according to the experiment type
 - `results`: organized in the sub-folders according to the experiment type
 
-Each `results` consists of explained query executions and `results.csv` which summarizes the execution times.
+Each `results` consists of explained query executions and `results.csv`, which summarizes the execution times.
 
 ## Execution
 

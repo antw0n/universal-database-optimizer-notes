@@ -29,7 +29,7 @@ tuning:
     max-delay-time: 5 # maximal delay time
     sample-rate: 1 # sampled rate from workload
     mcts-algorithm:
-      udpate: RAVE # update policy of UDO tree search [CAPTURED | APPLIED | NOT WIRED]
+      update: RAVE # update policy of UDO tree search [CAPTURED | APPLIED | NOT WIRED]
       select: UCBV # selection policy of UDO tree search [CAPTURED | APPLIED | NOT WIRED]
       delay: UCB # delay selection policy [CAPTURED | NOT APPLIED]
       reward: delta # reward of reinforcement learning agent [CAPTURED | NOT APPLIED]
@@ -37,9 +37,9 @@ tuning:
 **Applied**
 
 Notes on the variables:
-- `queries` varies according to the experiment.
-- `light-horizon` is omitted due automatic complement based on the amount of the system parameters.
-- `heavy-horizon` is omitted due automatic complement based on the amount of the applicable indexes.
+- `queries` vary according to the experiment.
+- `light-horizon`  is omitted due to automatic complement based on the number of system parameters.
+- `heavy-horizon` is omitted due to automatic complement based on the amount of the applicable indexes.
 
 This is the description of the amended version of the default configuration:
 ```yaml
@@ -59,7 +59,7 @@ tuning:
       delay: UCB
       reward: delta
       select: UCBV
-      udpate: RAVE
+      update: RAVE
     query-time-out: 35
     sample-rate: 1
     time-out-ratio: 1.1

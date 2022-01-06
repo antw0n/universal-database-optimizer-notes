@@ -1,6 +1,6 @@
 # MongoDB
 
-This file contains notes on installation and configuration of MongoDB.  
+This file contains notes on the installation and configuration of MongoDB.  
 
 # Packages
 

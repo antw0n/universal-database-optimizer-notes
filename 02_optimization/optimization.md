@@ -1,16 +1,16 @@
 # Optimization
 
-This file contains notes on optimization of UDO.
+This file contains notes on the optimization of UDO.
 
 ## Point Queries Experiments
 
-[![Point Query Experiment](point_query_experiment.png)](https://docs.google.com/spreadsheets/d/e/2PACX-1vROFlzPXS8bckwC4oAGMKQNk4HrmGX28nE46sY4vd53UkBeXdVAK3HQaSDR730dtGs9nIlpO2XtDBvC/pubchart?oid=113601135&format=interactive)
+The following figure shows the relation between the search space attributes and the tuning time. The attributes are expressed in counts, the tuning time in decimal hours. 
+
+![Point Query Experiment](optim_ss_pq.png)
 
 Point queries experiment according to the research work:
 
 T. F. Llano-Ríos, M. Khalefa and A. Badia, "Evaluating NoSQL Systems for Decision Support: An Experimental Approach," 2020 IEEE International Conference on Big Data (Big Data), 2020, pp. 2802-2811, doi: 10.1109/BigData50022.2020.9377881.
-
-Abstract: We design and implement an experimental analysis comparing two relational systems (PostgreSQL and MariaDB) and two document-based NoSQL systems (MongoDB and CouchBase). We compare their performance on a single server, Decision Support (DSS) scenario. We argue that DSS is becoming an important case study for NoSQL. We experiment with several database designs and several query translations in order to investigate the effect of physical design and query optimization in document-based stores. Our results show that design is very important for MongoDB's performance, and that query optimization over documents is much less sophisticated on document-based stores than in relational data bases and needs to improve. Our results also offer some ideas to guide further development in this area.
 
 DOI: [10.1109/BigData50022.2020.9377881](https://doi.org/10.1109/BigData50022.2020.9377881)
 
@@ -197,13 +197,13 @@ System Parameter Recommendation form MCTS according to metric 2:
 
 ## TPC-H Experiments
 
-[![TPC-H Experiment](tpc_h_experiment.png)](https://docs.google.com/spreadsheets/d/e/2PACX-1vROFlzPXS8bckwC4oAGMKQNk4HrmGX28nE46sY4vd53UkBeXdVAK3HQaSDR730dtGs9nIlpO2XtDBvC/pubchart?oid=840013874&format=interactive)
+The following figure shows the relation between the search space attributes and the tuning time. The attributes are expressed in counts, the tuning time in decimal hours. 
+
+![TPC-H Experiment](optim_ss_tpc_h.png)
 
 TPC-H experiment according to the research work:
 
 T. F. Llano-Ríos, M. Khalefa and A. Badia, "Evaluating NoSQL Systems for Decision Support: An Experimental Approach," 2020 IEEE International Conference on Big Data (Big Data), 2020, pp. 2802-2811, doi: 10.1109/BigData50022.2020.9377881.
-
-Abstract: We design and implement an experimental analysis comparing two relational systems (PostgreSQL and MariaDB) and two document-based NoSQL systems (MongoDB and CouchBase). We compare their performance on a single server, Decision Support (DSS) scenario. We argue that DSS is becoming an important case study for NoSQL. We experiment with several database designs and several query translations in order to investigate the effect of physical design and query optimization in document-based stores. Our results show that design is very important for MongoDB's performance, and that query optimization over documents is much less sophisticated on document-based stores than in relational data bases and needs to improve. Our results also offer some ideas to guide further development in this area.
 
 URL: https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9377881&isnumber=9377728
 

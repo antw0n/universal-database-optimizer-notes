@@ -1,6 +1,6 @@
 # Virtualization
 
-This file contains notes on installation and configuration of virtualization layer.
+This file contains notes on the installation and configuration of the virtualization layer.
 
 **Host**  
 IP: 192.168.52.108
@@ -71,8 +71,7 @@ Resize disk if running out of space:
 
 ## Network
 
-**Note:** This is not safe, consider experimentation with such a configuration in the isolated lab environments only.  
-
+**Note:** This is not safe. Consider experimentation with such a configuration in isolated lab environments only.  
 See: [adjust_iptables.sh](adjust_iptables.sh)  
 
 The `libvirt network` can be exposed to LAN using the script `adjust_iptables.sh`:  
@@ -120,7 +119,7 @@ Further details:
 
 # Mount Disk
 
-Mounting a disk allows separation of the data from image based runtime environment.
+Mounting a disk allows the separation of the data from an image-based runtime environment.
 
 `[vm-strg]` refers to one of `/mnt/mt-ops-manager-strg | /mnt/mt-mongo-[1|2|3]-strg`
 
